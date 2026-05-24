@@ -28,12 +28,12 @@ unset($_SESSION['status_message']);
 ?>
 
 <?php 
-include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; 
-include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; 
+include ROOT_PATH . "/admin/header.php"; 
+include ROOT_PATH . "/admin/navbar.php"; 
 ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
+    <?php include ROOT_PATH . "/admin/sidebar.php"; ?>
     
     <div class="main-panel">
         <div class="content-wrapper">
@@ -110,7 +110,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                                                     <?php endif; ?>
 
                                                     <?php if (!empty($row['attachment'])): ?>
-                                                        <a href="/qlkh/<?= htmlspecialchars($row['attachment']) ?>" target="_blank" class="ms-2 text-primary" title="Táº£i tÃ i liá»u">
+                                                        <a href="<?= BASE_PATH ?>/<?= htmlspecialchars($row['attachment']) ?>" target="_blank" class="ms-2 text-primary" title="Táº£i tÃ i liá»u">
                                                             <i class="mdi mdi-paperclip"></i>
                                                         </a>
                                                     <?php endif; ?>
@@ -153,6 +153,6 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
             </div>
             
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
+        <?php include ROOT_PATH . "/admin/footer.php"; ?>
     </div>
 </div>s

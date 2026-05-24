@@ -100,9 +100,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; ?>
+<?php include ROOT_PATH . "/admin/header.php"; include ROOT_PATH . "/admin/navbar.php"; ?>
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
+    <?php include ROOT_PATH . "/admin/sidebar.php"; ?>
     <div class="main-panel"><div class="content-wrapper"><div class="row"><div class="col-12 grid-margin stretch-card"><div class="card"><div class="card-body">
         <h4 class="card-title">Thêm BÃ i Giáº£ng</h4>
         <?php if($error): ?><div class="alert alert-danger"><?= $error ?></div><?php endif; ?>
@@ -140,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <button type="submit" class="btn btn-primary me-2">LÆ°u bÃ i giáº£ng</button>
         </form>
     </div></div></div></div></div>
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?></div>
+    <?php include ROOT_PATH . "/admin/footer.php"; ?></div>
 </div>
 
 <script>

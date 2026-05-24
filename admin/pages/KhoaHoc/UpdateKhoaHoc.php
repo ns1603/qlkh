@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (move_uploaded_file($_FILES['thumbnail']['tmp_name'], $target_dir . $new_name)) {
             $thumbnail_path = "uploads/courses/" . $new_name;
             if (!empty($oldData['thumbnail'])) {
-                $old_file_absolute = $_SERVER['DOCUMENT_ROOT'] . '/qlkh/' . $oldData['thumbnail'];
+                $old_file_absolute = ROOT_PATH . '/' . $oldData['thumbnail'];
                 if (file_exists($old_file_absolute)) {
                     unlink($old_file_absolute);
                 }

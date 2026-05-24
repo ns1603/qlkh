@@ -37,7 +37,7 @@ if ($id > 0) {
             // ÄÆ°á»ng dáº«n thá»±c táº¿ file áº£nh trÃªn á» cá»©ng
             // LÆ°u Ã½: Cáº§n chá»nh ÄÆ°á»ng dáº«n nÃ y khá»p vá»i cáº¥u trÃºc thÆ° má»¥c cá»§a báº¡n
             // Giáº£ sá»­ config.php náº±m á» root/admin/pages/KhoaHoc/../../../ -> root
-            $file_path = $_SERVER['DOCUMENT_ROOT'] . '/qlkh/' . $course['thumbnail'];
+            $file_path = ROOT_PATH . '/' . $course['thumbnail'];
             
             if (file_exists($file_path)) {
                 unlink($file_path); // HÃ m xÃ³a file

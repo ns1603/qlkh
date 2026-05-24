@@ -29,7 +29,7 @@ if ($id > 0) {
             $_SESSION['status_message'] = "Báº¡n khÃ´ng cÃ³ quyá»n xÃ³a bÃ i giáº£ng nÃ y!";
         } else {
             if (!empty($lesson['attachment'])) {
-                $file_path = $_SERVER['DOCUMENT_ROOT'] . '/qlkh/' . $lesson['attachment'];
+                $file_path = ROOT_PATH . '/' . $lesson['attachment'];
                 if (file_exists($file_path)) {
                     unlink($file_path);
                 }

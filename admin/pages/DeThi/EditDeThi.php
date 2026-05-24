@@ -98,12 +98,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <?php 
-include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; 
-include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; 
+include ROOT_PATH . "/admin/header.php"; 
+include ROOT_PATH . "/admin/navbar.php"; 
 ?>
 
 <div class="container-fluid page-body-wrapper">
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
+<?php include ROOT_PATH . "/admin/sidebar.php"; ?>
 
 <div class="main-panel">
 <div class="content-wrapper">
@@ -172,6 +172,6 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
 </div>
 
 </div>
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
+<?php include ROOT_PATH . "/admin/footer.php"; ?>
 </div>
 </div>

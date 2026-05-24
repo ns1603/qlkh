@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $file_name = trim($_POST['file_name']);
     $db_path = $material['file_path'];
     if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] == 0) {
-        $old_file = $_SERVER['DOCUMENT_ROOT'] . '/qlkh/' . $material['file_path'];
+        $old_file = ROOT_PATH . '/' . $material['file_path'];
         if (file_exists($old_file)) unlink($old_file);
         $target_dir = "../../../uploads/materials/";
         $ext = pathinfo($_FILES['attachment']['name'], PATHINFO_EXTENSION);
@@ -56,12 +56,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <?php 
-include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; 
-include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; 
+include ROOT_PATH . "/admin/header.php"; 
+include ROOT_PATH . "/admin/navbar.php"; 
 ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
+    <?php include ROOT_PATH . "/admin/sidebar.php"; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
@@ -93,7 +93,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                                 <div class="form-group">
                                     <label>File ÄÃ­nh kÃ¨m (Äá» trá»ng náº¿u khÃ´ng muá»n Äá»i)</label>
                                     <input type="file" name="attachment" class="form-control mb-2">
-                                    <small class="text-muted">Äang dÃ¹ng: <a href="/qlkh/<?= $material['file_path'] ?>" target="_blank">Xem file hiá»n táº¡i</a></small>
+                                    <small class="text-muted">Äang dÃ¹ng: <a href="<?= BASE_PATH ?>/<?= $material['file_path'] ?>" target="_blank">Xem file hiá»n táº¡i</a></small>
                                 </div>
 
                                 <button type="submit" class="btn btn-gradient-warning me-2">Cáº­p nháº­t</button>
@@ -104,6 +104,6 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                 </div>
             </div>
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
+        <?php include ROOT_PATH . "/admin/footer.php"; ?>
     </div>
 </div>

@@ -2,7 +2,7 @@
 session_start();
 
 // ð¥ Báº®T BUá»C PHáº¢I CÃ
-require_once $_SERVER['DOCUMENT_ROOT'] . '/qlkh/config.php';
+require_once ROOT_PATH . '/config.php';
 
 if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] == 'admins') {
     die("Báº¡n khÃ´ng cÃ³ quyá»n thá»±c hiá»n hÃ nh Äá»ng nÃ y!");
@@ -47,5 +47,5 @@ $conn->query("DELETE FROM questions WHERE quiz_id = $quiz_id");
 $conn->query("DELETE FROM quizzes WHERE id = $quiz_id");
 
 // Quay láº¡i trang danh sÃ¡ch
-header("Location: /qlkh/admin/index.php");
+header("Location: " . BASE_PATH . "/admin/index.php");
 exit;

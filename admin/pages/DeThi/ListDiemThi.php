@@ -22,8 +22,8 @@ $sql .= " ORDER BY r.created_at DESC";
 $result = $conn->query($sql);
 ?>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; ?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; ?>
+<?php include ROOT_PATH . "/admin/header.php"; ?>
+<?php include ROOT_PATH . "/admin/navbar.php"; ?>
 
 <style>
     @media print {
@@ -43,7 +43,7 @@ $result = $conn->query($sql);
 </style>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
+    <?php include ROOT_PATH . "/admin/sidebar.php"; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             
@@ -120,6 +120,6 @@ $result = $conn->query($sql);
             </div>
 
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
+        <?php include ROOT_PATH . "/admin/footer.php"; ?>
     </div>
 </div>

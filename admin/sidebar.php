@@ -4,7 +4,7 @@
     <li class="nav-item nav-profile">
       <a href="#" class="nav-link">
         <div class="nav-profile-image">
-          <img src="/qlkh/admin/assets/images/faces/face1.jpg" alt="profile" />
+          <img src="<?= BASE_PATH ?>/admin/assets/images/faces/face1.jpg" alt="profile" />
           <span class="login-status online"></span>
         </div>
         <div class="nav-profile-text d-flex flex-column">
@@ -20,7 +20,7 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link" href="/qlkh/admin/index.php">
+      <a class="nav-link" href="<?= BASE_PATH ?>/admin/index.php">
         <span class="menu-title">Dashboard</span>
         <i class="mdi mdi-home menu-icon"></i>
       </a>
@@ -35,16 +35,16 @@
       <div class="collapse" id="ui-courses">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> 
-            <a class="nav-link" href="/qlkh/admin/pages/KhoaHoc/ListKhoaHoc.php">Danh sách khóa học</a>
+            <a class="nav-link" href="<?= BASE_PATH ?>/admin/pages/KhoaHoc/ListKhoaHoc.php">Danh sách khóa học</a>
           </li>
           <li class="nav-item"> 
-            <a class="nav-link" href="/qlkh/admin/pages/KhoaHoc/AddKhoaHoc.php">Thêm khóa học mới</a>
+            <a class="nav-link" href="<?= BASE_PATH ?>/admin/pages/KhoaHoc/AddKhoaHoc.php">Thêm khóa học mới</a>
           </li>
         </ul>
       </div>
     </li>
     <li class="nav-item">
-            <a class="nav-link" href="/qlkh/admin/pages/DanhMuc/ListDanhMuc.php">
+            <a class="nav-link" href="<?= BASE_PATH ?>/admin/pages/DanhMuc/ListDanhMuc.php">
               <span class="menu-title">Quản lý Danh mục</span>
               <i class="mdi mdi-format-list-bulleted menu-icon"></i> </a>
           </li>
@@ -57,10 +57,10 @@
       <div class="collapse" id="ui-lessons">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> 
-            <a class="nav-link" href="/qlkh/admin/pages/BaiGiang/ListBaiGiang.php">Danh sách Video</a>
+            <a class="nav-link" href="<?= BASE_PATH ?>/admin/pages/BaiGiang/ListBaiGiang.php">Danh sách Video</a>
           </li>
           <li class="nav-item"> 
-            <a class="nav-link" href="/qlkh/admin/pages/TaiLieu/ListTaiLieu.php">Tài liệu đính kèm</a>
+            <a class="nav-link" href="<?= BASE_PATH ?>/admin/pages/TaiLieu/ListTaiLieu.php">Tài liệu đính kèm</a>
           </li>
         </ul>
       </div>
@@ -75,16 +75,16 @@
       <div class="collapse" id="ui-quizzes">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> 
-            <a class="nav-link" href="/qlkh/admin/pages/DeThi/ListDeThi.php">Danh sách Đề thi</a>
+            <a class="nav-link" href="<?= BASE_PATH ?>/admin/pages/DeThi/ListDeThi.php">Danh sách Đề thi</a>
           </li>
           <li class="nav-item"> 
-            <a class="nav-link" href="/qlkh/admin/pages/CauHoi/ListCauHoi.php">Kho Câu hỏi (Questions)</a>
+            <a class="nav-link" href="<?= BASE_PATH ?>/admin/pages/CauHoi/ListCauHoi.php">Kho Câu hỏi (Questions)</a>
           </li>
         </ul>
       </div>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/qlkh/admin/pages/DeThi/ListDiemThi.php">
+      <a class="nav-link" href="<?= BASE_PATH ?>/admin/pages/DeThi/ListDiemThi.php">
           <span class="menu-title">Kết quả thi & Báo cáo</span>
           <i class="mdi mdi-poll menu-icon"></i>
       </a>
@@ -98,11 +98,11 @@
       <div class="collapse" id="ui-users">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> 
-            <a class="nav-link" href="/qlkh/admin/pages/NguoiDung/ListHocVien.php">Danh sách Học viên</a>
+            <a class="nav-link" href="<?= BASE_PATH ?>/admin/pages/NguoiDung/ListHocVien.php">Danh sách Học viên</a>
           </li>
           <?php if(isset($_SESSION['user_role']) && ($_SESSION['user_role'] == 'admins' || $_SESSION['user_role'] == 'admin')): ?>
           <li class="nav-item"> 
-            <a class="nav-link" href="/qlkh/admin/pages/NguoiDung/ListGiaoVien.php">Danh sách Giáo viên</a>
+            <a class="nav-link" href="<?= BASE_PATH ?>/admin/pages/NguoiDung/ListGiaoVien.php">Danh sách Giáo viên</a>
           </li>
           <?php endif; ?>
         </ul>
@@ -111,7 +111,7 @@
 
     <?php if(isset($_SESSION['user_role']) && ($_SESSION['user_role'] == 'admins' || $_SESSION['user_role'] == 'admin')): ?>
     <li class="nav-item">
-      <a class="nav-link" href="/qlkh/admin/pages/DonHang/ListDonHang.php">
+      <a class="nav-link" href="<?= BASE_PATH ?>/admin/pages/DonHang/ListDonHang.php">
         <span class="menu-title">Quản lý Doanh thu</span>
         <i class="mdi mdi-cash-usd menu-icon"></i>
       </a>
@@ -127,17 +127,17 @@
       <div class="collapse" id="ui-interactive">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> 
-            <a class="nav-link" href="/qlkh/admin/pages/BinhLuan/ListBinhLuan.php">Bình luận (Comments)</a>
+            <a class="nav-link" href="<?= BASE_PATH ?>/admin/pages/BinhLuan/ListBinhLuan.php">Bình luận (Comments)</a>
           </li>
           <li class="nav-item"> 
-            <a class="nav-link" href="/qlkh/admin/pages/DanhGia/ListDanhGia.php">Đánh giá (Ratings)</a>
+            <a class="nav-link" href="<?= BASE_PATH ?>/admin/pages/DanhGia/ListDanhGia.php">Đánh giá (Ratings)</a>
           </li>
         </ul>
       </div>
     </li>
     <?php if(isset($_SESSION['user_role']) && ($_SESSION['user_role'] == 'admins' || $_SESSION['user_role'] == 'admin')): ?>
     <li class="nav-item">
-      <a class="nav-link" href="/qlkh/admin/pages/HopDong/ListHopDongGV.php">
+      <a class="nav-link" href="<?= BASE_PATH ?>/admin/pages/HopDong/ListHopDongGV.php">
         <span class="menu-title">Quản lý Hợp đồng</span>
         <i class="mdi mdi-file-document-box menu-icon"></i>
       </a>
@@ -146,7 +146,7 @@
 
     <?php if(isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'teacher'): ?>
     <li class="nav-item">
-      <a class="nav-link" href="/qlkh/admin/pages/HopDong/HopDongGV.php">
+      <a class="nav-link" href="<?= BASE_PATH ?>/admin/pages/HopDong/HopDongGV.php">
         <span class="menu-title">Hợp đồng của tôi</span>
         <i class="mdi mdi-file-eye menu-icon"></i>
       </a>
@@ -160,13 +160,13 @@
       </a>
       <div class="collapse" id="ui-thongbao">
         <ul class="nav flex-column sub-menu">
-          <li class="nav-item"> <a class="nav-link" href="/qlkh/admin/pages/ThongBao/AddThongBao.php">Gửi thông báo</a></li>
-          <li class="nav-item"> <a class="nav-link" href="/qlkh/admin/pages/ThongBao/ListThongBao.php">Lịch sử gửi</a></li>
+          <li class="nav-item"> <a class="nav-link" href="<?= BASE_PATH ?>/admin/pages/ThongBao/AddThongBao.php">Gửi thông báo</a></li>
+          <li class="nav-item"> <a class="nav-link" href="<?= BASE_PATH ?>/admin/pages/ThongBao/ListThongBao.php">Lịch sử gửi</a></li>
         </ul>
       </div>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/qlkh/admin/pages/BaoCao/ThongKe.php">
+      <a class="nav-link" href="<?= BASE_PATH ?>/admin/pages/BaoCao/ThongKe.php">
         <span class="menu-title">Báo cáo & Thống kê</span>
         <i class="mdi mdi-chart-bar menu-icon"></i>
       </a>

@@ -42,12 +42,12 @@ if ($user_role == 'admins' || $user_role == 'admin') {
 ?>
 
 <?php 
-include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; 
-include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; 
+include ROOT_PATH . "/admin/header.php"; 
+include ROOT_PATH . "/admin/navbar.php"; 
 ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
+    <?php include ROOT_PATH . "/admin/sidebar.php"; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             
@@ -127,7 +127,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                                     <div class="mt-3">
                                         <label>áº¢nh hiá»n táº¡i:</label><br>
                                         <?php if(!empty($course['thumbnail'])): ?>
-                                            <img src="/qlkh/<?= $course['thumbnail'] ?>" alt="old_thumb" 
+                                            <img src="<?= BASE_PATH ?>/<?= $course['thumbnail'] ?>" alt="old_thumb" 
                                                  style="width: 150px; height: 100px; object-fit: cover; border-radius: 5px; border: 1px solid #ddd;">
                                         <?php else: ?>
                                             <span class="badge badge-secondary">ChÆ°a cÃ³ áº£nh</span>
@@ -158,7 +158,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                 </div>
             </div>
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
+        <?php include ROOT_PATH . "/admin/footer.php"; ?>
     </div>
 </div>
 

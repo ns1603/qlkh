@@ -151,12 +151,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <?php 
-include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; 
-include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; 
+include ROOT_PATH . "/admin/header.php"; 
+include ROOT_PATH . "/admin/navbar.php"; 
 ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
+    <?php include ROOT_PATH . "/admin/sidebar.php"; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
@@ -214,7 +214,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                                         <?php if ($is_file_video): ?>
                                             <div class="alert alert-info py-2">
                                                 <i class="mdi mdi-check-circle"></i> Äang dÃ¹ng video: 
-                                                <a href="/qlkh/<?= $lesson['video_url'] ?>" target="_blank">Xem video hiá»n táº¡i</a>
+                                                <a href="<?= BASE_PATH ?>/<?= $lesson['video_url'] ?>" target="_blank">Xem video hiá»n táº¡i</a>
                                             </div>
                                         <?php endif; ?>
                                         <label>Chá»n video má»i Äá» thay tháº¿:</label>
@@ -227,7 +227,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                                     <?php if(!empty($lesson['audio_url'])): ?>
                                         <div class="mb-2">
                                             <audio controls>
-                                                <source src="/qlkh/<?= $lesson['audio_url'] ?>">
+                                                <source src="<?= BASE_PATH ?>/<?= $lesson['audio_url'] ?>">
                                             </audio>
                                             <div class="small text-muted">File hiá»n táº¡i. Upload má»i sáº½ thay tháº¿.</div>
                                         </div>
@@ -239,7 +239,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                                     <label>File ÄÃ­nh kÃ¨m</label>
                                     <input type="file" name="attachment" class="form-control mb-2">
                                     <?php if(!empty($lesson['attachment'])): ?>
-                                        <small class="text-muted">Hiá»n táº¡i: <a href="/qlkh/<?= $lesson['attachment'] ?>" target="_blank">Xem file cÅ©</a></small>
+                                        <small class="text-muted">Hiá»n táº¡i: <a href="<?= BASE_PATH ?>/<?= $lesson['attachment'] ?>" target="_blank">Xem file cÅ©</a></small>
                                     <?php endif; ?>
                                 </div>
 
@@ -256,7 +256,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                 </div>
             </div>
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
+        <?php include ROOT_PATH . "/admin/footer.php"; ?>
     </div>
 </div>
 

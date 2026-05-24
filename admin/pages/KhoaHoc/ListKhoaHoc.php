@@ -30,8 +30,8 @@ unset($_SESSION['status_message']);
 ?>
 
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php";
-include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
+include ROOT_PATH . "/admin/header.php";
+include ROOT_PATH . "/admin/navbar.php";
 ?>
 
 <style>
@@ -117,7 +117,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
 
                                             <td>
                                                 <?php if (!empty($row['thumbnail'])): ?>
-                                                    <img src="/qlkh/<?= $row['thumbnail'] ?>" class="course-thumb">
+                                                    <img src="<?= BASE_PATH ?>/<?= $row['thumbnail'] ?>" class="course-thumb">
                                                 <?php else: ?>
                                                     <i class="mdi mdi-image-off-outline mdi-36px text-muted"></i>
                                                 <?php endif; ?>
@@ -190,5 +190,5 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
 
     </div>
 
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
+    <?php include ROOT_PATH . "/admin/footer.php"; ?>
 </div>

@@ -36,11 +36,11 @@ $questions = $conn->query($sql_questions);
 
 ?>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; ?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; ?>
+<?php include ROOT_PATH . "/admin/header.php"; ?>
+<?php include ROOT_PATH . "/admin/navbar.php"; ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
+    <?php include ROOT_PATH . "/admin/sidebar.php"; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             
@@ -158,6 +158,6 @@ $questions = $conn->query($sql_questions);
 
             </div>
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
+        <?php include ROOT_PATH . "/admin/footer.php"; ?>
     </div>
 </div>

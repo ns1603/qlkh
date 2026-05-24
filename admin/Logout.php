@@ -2,6 +2,6 @@
 session_start();
 $_SESSION = array();
 session_destroy();
-header("Location: /qlkh/admin/Login.php"); 
+header("Location: " . BASE_PATH . "/admin/Login.php"); 
 exit;
 ?>
