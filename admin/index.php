@@ -102,8 +102,6 @@ $result_reviews = $conn->query($sql_reviews);
 <?php include 'header.php'; ?>
 <?php include 'navbar.php'; ?>
 
-<div class="container-fluid page-body-wrapper">
-    <?php include 'sidebar.php'; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             
@@ -120,7 +118,7 @@ $result_reviews = $conn->query($sql_reviews);
                 <div class="col-md-3 stretch-card grid-margin">
                     <div class="card bg-gradient-success card-img-holder text-white">
                         <div class="card-body" style="padding: 1.5rem;">
-                            <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                            <img src="/qlkh/admin/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                             <h4 class="font-weight-normal mb-3">Doanh Thu <i class="mdi mdi-cash-usd mdi-24px float-end"></i></h4>
                             <h2 class="mb-5"><?php echo number_format($stats['revenue']); ?> đ</h2>
                             <h6 class="card-text">Thu nhập thực tế</h6>
@@ -131,7 +129,7 @@ $result_reviews = $conn->query($sql_reviews);
                 <div class="col-md-3 stretch-card grid-margin">
                     <div class="card bg-gradient-warning card-img-holder text-white">
                         <div class="card-body" style="padding: 1.5rem;">
-                            <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                            <img src="/qlkh/admin/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                             <h4 class="font-weight-normal mb-3">Đánh Giá <i class="mdi mdi-star mdi-24px float-end"></i></h4>
                             <h2 class="mb-5"><?php echo $stats['avg_rating']; ?> / 5</h2>
                             <h6 class="card-text">Chất lượng khóa học</h6>
@@ -142,7 +140,7 @@ $result_reviews = $conn->query($sql_reviews);
                 <div class="col-md-3 stretch-card grid-margin">
                     <div class="card bg-gradient-info card-img-holder text-white">
                         <div class="card-body" style="padding: 1.5rem;">
-                            <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                            <img src="/qlkh/admin/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                             <h4 class="font-weight-normal mb-3">Học Viên <i class="mdi mdi-account-group mdi-24px float-end"></i></h4>
                             <h2 class="mb-5"><?php echo $stats['students']; ?></h2>
                             <h6 class="card-text">Đang theo học</h6>
@@ -153,7 +151,7 @@ $result_reviews = $conn->query($sql_reviews);
                 <div class="col-md-3 stretch-card grid-margin">
                     <div class="card bg-gradient-danger card-img-holder text-white">
                         <div class="card-body" style="padding: 1.5rem;">
-                            <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                            <img src="/qlkh/admin/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                             <h4 class="font-weight-normal mb-3">Khóa Học <i class="mdi mdi-book-open-page-variant mdi-24px float-end"></i></h4>
                             <h2 class="mb-5"><?php echo $stats['courses']; ?></h2>
                             <h6 class="card-text">Lớp đang mở</h6>
@@ -224,7 +222,7 @@ $result_reviews = $conn->query($sql_reviews);
                                             <?php while($row = $result_main->fetch_assoc()): ?>
                                                 <tr>
                                                     <td>
-                                                        <img src="assets/images/faces/face1.jpg" class="me-2" alt="image">
+                                                        <img src="/qlkh/admin/assets/images/faces/face1.jpg" class="me-2" alt="image">
                                                         <?php echo htmlspecialchars($row['fullname']); ?>
                                                     </td>
                                                     <td>
