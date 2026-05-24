@@ -10,11 +10,11 @@ $sql = "SELECT * FROM teacher_contracts WHERE teacher_id = $user_id ORDER BY cre
 $result = $conn->query($sql);
 ?>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php"; ?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/sidebar.php"; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
@@ -69,7 +69,7 @@ $result = $conn->query($sql);
                                                 
                                                 <td>
                                                     <?php if(!empty($row['file_path'])): ?>
-                                                        <a href="/Learning/<?= $row['file_path'] ?>" target="_blank" class="btn btn-gradient-info btn-sm">
+                                                        <a href="/qlkh/<?= $row['file_path'] ?>" target="_blank" class="btn btn-gradient-info btn-sm">
                                                             <i class="mdi mdi-download"></i> Tải về / Xem
                                                         </a>
                                                     <?php else: ?>
@@ -91,6 +91,6 @@ $result = $conn->query($sql);
                 </div>
             </div>
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
     </div>
 </div>

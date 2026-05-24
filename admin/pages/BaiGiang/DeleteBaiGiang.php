@@ -7,6 +7,10 @@ if (!isset($_SESSION['user_role'])) {
     exit;
 }
 
+if ($_SESSION['user_role'] == 'admins') {
+    die("Bạn không có quyền thực hiện hành động này!");
+}
+
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $user_id = $_SESSION['user_id'];
 $role = $_SESSION['user_role'];
@@ -25,7 +29,7 @@ if ($id > 0) {
             $_SESSION['status_message'] = "Bạn không có quyền xóa bài giảng này!";
         } else {
             if (!empty($lesson['attachment'])) {
-                $file_path = $_SERVER['DOCUMENT_ROOT'] . '/Learning/' . $lesson['attachment'];
+                $file_path = $_SERVER['DOCUMENT_ROOT'] . '/qlkh/' . $lesson['attachment'];
                 if (file_exists($file_path)) {
                     unlink($file_path);
                 }

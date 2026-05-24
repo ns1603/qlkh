@@ -34,11 +34,11 @@ $message = isset($_SESSION['status_message']) ? $_SESSION['status_message'] : ''
 unset($_SESSION['status_message']);
 ?>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php"; ?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/sidebar.php"; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             
@@ -61,6 +61,7 @@ unset($_SESSION['status_message']);
 
                             <div class="d-flex justify-content-between align-items-center mb-4">
                                 <span>Tổng số câu: <strong><?= $questions->num_rows ?></strong></span>
+                                <?php if ($role != 'admins'): ?>
                                 <div>
                                     <a href="AddCauHoi.php?quiz_id=<?= $quiz_id ?>" class="btn btn-sm btn-gradient-success">
                                         <i class="mdi mdi-plus-circle"></i> Thêm thủ công
@@ -69,6 +70,7 @@ unset($_SESSION['status_message']);
                                         <i class="mdi mdi-upload"></i> Import thêm từ Excel
                                     </a>
                                 </div>
+                                <?php endif; ?>
                             </div>
 
                             <?php if ($message): ?>
@@ -140,6 +142,7 @@ unset($_SESSION['status_message']);
                                                 </td>
 
                                                 <td class="text-center">
+                                                    <?php if ($role != 'admins'): ?>
                                                     <a href="EditCauHoi.php?id=<?= $row['id'] ?>&quiz_id=<?= $quiz_id ?>" 
                                                        class="btn btn-inverse-warning btn-sm btn-icon" title="Sửa">
                                                         <i class="mdi mdi-pencil"></i>
@@ -149,6 +152,9 @@ unset($_SESSION['status_message']);
                                                        onclick="return confirm('Bạn có chắc chắn muốn xóa câu hỏi này?')" title="Xóa">
                                                         <i class="mdi mdi-delete"></i>
                                                     </a>
+                                                    <?php else: ?>
+                                                    <span class="text-muted small">Read-only</span>
+                                                    <?php endif; ?>
                                                 </td>
                                             </tr>
                                             <?php endwhile; ?>
@@ -168,6 +174,6 @@ unset($_SESSION['status_message']);
                 </div>
             </div>
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
     </div>
 </div>

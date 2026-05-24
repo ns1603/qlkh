@@ -4,7 +4,8 @@ include(__DIR__ . '/../../../config.php');
 
 if (!isset($_SESSION['user_role'])) { header("Location: ../../index.php"); exit; }
 
-$isAdmin = ($_SESSION['user_role'] == 'admins' || $_SESSION['user_role'] == 'admin');
+$role = $_SESSION['user_role'];
+$isAdmin = ($role == 'admin'); // Chỉ admin toàn quyền mới được sửa/xóa
 
 $sql = "SELECT * FROM users WHERE role = 'student' ORDER BY id DESC";
 $result = $conn->query($sql);
@@ -13,11 +14,11 @@ $message = isset($_SESSION['status_message']) ? $_SESSION['status_message'] : ''
 unset($_SESSION['status_message']);
 ?>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php"; ?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/sidebar.php"; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
@@ -88,6 +89,6 @@ unset($_SESSION['status_message']);
                 </div>
             </div>
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
     </div>
 </div>

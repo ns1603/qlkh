@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $file_name = trim($_POST['file_name']);
     $db_path = $material['file_path'];
     if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] == 0) {
-        $old_file = $_SERVER['DOCUMENT_ROOT'] . '/Learning/' . $material['file_path'];
+        $old_file = $_SERVER['DOCUMENT_ROOT'] . '/qlkh/' . $material['file_path'];
         if (file_exists($old_file)) unlink($old_file);
         $target_dir = "../../../uploads/materials/";
         $ext = pathinfo($_FILES['attachment']['name'], PATHINFO_EXTENSION);
@@ -56,12 +56,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <?php 
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php"; 
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php"; 
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; 
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; 
 ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/sidebar.php"; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
@@ -93,7 +93,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                                 <div class="form-group">
                                     <label>File đính kèm (Để trống nếu không muốn đổi)</label>
                                     <input type="file" name="attachment" class="form-control mb-2">
-                                    <small class="text-muted">Đang dùng: <a href="/Learning/<?= $material['file_path'] ?>" target="_blank">Xem file hiện tại</a></small>
+                                    <small class="text-muted">Đang dùng: <a href="/qlkh/<?= $material['file_path'] ?>" target="_blank">Xem file hiện tại</a></small>
                                 </div>
 
                                 <button type="submit" class="btn btn-gradient-warning me-2">Cập nhật</button>
@@ -104,6 +104,6 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                 </div>
             </div>
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
     </div>
 </div>

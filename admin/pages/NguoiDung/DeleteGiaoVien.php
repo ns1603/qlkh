@@ -1,7 +1,7 @@
 <?php
 session_start();
 include(__DIR__ . '/../../../config.php');
-if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] != 'admins' && $_SESSION['user_role'] != 'admin')) {
+if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'admin') {
     die("Truy cập bị từ chối!");
 }
 

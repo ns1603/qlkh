@@ -10,16 +10,22 @@ if (!isset($_SESSION['user_id']) ||
 $result_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 
-$sql_info = "SELECT er.*, u.fullname, u.email, q.title as quiz_title, q.id as quiz_id
+$sql_info = "SELECT er.*, u.fullname, u.email, q.title as quiz_title, q.id as quiz_id, c.teacher_id
              FROM exam_results er
              JOIN users u ON er.user_id = u.id
              JOIN quizzes q ON er.quiz_id = q.id
+             JOIN courses c ON q.course_id = c.id
              WHERE er.id = $result_id";
 
 $info = $conn->query($sql_info)->fetch_assoc();
 
 if (!$info) {
     die("Không tìm thấy kết quả thi này!");
+}
+
+// Check quyền giảng viên
+if ($_SESSION['user_role'] == 'teacher' && $info['teacher_id'] != $_SESSION['user_id']) {
+    die("❌ Bạn không có quyền xem chi tiết kết quả này!");
 }
 
 $user_answers = json_decode($info['answers'], true);
@@ -30,11 +36,11 @@ $questions = $conn->query($sql_questions);
 
 ?>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php"; ?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/sidebar.php"; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             
@@ -152,6 +158,6 @@ $questions = $conn->query($sql_questions);
 
             </div>
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
     </div>
 </div>

@@ -56,12 +56,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <?php 
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php"; 
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php"; 
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; 
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; 
 ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/sidebar.php"; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
@@ -116,6 +116,6 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                 </div>
             </div>
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
     </div>
 </div>

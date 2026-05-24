@@ -4,8 +4,8 @@ include(__DIR__ . '/../../../config.php');
 
 // 1. CHỈ SUPER ADMIN MỚI ĐƯỢC VÀO TRANG NÀY
 // Vì trang này cho phép đổi quyền hạn, nên phải bảo mật kỹ
-if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'admins') {
-    die("Truy cập bị từ chối! Chỉ Admin mới có quyền sửa đổi cấp bậc thành viên.");
+if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'admin') {
+    die("Truy cập bị từ chối! Chỉ Super Admin mới có quyền sửa đổi cấp bậc thành viên.");
 }
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -50,11 +50,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php"; ?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/sidebar.php"; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
@@ -108,6 +108,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
             </div>
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
     </div>
 </div>

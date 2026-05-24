@@ -27,12 +27,12 @@ unset($_SESSION['status_message']);
 ?>
 
 <?php 
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php"; 
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php"; 
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; 
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; 
 ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/sidebar.php"; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
     
     <div class="main-panel">
         <div class="content-wrapper">
@@ -103,7 +103,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                                                 </td>
 
                                                 <td>
-                                                    <a href="/Learning/<?= htmlspecialchars($row['file_path']) ?>" target="_blank" class="btn btn-inverse-success btn-sm btn-icon" title="Tải xuống">
+                                                    <a href="/qlkh/<?= htmlspecialchars($row['file_path']) ?>" target="_blank" class="btn btn-inverse-success btn-sm btn-icon" title="Tải xuống">
                                                         <i class="mdi mdi-download"></i>
                                                     </a>
                                                     
@@ -132,6 +132,6 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
             </div>
             
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
     </div>
 </div>

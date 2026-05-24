@@ -26,19 +26,19 @@ if (!$quiz_info) {
 if ($role == 'teacher' && $quiz_info['teacher_id'] != $user_id) {
     die("Bạn không có quyền xem kết quả của đề thi này (Thuộc giảng viên khác).");
 }
-$sql_results = "SELECT qr.*, u.fullname, u.email 
-                FROM quiz_results qr 
-                JOIN users u ON qr.user_id = u.id 
-                WHERE qr.quiz_id = $quiz_id 
-                ORDER BY qr.score DESC, qr.created_at DESC"; // Sắp xếp điểm cao lên đầu
+$sql_results = "SELECT er.*, u.fullname, u.email 
+                FROM exam_results er 
+                JOIN users u ON er.user_id = u.id 
+                WHERE er.quiz_id = $quiz_id 
+                ORDER BY er.score DESC, er.created_at DESC"; // Sắp xếp điểm cao lên đầu
 $results = $conn->query($sql_results);
 ?>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php"; ?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/sidebar.php"; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
@@ -110,6 +110,6 @@ $results = $conn->query($sql_results);
                 </div>
             </div>
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
     </div>
 </div>

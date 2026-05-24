@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admins') {
+    die('Bạn không có quyền thực hiện hành động này!');
+}
 include(__DIR__ . '/../../../config.php');
 
 if (!isset($_SESSION['user_role'])) {

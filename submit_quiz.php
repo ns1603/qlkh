@@ -84,20 +84,17 @@ try {
     $stmt1->bind_param("i", $attempt_id);
     $stmt1->execute();
 
-    // 2. Insert result
+    // 2. Insert result into exam_results (matching the table used in view_result.php)
     $stmt2 = $conn->prepare("
-        INSERT INTO quiz_results 
-        (user_id, quiz_id, attempt_id, score, correct_count, total_questions, answers, created_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, NOW())
+        INSERT INTO exam_results 
+        (user_id, quiz_id, score, answers, created_at)
+        VALUES (?, ?, ?, ?, NOW())
     ");
     $stmt2->bind_param(
-        "iiidiis",
+        "iids",
         $user_id,
         $quiz_id,
-        $attempt_id,
         $score,
-        $correct_count,
-        $total_questions,
         $answers_json
     );
     $stmt2->execute();

@@ -6,6 +6,10 @@ if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] != 'admins' && $_S
     die("Truy cập bị từ chối!");
 }
 
+if ($_SESSION['user_role'] == 'admins') {
+    die("Bạn không có quyền thực hiện hành động này!");
+}
+
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 if ($id > 0) {

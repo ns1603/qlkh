@@ -5,14 +5,29 @@ include(__DIR__ . '/../../../config.php');
 // Check quyền
 if (!isset($_SESSION['user_role'])) { header("Location: ../../index.php"); exit; }
 
+if ($_SESSION['user_role'] == 'admins') {
+    die("Bạn không có quyền thực hiện hành động này!");
+}
+
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $quiz_id = isset($_GET['quiz_id']) ? intval($_GET['quiz_id']) : 0;
+$user_id = $_SESSION['user_id'];
+$role = $_SESSION['user_role'];
 
-// 1. LẤY DỮ LIỆU CÂU HỎI
-$q_stmt = $conn->query("SELECT * FROM questions WHERE id = $id");
+// 1. LẤY DỮ LIỆU CÂU HỎI & CHECK QUYỀN
+$q_sql = "SELECT q.*, qu.course_id, c.teacher_id 
+          FROM questions q 
+          JOIN quizzes qu ON q.quiz_id = qu.id 
+          JOIN courses c ON qu.course_id = c.id 
+          WHERE q.id = $id";
+$q_stmt = $conn->query($q_sql);
 $question = $q_stmt->fetch_assoc();
 
 if (!$question) die("Câu hỏi không tồn tại!");
+
+if ($role == 'teacher' && $question['teacher_id'] != $user_id) {
+    die("❌ Bạn không có quyền chỉnh sửa câu hỏi này!");
+}
 
 // 2. XỬ LÝ CẬP NHẬT
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -51,12 +66,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <?php 
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php"; 
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php"; 
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; 
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; 
 ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/sidebar.php"; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
@@ -151,6 +166,6 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                 </div>
             </div>
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
     </div>
 </div>

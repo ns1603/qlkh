@@ -28,12 +28,12 @@ unset($_SESSION['status_message']);
 ?>
 
 <?php 
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php"; 
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php"; 
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; 
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; 
 ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/sidebar.php"; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
     
     <div class="main-panel">
         <div class="content-wrapper">
@@ -54,9 +54,11 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-4">
                                 <h4 class="card-title">Danh sách Video bài học (<?= $result ? $result->num_rows : 0 ?>)</h4>
+                                <?php if ($role != 'admins'): ?>
                                 <a href="AddBaiGiang.php" class="btn btn-sm btn-gradient-primary">
                                     <i class="mdi mdi-video-plus"></i> Thêm bài giảng mới
                                 </a>
+                                <?php endif; ?>
                             </div>
 
                             <?php if ($message): ?>
@@ -108,7 +110,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                                                     <?php endif; ?>
 
                                                     <?php if (!empty($row['attachment'])): ?>
-                                                        <a href="/Learning/<?= htmlspecialchars($row['attachment']) ?>" target="_blank" class="ms-2 text-primary" title="Tải tài liệu">
+                                                        <a href="/qlkh/<?= htmlspecialchars($row['attachment']) ?>" target="_blank" class="ms-2 text-primary" title="Tải tài liệu">
                                                             <i class="mdi mdi-paperclip"></i>
                                                         </a>
                                                     <?php endif; ?>
@@ -119,6 +121,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                                                 </td>
 
                                                 <td>
+                                                    <?php if ($role != 'admins'): ?>
                                                     <a href="EditBaiGiang.php?id=<?= $row['id'] ?>" class="btn btn-inverse-warning btn-sm btn-icon" title="Sửa">
                                                         <i class="mdi mdi-pencil"></i>
                                                     </a>
@@ -128,6 +131,9 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                                                        title="Xóa">
                                                         <i class="mdi mdi-delete"></i>
                                                     </a>
+                                                    <?php else: ?>
+                                                    <span class="text-muted small">Read-only</span>
+                                                    <?php endif; ?>
                                                 </td>
                                             </tr>
                                             <?php endwhile; ?>
@@ -147,6 +153,6 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
             </div>
             
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
     </div>
 </div>s

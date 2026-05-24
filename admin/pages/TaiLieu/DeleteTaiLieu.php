@@ -28,7 +28,7 @@ if ($id > 0) {
             $_SESSION['status_message'] = "Bạn không có quyền xóa tài liệu này!";
         } else {
             if (!empty($material['file_path'])) {
-                $file_absolute_path = $_SERVER['DOCUMENT_ROOT'] . '/Learning/' . $material['file_path'];
+                $file_absolute_path = $_SERVER['DOCUMENT_ROOT'] . '/qlkh/' . $material['file_path'];
                 if (file_exists($file_absolute_path)) {
                     unlink($file_absolute_path);
                 }

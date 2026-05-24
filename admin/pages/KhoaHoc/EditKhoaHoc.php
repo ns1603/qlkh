@@ -8,6 +8,10 @@ if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] != 'admins' && $_S
     exit;
 }
 
+if ($_SESSION['user_role'] == 'admins') {
+    die("Bạn không có quyền thực hiện hành động này!");
+}
+
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $user_id = $_SESSION['user_id'];
 $user_role = $_SESSION['user_role'];
@@ -38,12 +42,12 @@ if ($user_role == 'admins' || $user_role == 'admin') {
 ?>
 
 <?php 
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php"; 
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php"; 
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; 
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; 
 ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/sidebar.php"; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             
@@ -123,7 +127,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                                     <div class="mt-3">
                                         <label>Ảnh hiện tại:</label><br>
                                         <?php if(!empty($course['thumbnail'])): ?>
-                                            <img src="/Learning/<?= $course['thumbnail'] ?>" alt="old_thumb" 
+                                            <img src="/qlkh/<?= $course['thumbnail'] ?>" alt="old_thumb" 
                                                  style="width: 150px; height: 100px; object-fit: cover; border-radius: 5px; border: 1px solid #ddd;">
                                         <?php else: ?>
                                             <span class="badge badge-secondary">Chưa có ảnh</span>
@@ -154,7 +158,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                 </div>
             </div>
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
     </div>
 </div>
 

@@ -3,6 +3,11 @@ session_start();
 include(__DIR__ . '/../../../config.php');
 
 if (!isset($_SESSION['user_role'])) { header("Location: ../../index.php"); exit; }
+
+if ($_SESSION['user_role'] == 'admins') {
+    die("Bạn không có quyền thực hiện hành động này!");
+}
+
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 $user = $conn->query("SELECT * FROM users WHERE id=$id")->fetch_assoc();
@@ -29,10 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php"; ?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; ?>
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/sidebar.php"; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="row">
@@ -61,6 +66,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
             </div>
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
     </div>
 </div>

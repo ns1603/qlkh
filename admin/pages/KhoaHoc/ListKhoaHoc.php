@@ -30,8 +30,8 @@ unset($_SESSION['status_message']);
 ?>
 
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php";
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
 ?>
 
 <style>
@@ -76,9 +76,11 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                                 <h4 class="card-title mb-1">Danh sách khóa học</h4>
                                 <p class="text-muted mb-0">Tổng cộng <?= $result->num_rows ?> khóa học</p>
                             </div>
+                            <?php if ($role != 'admins'): ?>
                             <a href="AddKhoaHoc.php" class="btn btn-gradient-primary btn-sm">
                                 <i class="mdi mdi-plus-circle-outline"></i> Thêm khóa học
                             </a>
+                            <?php endif; ?>
                         </div>
 
                         <div class="table-responsive">
@@ -115,7 +117,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
 
                                             <td>
                                                 <?php if (!empty($row['thumbnail'])): ?>
-                                                    <img src="/Learning/<?= $row['thumbnail'] ?>" class="course-thumb">
+                                                    <img src="/qlkh/<?= $row['thumbnail'] ?>" class="course-thumb">
                                                 <?php else: ?>
                                                     <i class="mdi mdi-image-off-outline mdi-36px text-muted"></i>
                                                 <?php endif; ?>
@@ -146,6 +148,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                                             </td>
 
                                             <td class="text-center">
+                                                <?php if ($role != 'admins'): ?>
                                                 <a href="EditKhoaHoc.php?id=<?= $row['id'] ?>"
                                                    class="btn btn-outline-info btn-sm action-btn"
                                                    title="Sửa">
@@ -158,6 +161,9 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                                                    title="Xóa">
                                                     <i class="mdi mdi-delete"></i>
                                                 </a>
+                                                <?php else: ?>
+                                                <span class="text-muted small">Read-only</span>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                     <?php endwhile; ?>
@@ -184,5 +190,5 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
 
     </div>
 
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
 </div>

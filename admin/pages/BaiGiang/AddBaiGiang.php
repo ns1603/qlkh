@@ -4,6 +4,10 @@ include(__DIR__ . '/../../../config.php');
 
 if (!isset($_SESSION['user_role'])) { header("Location: ../../index.php"); exit; }
 
+if ($_SESSION['user_role'] == 'admins') {
+    die("Bạn không có quyền thực hiện hành động này!");
+}
+
 $user_id = $_SESSION['user_id'];
 $role = $_SESSION['user_role'];
 $error = '';
@@ -15,6 +19,15 @@ $courses = $conn->query($sql_courses);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $course_id = intval($_POST['course_id']);
+    
+    // Check quyền sở hữu khóa học (nếu là Teacher)
+    if ($role == 'teacher') {
+        $check = $conn->query("SELECT id FROM courses WHERE id = $course_id AND teacher_id = $user_id");
+        if ($check->num_rows === 0) {
+            die("Bạn không có quyền đăng bài vào khóa học này!");
+        }
+    }
+
     $title = trim($_POST['title']);
     $content = trim($_POST['content']); // Đây chính là phần TEXT
     $video_type = $_POST['video_type'];
@@ -87,9 +100,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php"; include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; ?>
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/sidebar.php"; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
     <div class="main-panel"><div class="content-wrapper"><div class="row"><div class="col-12 grid-margin stretch-card"><div class="card"><div class="card-body">
         <h4 class="card-title">Thêm Bài Giảng</h4>
         <?php if($error): ?><div class="alert alert-danger"><?= $error ?></div><?php endif; ?>
@@ -127,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <button type="submit" class="btn btn-primary me-2">Lưu bài giảng</button>
         </form>
     </div></div></div></div></div>
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?></div>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?></div>
 </div>
 
 <script>

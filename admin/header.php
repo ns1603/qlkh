@@ -12,11 +12,11 @@ if (session_status() === PHP_SESSION_NONE) {
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
   <!-- CSS -->
-  <link rel="stylesheet" href="/Learning/admin/assets/vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="/Learning/admin/assets/css/style.css">
-  <link rel="stylesheet" href="/Learning/admin/assets/vendors/css/vendor.bundle.base.css">
-  <script src="/Learning/admin/assets/js/misc.js"></script>
-  <link rel="shortcut icon" href="/Learning/admin/assets/images/favicon.ico" />
+  <link rel="stylesheet" href="/qlkh/admin/assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="/qlkh/admin/assets/css/style.css">
+  <link rel="stylesheet" href="/qlkh/admin/assets/vendors/css/vendor.bundle.base.css">
+  <script src="/qlkh/admin/assets/js/misc.js"></script>
+  <link rel="shortcut icon" href="/qlkh/admin/assets/images/favicon.ico" />
 </head>
 
 <body>

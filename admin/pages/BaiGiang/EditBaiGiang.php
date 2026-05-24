@@ -8,6 +8,10 @@ if (!isset($_SESSION['user_role'])) {
     exit;
 }
 
+if ($_SESSION['user_role'] == 'admins') {
+    die("Bạn không có quyền thực hiện hành động này!");
+}
+
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $user_id = $_SESSION['user_id'];
 $role = $_SESSION['user_role'];
@@ -147,12 +151,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <?php 
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php"; 
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php"; 
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; 
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; 
 ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/sidebar.php"; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
@@ -210,7 +214,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                                         <?php if ($is_file_video): ?>
                                             <div class="alert alert-info py-2">
                                                 <i class="mdi mdi-check-circle"></i> Đang dùng video: 
-                                                <a href="/Learning/<?= $lesson['video_url'] ?>" target="_blank">Xem video hiện tại</a>
+                                                <a href="/qlkh/<?= $lesson['video_url'] ?>" target="_blank">Xem video hiện tại</a>
                                             </div>
                                         <?php endif; ?>
                                         <label>Chọn video mới để thay thế:</label>
@@ -223,7 +227,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                                     <?php if(!empty($lesson['audio_url'])): ?>
                                         <div class="mb-2">
                                             <audio controls>
-                                                <source src="/Learning/<?= $lesson['audio_url'] ?>">
+                                                <source src="/qlkh/<?= $lesson['audio_url'] ?>">
                                             </audio>
                                             <div class="small text-muted">File hiện tại. Upload mới sẽ thay thế.</div>
                                         </div>
@@ -235,7 +239,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                                     <label>File đính kèm</label>
                                     <input type="file" name="attachment" class="form-control mb-2">
                                     <?php if(!empty($lesson['attachment'])): ?>
-                                        <small class="text-muted">Hiện tại: <a href="/Learning/<?= $lesson['attachment'] ?>" target="_blank">Xem file cũ</a></small>
+                                        <small class="text-muted">Hiện tại: <a href="/qlkh/<?= $lesson['attachment'] ?>" target="_blank">Xem file cũ</a></small>
                                     <?php endif; ?>
                                 </div>
 
@@ -252,7 +256,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                 </div>
             </div>
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
     </div>
 </div>
 

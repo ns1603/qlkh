@@ -155,7 +155,7 @@ function getYoutubeId($url) {
                         if (strpos($vid_url, 'uploads/') !== false) {
                     ?>
                             <video controls controlsList="nodownload" oncontextmenu="return false;">
-                                <source src="/Learning/<?= $vid_url ?>" type="video/mp4">
+                                <source src="/qlkh/<?= $vid_url ?>" type="video/mp4">
                                 Trình duyệt của bạn không hỗ trợ thẻ video.
                             </video>
 
@@ -180,7 +180,7 @@ function getYoutubeId($url) {
                     <div class="audio-box">
                         <h5 class="mb-3"><i class="mdi mdi-headphones text-warning"></i> Bài nghe / Podcast</h5>
                         <audio controls style="width: 100%;">
-                            <source src="/Learning/<?= $current_lesson['audio_url'] ?>" type="audio/mpeg">
+                            <source src="/qlkh/<?= $current_lesson['audio_url'] ?>" type="audio/mpeg">
                             Trình duyệt của bạn không hỗ trợ phát âm thanh.
                         </audio>
                     </div>
@@ -196,7 +196,7 @@ function getYoutubeId($url) {
                             <i class="mdi mdi-paperclip" style="font-size: 24px; margin-right: 15px;"></i>
                             <div>
                                 <strong>Tài liệu đính kèm:</strong><br>
-                                <a href="/Learning/<?= $current_lesson['attachment'] ?>" target="_blank" class="text-primary text-decoration-none">
+                                <a href="/qlkh/<?= $current_lesson['attachment'] ?>" target="_blank" class="text-primary text-decoration-none">
                                     <i class="mdi mdi-download"></i> Tải xuống tài liệu
                                 </a>
                             </div>

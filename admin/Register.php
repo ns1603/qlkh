@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Chuyển hướng
                 if ($role === 'admins' || $role === 'teacher') {
                     // Đã thêm dấu chấm phẩy
-                    header("Location: /Learning/admin/index.php"); 
+                    header("Location: /qlkh/admin/index.php"); 
                 } else {
                     header("Location: ../home.php");
                 }

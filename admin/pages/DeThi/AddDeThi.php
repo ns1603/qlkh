@@ -8,6 +8,10 @@ if (!isset($_SESSION['user_role'])) {
     exit;
 }
 
+if ($_SESSION['user_role'] == 'admins') {
+    die("Bạn không có quyền thực hiện hành động này!");
+}
+
 $user_id = $_SESSION['user_id'];
 $role = $_SESSION['user_role'];
 $error = '';
@@ -22,6 +26,15 @@ $courses = $conn->query($sql_courses);
 // 3. XỬ LÝ KHI BẤM LƯU
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $course_id = intval($_POST['course_id']);
+    
+    // Check quyền sở hữu khóa học cho Teacher
+    if ($role == 'teacher') {
+        $check = $conn->query("SELECT id FROM courses WHERE id = $course_id AND teacher_id = $user_id");
+        if ($check->num_rows === 0) {
+            die("Bạn không có quyền thêm đề thi vào khóa học này!");
+        }
+    }
+
     $title = trim($_POST['title']);
     $time_limit = isset($_POST['time_limit']) ? intval($_POST['time_limit']) : 45;
 
@@ -92,12 +105,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <?php 
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php"; 
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php"; 
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; 
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; 
 ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/sidebar.php"; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
@@ -162,6 +175,6 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                 </div>
             </div>
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
     </div>
 </div>

@@ -8,6 +8,10 @@ if (!isset($_SESSION['user_role'])) {
     exit;
 }
 
+if ($_SESSION['user_role'] == 'admins') {
+    die("Bạn không có quyền thực hiện hành động này!");
+}
+
 $user_id = $_SESSION['user_id'];
 $role = $_SESSION['user_role'];
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0; // Ép kiểu số nguyên để bảo mật
@@ -33,7 +37,7 @@ if ($id > 0) {
             // Đường dẫn thực tế file ảnh trên ổ cứng
             // Lưu ý: Cần chỉnh đường dẫn này khớp với cấu trúc thư mục của bạn
             // Giả sử config.php nằm ở root/admin/pages/KhoaHoc/../../../ -> root
-            $file_path = $_SERVER['DOCUMENT_ROOT'] . '/Learning/' . $course['thumbnail'];
+            $file_path = $_SERVER['DOCUMENT_ROOT'] . '/qlkh/' . $course['thumbnail'];
             
             if (file_exists($file_path)) {
                 unlink($file_path); // Hàm xóa file

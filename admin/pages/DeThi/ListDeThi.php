@@ -26,12 +26,12 @@ unset($_SESSION['status_message']);
 ?>
 
 <?php 
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php"; 
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php"; 
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; 
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; 
 ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/sidebar.php"; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
@@ -50,9 +50,11 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-4">
                                 <h4 class="card-title">Danh sách Đề thi (<?= $result ? $result->num_rows : 0 ?>)</h4>
+                                <?php if ($role != 'admins'): ?>
                                 <a href="AddDeThi.php" class="btn btn-sm btn-gradient-primary">
                                     <i class="mdi mdi-plus-box"></i> Tạo Đề thi mới
                                 </a>
+                                <?php endif; ?>
                             </div>
 
                             <?php if ($message): ?>
@@ -102,6 +104,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                                                         <i class="mdi mdi-playlist-plus btn-icon-prepend"></i> Câu hỏi
                                                     </a>
 
+                                                    <?php if ($role != 'admins'): ?>
                                                     <a href="EditDeThi.php?id=<?= $row['id'] ?>" class="btn btn-warning btn-sm btn-icon">
                                                         <i class="mdi mdi-pencil"></i>
                                                     </a>
@@ -109,6 +112,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                                                     <a href="DeleteDeThi.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm btn-icon" onclick="return confirm('Xóa đề thi này?')">
                                                         <i class="mdi mdi-delete"></i>
                                                     </a>
+                                                    <?php endif; ?>
                                                 </td>
                                             </tr>
                                             <?php endwhile; ?>
@@ -123,6 +127,6 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                 </div>
             </div>
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
     </div>
 </div>

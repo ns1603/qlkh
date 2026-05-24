@@ -15,11 +15,11 @@ $message = isset($_SESSION['status_message']) ? $_SESSION['status_message'] : ''
 unset($_SESSION['status_message']);
 ?>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php"; ?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/sidebar.php"; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
@@ -67,7 +67,7 @@ unset($_SESSION['status_message']);
                                             </td>
                                             <td>
                                                 <?php if(!empty($row['file_path'])): ?>
-                                                    <a href="/Learning/<?= $row['file_path'] ?>" target="_blank" class="btn btn-inverse-info btn-sm icon-btn">
+                                                    <a href="/qlkh/<?= $row['file_path'] ?>" target="_blank" class="btn btn-inverse-info btn-sm icon-btn">
                                                         <i class="mdi mdi-file-pdf"></i> Xem
                                                     </a>
                                                 <?php else: ?>
@@ -96,6 +96,6 @@ unset($_SESSION['status_message']);
                 </div>
             </div>
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
     </div>
 </div>

@@ -18,12 +18,12 @@ unset($_SESSION['status_message']);
 ?>
 
 <?php 
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php"; 
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php"; 
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; 
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; 
 ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/sidebar.php"; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
@@ -88,6 +88,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                                                     <?= date('d/m/Y H:i', strtotime($row['created_at'])) ?>
                                                 </td>
                                                 <td>
+                                                    <?php if ($_SESSION['user_role'] != 'admins'): ?>
                                                     <a href="EditDonHang.php?id=<?= $row['id'] ?>" class="btn btn-inverse-info btn-sm btn-icon" title="Cập nhật trạng thái">
                                                         <i class="mdi mdi-pencil"></i>
                                                     </a>
@@ -97,6 +98,9 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                                                        title="Xóa">
                                                         <i class="mdi mdi-delete"></i>
                                                     </a>
+                                                    <?php else: ?>
+                                                    <span class="text-muted small">Read-only</span>
+                                                    <?php endif; ?>
                                                 </td>
                                             </tr>
                                             <?php endwhile; ?>
@@ -111,6 +115,6 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
                 </div>
             </div>
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
     </div>
 </div>

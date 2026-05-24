@@ -12,11 +12,11 @@ $result = $conn->query($sql);
 $message = isset($_SESSION['status_message']) ? $_SESSION['status_message'] : '';
 unset($_SESSION['status_message']);
 ?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php"; ?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; ?>
 
 <div class="container-fluid page-body-wrapper">
-    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/sidebar.php"; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
@@ -52,8 +52,12 @@ unset($_SESSION['status_message']);
                                             <td><?= htmlspecialchars($row['email']) ?></td>
                                             <td><label class="badge badge-info"><?= $row['role'] ?></label></td>
                                             <td>
+                                                <?php if ($_SESSION['user_role'] != 'admins'): ?>
                                                 <a href="EditGiaoVien.php?id=<?= $row['id'] ?>" class="btn btn-inverse-warning btn-sm btn-icon"><i class="mdi mdi-pencil"></i></a>
                                                 <a href="DeleteGiaoVien.php?id=<?= $row['id'] ?>" class="btn btn-inverse-danger btn-sm btn-icon" onclick="return confirm('Xóa giáo viên này?')"><i class="mdi mdi-delete"></i></a>
+                                                <?php else: ?>
+                                                <span class="text-muted small">Read-only</span>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
                                         <?php endwhile; ?>
@@ -65,6 +69,6 @@ unset($_SESSION['status_message']);
                 </div>
             </div>
         </div>
-        <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
     </div>
 </div>

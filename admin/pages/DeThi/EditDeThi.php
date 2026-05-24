@@ -7,6 +7,10 @@ if (!isset($_SESSION['user_role'])) {
     exit;
 }
 
+if ($_SESSION['user_role'] == 'admins') {
+    die("Bạn không có quyền thực hiện hành động này!");
+}
+
 $user_id = $_SESSION['user_id'];
 $role = $_SESSION['user_role'];
 $error = '';
@@ -20,10 +24,20 @@ if ($quiz_id <= 0) {
 /* =======================
    LẤY THÔNG TIN ĐỀ THI
 ======================= */
-$sql_quiz = "SELECT * FROM quizzes WHERE id = $quiz_id";
+$sql_quiz = "SELECT q.*, c.teacher_id 
+             FROM quizzes q 
+             JOIN courses c ON q.course_id = c.id 
+             WHERE q.id = $quiz_id";
 $quiz = $conn->query($sql_quiz)->fetch_assoc();
 if (!$quiz) {
     die("❌ Đề thi không tồn tại");
+}
+
+/* =======================
+   KIỂM TRA QUYỀN SỞ HỮU
+======================= */
+if ($role == 'teacher' && $quiz['teacher_id'] != $user_id) {
+    die("❌ Bạn không có quyền chỉnh sửa đề thi này!");
 }
 
 /* =======================
@@ -84,12 +98,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <?php 
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php"; 
-include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php"; 
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/header.php"; 
+include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php"; 
 ?>
 
 <div class="container-fluid page-body-wrapper">
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/sidebar.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
 
 <div class="main-panel">
 <div class="content-wrapper">
@@ -158,6 +172,6 @@ include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php";
 </div>
 
 </div>
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?>
 </div>
 </div>
