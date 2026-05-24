@@ -52,7 +52,7 @@ unset($_SESSION['status_message']);
                                             <td><?= htmlspecialchars($row['email']) ?></td>
                                             <td><label class="badge badge-info"><?= $row['role'] ?></label></td>
                                             <td>
-                                                <?php if ($_SESSION['user_role'] != 'admins'): ?>
+                                                <?php if ($_SESSION['user_role'] == 'admins' || $_SESSION['user_role'] == 'admin'): ?>
                                                 <a href="EditGiaoVien.php?id=<?= $row['id'] ?>" class="btn btn-inverse-warning btn-sm btn-icon"><i class="mdi mdi-pencil"></i></a>
                                                 <a href="DeleteGiaoVien.php?id=<?= $row['id'] ?>" class="btn btn-inverse-danger btn-sm btn-icon" onclick="return confirm('Xóa giáo viên này?')"><i class="mdi mdi-delete"></i></a>
                                                 <?php else: ?>

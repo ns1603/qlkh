@@ -2,10 +2,10 @@
 session_start();
 include(__DIR__ . '/../../../config.php');
 
-// 1. CHỈ SUPER ADMIN MỚI ĐƯỢC VÀO TRANG NÀY
+// 1. CHỈ ADMIN MỚI ĐƯỢC VÀO TRANG NÀY
 // Vì trang này cho phép đổi quyền hạn, nên phải bảo mật kỹ
-if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'admin') {
-    die("Truy cập bị từ chối! Chỉ Super Admin mới có quyền sửa đổi cấp bậc thành viên.");
+if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] != 'admin' && $_SESSION['user_role'] != 'admins')) {
+    die("Truy cập bị từ chối! Chỉ Admin mới có quyền sửa đổi cấp bậc thành viên.");
 }
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
