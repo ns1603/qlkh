@@ -1,0 +1,125 @@
+<?php
+session_start();
+include(__DIR__ . '/../../../config.php');
+
+if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] == 'student') {
+    header("Location: ../../index.php"); exit;
+}
+
+$sql = "SELECT r.*, u.fullname, q.title as exam_name, c.title as course_name
+        FROM exam_results r
+        JOIN users u ON r.user_id = u.id
+        JOIN quizzes q ON r.quiz_id = q.id 
+        JOIN courses c ON q.course_id = c.id";
+
+// Nếu là giáo viên, chỉ hiện điểm của khóa mình
+if ($_SESSION['user_role'] == 'teacher') {
+    $teacher_id = $_SESSION['user_id'];
+    $sql .= " WHERE c.teacher_id = $teacher_id";
+}
+
+$sql .= " ORDER BY r.created_at DESC";
+$result = $conn->query($sql);
+?>
+
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/header.php"; ?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/navbar.php"; ?>
+
+<style>
+    @media print {
+        .navbar, .sidebar, .footer, .no-print {
+            display: none !important;
+        }
+        .content-wrapper, .main-panel {
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        .card {
+            border: none !important;
+            box-shadow: none !important;
+        }
+    }
+</style>
+
+<div class="container-fluid page-body-wrapper">
+    <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/sidebar.php"; ?>
+    <div class="main-panel">
+        <div class="content-wrapper">
+            
+            <div class="page-header no-print">
+                <h3 class="page-title"> Quản lý Kết quả thi </h3>
+                <nav aria-label="breadcrumb">
+                    <button onclick="window.print()" class="btn btn-gradient-info btn-icon-text me-2">
+                        <i class="mdi mdi-printer btn-icon-prepend"></i> In Danh Sách
+                    </button>
+                    
+                    <a href="ExportDiem.php" class="btn btn-gradient-success btn-icon-text">
+                        <i class="mdi mdi-file-excel btn-icon-prepend"></i> Xuất Excel
+                    </a>
+                </nav>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title text-center mb-4">BẢNG TỔNG HỢP KẾT QUẢ THI</h4>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr class="table-primary text-center">
+                                            <th>STT</th>
+                                            <th>Học viên</th>
+                                            <th>Bài thi</th>
+                                            <th>Khóa học</th>
+                                            <th>Điểm số</th>
+                                            <th>Ngày nộp</th>
+                                            <th class="no-print">Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php if ($result->num_rows > 0): ?>
+                                            <?php $i = 1; while($row = $result->fetch_assoc()): ?>
+                                                <tr>
+                                                    <td class="text-center"><?= $i++ ?></td>
+                                                    <td class="font-weight-bold"><?= htmlspecialchars($row['fullname']) ?></td>
+                                                    <td><?= htmlspecialchars($row['exam_name']) ?></td>
+                                                    <td><?= htmlspecialchars($row['course_name']) ?></td>
+                                                    
+                                                    <td class="text-center">
+                                                        <?php if($row['score'] >= 8): ?>
+                                                            <span class="badge badge-success"><?= $row['score'] ?></span>
+                                                        <?php elseif($row['score'] >= 5): ?>
+                                                            <span class="badge badge-warning"><?= $row['score'] ?></span>
+                                                        <?php else: ?>
+                                                            <span class="badge badge-danger"><?= $row['score'] ?></span>
+                                                        <?php endif; ?>
+                                                    </td>
+                                                    
+                                                    <td><?= date('d/m/Y H:i', strtotime($row['created_at'])) ?></td>
+                                                    <td class="no-print text-center">
+                                                        <a href="DetailKetQua.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-info">
+                                                            <i class="mdi mdi-eye"></i> Xem chi tiết
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <?php endwhile; ?>
+                                        <?php else: ?>
+                                            <tr>
+                                                <td colspan="7" class="text-center text-muted">Chưa có kết quả thi nào.</td>
+                                            </tr>
+                                        <?php endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . "/Learning/admin/footer.php"; ?>
+    </div>
+</div>
