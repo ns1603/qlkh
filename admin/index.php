@@ -101,6 +101,7 @@ $result_reviews = $conn->query($sql_reviews);
 
 <?php include 'header.php'; ?>
 <?php include 'navbar.php'; ?>
+<?php include 'sidebar.php'; ?>
 
     <div class="main-panel">
         <div class="content-wrapper">
