@@ -25,7 +25,7 @@ if ($id > 0) {
 
     if ($material) {
         if ($role == 'teacher' && $material['teacher_id'] != $user_id) {
-            $_SESSION['status_message'] = "Bạn không có quyền xóa tài liệu này!";
+            $_SESSION['status_message'] = "Báº¡n khÃ´ng cÃ³ quyá»n xÃ³a tÃ i liá»u nÃ y!";
         } else {
             if (!empty($material['file_path'])) {
                 $file_absolute_path = $_SERVER['DOCUMENT_ROOT'] . '/qlkh/' . $material['file_path'];
@@ -37,13 +37,13 @@ if ($id > 0) {
             $del->bind_param("i", $id);
             
             if ($del->execute()) {
-                $_SESSION['status_message'] = "Đã xóa tài liệu thành công!";
+                $_SESSION['status_message'] = "ÄÃ£ xÃ³a tÃ i liá»u thÃ nh cÃ´ng!";
             } else {
-                $_SESSION['status_message'] = "Lỗi Database!";
+                $_SESSION['status_message'] = "Lá»i Database!";
             }
         }
     } else {
-        $_SESSION['status_message'] = "Tài liệu không tồn tại!";
+        $_SESSION['status_message'] = "TÃ i liá»u khÃ´ng tá»n táº¡i!";
     }
 }
 

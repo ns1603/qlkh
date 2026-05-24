@@ -26,11 +26,11 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
         <div class="content-wrapper">
             
             <div class="page-header">
-                <h3 class="page-title"> Quản lý Danh mục </h3>
+                <h3 class="page-title"> Quáº£n lÃ½ Danh má»¥c </h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="../../index.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Danh mục khóa học</li>
+                        <li class="breadcrumb-item active" aria-current="page">Danh má»¥c khÃ³a há»c</li>
                     </ol>
                 </nav>
             </div>
@@ -40,10 +40,10 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h4 class="card-title">Danh sách Danh mục (<?= $result ? $result->num_rows : 0 ?>)</h4>
+                                <h4 class="card-title">Danh sÃ¡ch Danh má»¥c (<?= $result ? $result->num_rows : 0 ?>)</h4>
                                 <?php if ($role != 'admins'): ?>
                                 <a href="AddDanhMuc.php" class="btn btn-sm btn-gradient-primary">
-                                    <i class="mdi mdi-plus-box"></i> Thêm mới
+                                    <i class="mdi mdi-plus-box"></i> Thêm má»i
                                 </a>
                                 <?php endif; ?>
                             </div>
@@ -60,11 +60,11 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Tên Danh mục</th>
-                                            <th>Slug (Đường dẫn)</th>
-                                            <th>Mô tả</th>
-                                            <th>Ngày tạo</th>
-                                            <th>Hành động</th>
+                                            <th>TÃªn Danh má»¥c</th>
+                                            <th>Slug (ÄÆ°á»ng dáº«n)</th>
+                                            <th>MÃ´ táº£</th>
+                                            <th>NgÃ y táº¡o</th>
+                                            <th>HÃ nh Äá»ng</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -88,13 +88,13 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                                                 </td>
                                                 <td>
                                                     <?php if ($role != 'admins'): ?>
-                                                    <a href="EditDanhMuc.php?id=<?= $row['id'] ?>" class="btn btn-inverse-warning btn-sm btn-icon" title="Sửa">
+                                                    <a href="EditDanhMuc.php?id=<?= $row['id'] ?>" class="btn btn-inverse-warning btn-sm btn-icon" title="Sá»­a">
                                                         <i class="mdi mdi-pencil"></i>
                                                     </a>
                                                     
                                                     <a href="DeleteDanhMuc.php?id=<?= $row['id'] ?>" 
                                                        class="btn btn-inverse-danger btn-sm btn-icon" 
-                                                       onclick="return confirm('Bạn có chắc muốn xóa danh mục này? Các khóa học thuộc danh mục này sẽ bị mất liên kết!');" 
+                                                       onclick="return confirm('Báº¡n cÃ³ cháº¯c muá»n xÃ³a danh má»¥c nÃ y? CÃ¡c khÃ³a há»c thuá»c danh má»¥c nÃ y sáº½ bá» máº¥t liÃªn káº¿t!');" 
                                                        title="Xóa">
                                                         <i class="mdi mdi-delete"></i>
                                                     </a>
@@ -107,7 +107,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                                         <?php else: ?>
                                             <tr>
                                                 <td colspan="6" class="text-center p-4">
-                                                    <p class="text-muted">Chưa có danh mục nào. Hãy bấm "Thêm mới"!</p>
+                                                    <p class="text-muted">ChÆ°a cÃ³ danh má»¥c nÃ o. HÃ£y báº¥m "Thêm má»i"!</p>
                                                 </td>
                                             </tr>
                                         <?php endif; ?>

@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $check = $conn->query("SELECT id FROM users WHERE email = '$email'");
     if ($check->num_rows > 0) {
-        $error = "Email này đã được sử dụng!";
+        $error = "Email nÃ y ÄÃ£ ÄÆ°á»£c sá»­ dá»¥ng!";
     } else {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         
@@ -21,11 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bind_param("sss", $fullname, $email, $hashed_password);
         
         if ($stmt->execute()) {
-            $_SESSION['status_message'] = "Thêm học viên thành công!";
+            $_SESSION['status_message'] = "Thêm há»c viÃªn thÃ nh cÃ´ng!";
             header("Location: ListHocVien.php");
             exit;
         } else {
-            $error = "Lỗi: " . $conn->error;
+            $error = "Lá»i: " . $conn->error;
         }
     }
 }
@@ -40,11 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="col-md-6 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Thêm Học viên mới</h4>
+                            <h4 class="card-title">Thêm Há»c viÃªn má»i</h4>
                             <?php if($error): ?><div class="alert alert-danger"><?= $error ?></div><?php endif; ?>
                             <form class="forms-sample" method="POST">
                                 <div class="form-group">
-                                    <label>Họ và Tên</label>
+                                    <label>Há» vÃ  TÃªn</label>
                                     <input type="text" class="form-control" name="fullname" required>
                                 </div>
                                 <div class="form-group">
@@ -52,11 +52,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <input type="email" class="form-control" name="email" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Mật khẩu</label>
+                                    <label>Máº­t kháº©u</label>
                                     <input type="password" class="form-control" name="password" required>
                                 </div>
-                                <button type="submit" class="btn btn-gradient-primary me-2">Lưu</button>
-                                <a href="ListHocVien.php" class="btn btn-light">Hủy</a>
+                                <button type="submit" class="btn btn-gradient-primary me-2">LÆ°u</button>
+                                <a href="ListHocVien.php" class="btn btn-light">Há»§y</a>
                             </form>
                         </div>
                     </div>

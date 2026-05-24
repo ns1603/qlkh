@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admins') {
-    die('Bạn không có quyền thực hiện hành động này!');
+    die('Báº¡n khÃ´ng cÃ³ quyá»n thá»±c hiá»n hÃ nh Äá»ng nÃ y!');
 }
 include(__DIR__ . '/../../../config.php');
 
@@ -19,12 +19,12 @@ if ($id > 0) {
     $stmt->bind_param("i", $id);
 
     if ($stmt->execute()) {
-        $_SESSION['status_message'] = "Đã xóa danh mục thành công!";
+        $_SESSION['status_message'] = "ÄÃ£ xÃ³a danh má»¥c thÃ nh cÃ´ng!";
     } else {
-        $_SESSION['status_message'] = "Lỗi khi xóa: " . $conn->error;
+        $_SESSION['status_message'] = "Lá»i khi xÃ³a: " . $conn->error;
     }
 } else {
-    $_SESSION['status_message'] = "ID danh mục không hợp lệ!";
+    $_SESSION['status_message'] = "ID danh má»¥c khÃ´ng há»£p lá»!";
 }
 
 header("Location: ListDanhMuc.php");

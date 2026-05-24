@@ -5,7 +5,7 @@ include(__DIR__ . '/../../../config.php');
 if (!isset($_SESSION['user_role'])) { header("Location: ../../index.php"); exit; }
 
 $role = $_SESSION['user_role'];
-$isAdmin = ($role == 'admin'); // Chỉ admin toàn quyền mới được sửa/xóa
+$isAdmin = ($role == 'admin'); // Chá» admin toÃ n quyá»n má»i ÄÆ°á»£c sá»­a/xÃ³a
 
 $sql = "SELECT * FROM users WHERE role = 'student' ORDER BY id DESC";
 $result = $conn->query($sql);
@@ -22,18 +22,18 @@ unset($_SESSION['status_message']);
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title"> Quản lý Học viên </h3>
+                <h3 class="page-title"> Quáº£n lÃ½ Há»c viÃªn </h3>
             </div>
             <div class="row">
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h4 class="card-title">Danh sách Học viên (<?= $result->num_rows ?>)</h4>
+                                <h4 class="card-title">Danh sÃ¡ch Há»c viÃªn (<?= $result->num_rows ?>)</h4>
                                 
                                 <?php if ($isAdmin): ?>
                                 <a href="AddHocVien.php" class="btn btn-sm btn-gradient-primary">
-                                    <i class="mdi mdi-account-plus"></i> Thêm mới
+                                    <i class="mdi mdi-account-plus"></i> Thêm má»i
                                 </a>
                                 <?php endif; ?>
                             </div>
@@ -47,11 +47,11 @@ unset($_SESSION['status_message']);
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Họ và Tên</th>
+                                            <th>Há» vÃ  TÃªn</th>
                                             <th>Email</th>
-                                            <th>Ngày tham gia</th>
+                                            <th>NgÃ y tham gia</th>
                                             <?php if ($isAdmin): ?>
-                                            <th>Hành động</th>
+                                            <th>HÃ nh Äá»ng</th>
                                             <?php endif; ?>
                                         </tr>
                                     </thead>
@@ -68,12 +68,12 @@ unset($_SESSION['status_message']);
                                             
                                             <?php if ($isAdmin): ?>
                                             <td>
-                                                <a href="EditHocVien.php?id=<?= $row['id'] ?>" class="btn btn-inverse-warning btn-sm btn-icon" title="Sửa">
+                                                <a href="EditHocVien.php?id=<?= $row['id'] ?>" class="btn btn-inverse-warning btn-sm btn-icon" title="Sá»­a">
                                                     <i class="mdi mdi-pencil"></i>
                                                 </a>
                                                 <a href="DeleteHocVien.php?id=<?= $row['id'] ?>" 
                                                    class="btn btn-inverse-danger btn-sm btn-icon"
-                                                   onclick="return confirm('Xóa học viên này sẽ xóa toàn bộ lịch sử học tập. Tiếp tục?')"
+                                                   onclick="return confirm('Xóa há»c viÃªn nÃ y sáº½ xÃ³a toÃ n bá» lá»ch sá»­ há»c táº­p. Tiáº¿p tá»¥c?')"
                                                    title="Xóa">
                                                     <i class="mdi mdi-delete"></i>
                                                 </a>

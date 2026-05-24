@@ -2,41 +2,41 @@
 session_start();
 include(__DIR__ . '/../../../config.php');
 
-// 1. KIỂM TRA QUYỀN HẠN
+// 1. KIá»M TRA QUYá»N Háº N
 if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] != 'admins' && $_SESSION['user_role'] != 'admin' && $_SESSION['user_role'] != 'teacher')) {
     header("Location: ../../index.php");
     exit;
 }
 
 if ($_SESSION['user_role'] == 'admins') {
-    die("Bạn không có quyền thực hiện hành động này!");
+    die("Báº¡n khÃ´ng cÃ³ quyá»n thá»±c hiá»n hÃ nh Äá»ng nÃ y!");
 }
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $user_id = $_SESSION['user_id'];
 $user_role = $_SESSION['user_role'];
 
-// 2. LẤY DỮ LIỆU KHÓA HỌC
+// 2. Láº¤Y Dá»® LIá»U KHÃA Há»C
 $stmt = $conn->prepare("SELECT * FROM courses WHERE id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $course = $stmt->get_result()->fetch_assoc();
 
-// Nếu không tìm thấy khóa học hoặc Teacher cố sửa bài của người khác
+// Náº¿u khÃ´ng tÃ¬m tháº¥y khÃ³a há»c hoáº·c Teacher cá» sá»­a bÃ i cá»§a ngÆ°á»i khÃ¡c
 if (!$course) {
-    die("Khóa học không tồn tại!");
+    die("KhÃ³a há»c khÃ´ng tá»n táº¡i!");
 }
 if ($user_role == 'teacher' && $course['teacher_id'] != $user_id) {
-    die("Bạn không có quyền chỉnh sửa khóa học này!");
+    die("Báº¡n khÃ´ng cÃ³ quyá»n chá»nh sá»­a khÃ³a há»c nÃ y!");
 }
 
-// 3. LẤY DANH SÁCH DANH MỤC (Cho dropdown)
+// 3. Láº¤Y DANH SÃCH DANH Má»¤C (Cho dropdown)
 $categories = $conn->query("SELECT * FROM categories");
 
-// 4. LẤY DANH SÁCH GIẢNG VIÊN (Chỉ Admin mới cần chọn GV, Teacher thì cố định chính họ)
+// 4. Láº¤Y DANH SÃCH GIáº¢NG VIÃN (Chá» Admin má»i cáº§n chá»n GV, Teacher thÃ¬ cá» Äá»nh chÃ­nh há»)
 $teachers = null;
 if ($user_role == 'admins' || $user_role == 'admin') {
-    // Lấy list user có role là teacher hoặc admin
+    // Láº¥y list user cÃ³ role lÃ  teacher hoáº·c admin
     $teachers = $conn->query("SELECT id, fullname FROM users WHERE role IN ('teacher', 'admin', 'admins')");
 }
 ?>
@@ -52,11 +52,11 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
         <div class="content-wrapper">
             
             <div class="page-header">
-                <h3 class="page-title"> Chỉnh sửa Khóa học </h3>
+                <h3 class="page-title"> Chá»nh sá»­a KhÃ³a há»c </h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="ListKhoaHoc.php">Danh sách</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Sửa khóa học #<?= $id ?></li>
+                        <li class="breadcrumb-item"><a href="ListKhoaHoc.php">Danh sÃ¡ch</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Sá»­a khÃ³a há»c #<?= $id ?></li>
                     </ol>
                 </nav>
             </div>
@@ -65,22 +65,22 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                 <div class="col-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Thông tin khóa học</h4>
-                            <p class="card-description"> Vui lòng điền đầy đủ thông tin bên dưới </p>
+                            <h4 class="card-title">ThÃ´ng tin khÃ³a há»c</h4>
+                            <p class="card-description"> Vui lÃ²ng Äiá»n Äáº§y Äá»§ thÃ´ng tin bÃªn dÆ°á»i </p>
                             
                             <form class="forms-sample" action="UpdateKhoaHoc.php" method="POST" enctype="multipart/form-data">
                                 <input type="hidden" name="id" value="<?= $course['id'] ?>">
 
                                 <div class="form-group">
-                                    <label for="title">Tên Khóa Học <span class="text-danger">*</span></label>
+                                    <label for="title">TÃªn KhÃ³a Há»c <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="title" name="title" 
                                            value="<?= htmlspecialchars($course['title']) ?>" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="category_id">Danh mục</label>
+                                    <label for="category_id">Danh má»¥c</label>
                                     <select class="form-select" id="category_id" name="category_id" required>
-                                        <option value="">-- Chọn danh mục --</option>
+                                        <option value="">-- Chá»n danh má»¥c --</option>
                                         <?php while($cat = $categories->fetch_assoc()): ?>
                                             <option value="<?= $cat['id'] ?>" <?= $cat['id'] == $course['category_id'] ? 'selected' : '' ?>>
                                                 <?= htmlspecialchars($cat['name']) ?>
@@ -91,7 +91,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
 
                                 <?php if($teachers): ?>
                                 <div class="form-group">
-                                    <label for="teacher_id">Giảng viên phụ trách</label>
+                                    <label for="teacher_id">Giáº£ng viÃªn phá»¥ trÃ¡ch</label>
                                     <select class="form-select" id="teacher_id" name="teacher_id">
                                         <?php while($t = $teachers->fetch_assoc()): ?>
                                             <option value="<?= $t['id'] ?>" <?= $t['id'] == $course['teacher_id'] ? 'selected' : '' ?>>
@@ -105,53 +105,53 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                                 <?php endif; ?>
 
                                 <div class="form-group">
-                                    <label for="price">Học phí (VNĐ)</label>
+                                    <label for="price">Há»c phÃ­ (VNÄ)</label>
                                     <div class="input-group">
                                         <input type="number" class="form-control" id="price" name="price" 
                                                value="<?= intval($course['price']) ?>" min="0">
-                                        <span class="input-group-text">VNĐ</span>
+                                        <span class="input-group-text">VNÄ</span>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Ảnh đại diện (Thumbnail)</label>
+                                    <label>áº¢nh Äáº¡i diá»n (Thumbnail)</label>
                                     <input type="file" name="thumbnail" class="file-upload-default" id="uploadFile" style="display:none">
                                     
                                     <div class="input-group col-xs-12">
-                                        <input type="text" class="form-control file-upload-info" disabled placeholder="Chọn ảnh mới nếu muốn thay đổi">
+                                        <input type="text" class="form-control file-upload-info" disabled placeholder="Chá»n áº£nh má»i náº¿u muá»n thay Äá»i">
                                         <span class="input-group-append">
-                                            <button class="file-upload-browse btn btn-gradient-primary" type="button" onclick="document.getElementById('uploadFile').click()">Tải ảnh lên</button>
+                                            <button class="file-upload-browse btn btn-gradient-primary" type="button" onclick="document.getElementById('uploadFile').click()">Táº£i áº£nh lÃªn</button>
                                         </span>
                                     </div>
 
                                     <div class="mt-3">
-                                        <label>Ảnh hiện tại:</label><br>
+                                        <label>áº¢nh hiá»n táº¡i:</label><br>
                                         <?php if(!empty($course['thumbnail'])): ?>
                                             <img src="/qlkh/<?= $course['thumbnail'] ?>" alt="old_thumb" 
                                                  style="width: 150px; height: 100px; object-fit: cover; border-radius: 5px; border: 1px solid #ddd;">
                                         <?php else: ?>
-                                            <span class="badge badge-secondary">Chưa có ảnh</span>
+                                            <span class="badge badge-secondary">ChÆ°a cÃ³ áº£nh</span>
                                         <?php endif; ?>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="description">Mô tả chi tiết</label>
+                                    <label for="description">MÃ´ táº£ chi tiáº¿t</label>
                                     <textarea class="form-control" id="description" name="description" rows="6" 
-                                              placeholder="Nhập nội dung giới thiệu khóa học..."><?= htmlspecialchars($course['description']) ?></textarea>
+                                              placeholder="Nháº­p ná»i dung giá»i thiá»u khÃ³a há»c..."><?= htmlspecialchars($course['description']) ?></textarea>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="status">Trạng thái</label>
+                                    <label for="status">Tráº¡ng thÃ¡i</label>
                                     <select class="form-select" name="status">
-                                        <option value="draft" <?= $course['status']=='draft'?'selected':'' ?>>Bản nháp (Draft)</option>
-                                        <option value="published" <?= $course['status']=='published'?'selected':'' ?>>Công khai (Published)</option>
-                                        <option value="archived" <?= $course['status']=='archived'?'selected':'' ?>>Lưu trữ (Archived)</option>
+                                        <option value="draft" <?= $course['status']=='draft'?'selected':'' ?>>Báº£n nhÃ¡p (Draft)</option>
+                                        <option value="published" <?= $course['status']=='published'?'selected':'' ?>>CÃ´ng khai (Published)</option>
+                                        <option value="archived" <?= $course['status']=='archived'?'selected':'' ?>>LÆ°u trá»¯ (Archived)</option>
                                     </select>
                                 </div>
 
-                                <button type="submit" class="btn btn-gradient-primary me-2">Lưu thay đổi</button>
-                                <a href="ListKhoaHoc.php" class="btn btn-light">Hủy bỏ</a>
+                                <button type="submit" class="btn btn-gradient-primary me-2">LÆ°u thay Äá»i</button>
+                                <a href="ListKhoaHoc.php" class="btn btn-light">Há»§y bá»</a>
                             </form>
                         </div>
                     </div>

@@ -3,7 +3,7 @@ session_start();
 include(__DIR__ . '/../../../config.php');
 
 if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] != 'admins' && $_SESSION['user_role'] != 'admin')) {
-    die("Truy cập bị từ chối!");
+    die("Truy cáº­p bá» tá»« chá»i!");
 }
 $teachers = $conn->query("SELECT id, fullname, email FROM users WHERE role = 'teacher'");
 $error = '';
@@ -28,17 +28,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (empty($contract_code) || empty($start_date)) {
-        $error = "Vui lòng nhập mã hợp đồng và ngày bắt đầu!";
+        $error = "Vui lÃ²ng nháº­p mÃ£ há»£p Äá»ng vÃ  ngÃ y báº¯t Äáº§u!";
     } else {
         $stmt = $conn->prepare("INSERT INTO teacher_contracts (teacher_id, contract_code, file_path, revenue_share, start_date, end_date) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ississ", $teacher_id, $contract_code, $file_path, $revenue_share, $start_date, $end_date);
         
         if ($stmt->execute()) {
-            $_SESSION['status_message'] = "Thêm hợp đồng thành công!";
+            $_SESSION['status_message'] = "Thêm há»£p Äá»ng thÃ nh cÃ´ng!";
             header("Location: ListHopDongGV.php");
             exit;
         } else {
-            $error = "Lỗi: " . $conn->error;
+            $error = "Lá»i: " . $conn->error;
         }
     }
 }
@@ -55,12 +55,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="col-md-8 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Ký kết Hợp đồng mới</h4>
+                            <h4 class="card-title">KÃ½ káº¿t Há»£p Äá»ng má»i</h4>
                             <?php if($error): ?><div class="alert alert-danger"><?= $error ?></div><?php endif; ?>
 
                             <form class="forms-sample" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
-                                    <label>Chọn Giáo viên</label>
+                                    <label>Chá»n GiÃ¡o viÃªn</label>
                                     <select class="form-select" name="teacher_id" required>
                                         <?php while($t = $teachers->fetch_assoc()): ?>
                                             <option value="<?= $t['id'] ?>"><?= htmlspecialchars($t['fullname']) ?> (<?= $t['email'] ?>)</option>
@@ -70,33 +70,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                 <div class="row">
                                     <div class="col-md-6 form-group">
-                                        <label>Mã hợp đồng</label>
+                                        <label>MÃ£ há»£p Äá»ng</label>
                                         <input type="text" class="form-control" name="contract_code" placeholder="VD: HD-2024-GV01" required>
                                     </div>
                                     <div class="col-md-6 form-group">
-                                        <label>Tỷ lệ chia sẻ doanh thu (%)</label>
+                                        <label>Tá»· lá» chia sáº» doanh thu (%)</label>
                                         <input type="number" class="form-control" name="revenue_share" value="70" min="0" max="100">
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-6 form-group">
-                                        <label>Ngày bắt đầu</label>
+                                        <label>NgÃ y báº¯t Äáº§u</label>
                                         <input type="date" class="form-control" name="start_date" required>
                                     </div>
                                     <div class="col-md-6 form-group">
-                                        <label>Ngày kết thúc</label>
+                                        <label>NgÃ y káº¿t thÃºc</label>
                                         <input type="date" class="form-control" name="end_date" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>File Hợp đồng (PDF/Word)</label>
+                                    <label>File Há»£p Äá»ng (PDF/Word)</label>
                                     <input type="file" class="form-control" name="contract_file">
                                 </div>
 
-                                <button type="submit" class="btn btn-gradient-primary me-2">Lưu Hợp đồng</button>
-                                <a href="ListHopDongGV.php" class="btn btn-light">Hủy</a>
+                                <button type="submit" class="btn btn-gradient-primary me-2">LÆ°u Há»£p Äá»ng</button>
+                                <a href="ListHopDongGV.php" class="btn btn-light">Há»§y</a>
                             </form>
                         </div>
                     </div>

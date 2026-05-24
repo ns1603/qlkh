@@ -23,7 +23,7 @@ if ($role === 'teacher') {
 
 $sql .= " ORDER BY c.created_at DESC";
 $result = $conn->query($sql);
-if (!$result) die("Lỗi SQL: " . $conn->error);
+if (!$result) die("Lá»i SQL: " . $conn->error);
 
 $message = $_SESSION['status_message'] ?? '';
 unset($_SESSION['status_message']);
@@ -58,7 +58,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
     <div class="content-wrapper">
 
         <div class="page-header">
-            <h3 class="page-title">📚 Quản lý Khóa học</h3>
+            <h3 class="page-title">ð Quáº£n lÃ½ KhÃ³a há»c</h3>
         </div>
         
 
@@ -73,12 +73,12 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
 
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <div>
-                                <h4 class="card-title mb-1">Danh sách khóa học</h4>
-                                <p class="text-muted mb-0">Tổng cộng <?= $result->num_rows ?> khóa học</p>
+                                <h4 class="card-title mb-1">Danh sÃ¡ch khÃ³a há»c</h4>
+                                <p class="text-muted mb-0">Tá»ng cá»ng <?= $result->num_rows ?> khÃ³a há»c</p>
                             </div>
                             <?php if ($role != 'admins'): ?>
                             <a href="AddKhoaHoc.php" class="btn btn-gradient-primary btn-sm">
-                                <i class="mdi mdi-plus-circle-outline"></i> Thêm khóa học
+                                <i class="mdi mdi-plus-circle-outline"></i> Thêm khÃ³a há»c
                             </a>
                             <?php endif; ?>
                         </div>
@@ -88,12 +88,12 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                                 <thead class="thead-light">
                                     <tr>
                                         <th>#</th>
-                                        <th>Ảnh</th>
-                                        <th>Tên khóa học</th>
-                                        <th>Giảng viên</th>
-                                        <th>Giá</th>
-                                        <th>Trạng thái</th>
-                                        <th class="text-center">Hành động</th>
+                                        <th>áº¢nh</th>
+                                        <th>TÃªn khÃ³a há»c</th>
+                                        <th>Giáº£ng viÃªn</th>
+                                        <th>GiÃ¡</th>
+                                        <th>Tráº¡ng thÃ¡i</th>
+                                        <th class="text-center">HÃ nh Äá»ng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -102,9 +102,9 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                                         <?php
                                             $stt = $row['status'];
                                             $statusText = [
-                                                'published' => 'Đang mở',
-                                                'draft' => 'Bản nháp',
-                                                'archived' => 'Đã ẩn'
+                                                'published' => 'Äang má»',
+                                                'draft' => 'Báº£n nhÃ¡p',
+                                                'archived' => 'ÄÃ£ áº©n'
                                             ];
                                             $badge = [
                                                 'published' => 'success',
@@ -128,15 +128,15 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                                             </td>
 
                                             <td>
-                                                <?= htmlspecialchars($row['teacher_name'] ?? 'Chưa cập nhật') ?>
+                                                <?= htmlspecialchars($row['teacher_name'] ?? 'ChÆ°a cáº­p nháº­t') ?>
                                             </td>
 
                                             <td>
                                                 <?php if ($row['price'] == 0): ?>
-                                                    <span class="badge badge-success">Miễn phí</span>
+                                                    <span class="badge badge-success">Miá»n phÃ­</span>
                                                 <?php else: ?>
                                                     <span class="font-weight-bold text-danger">
-                                                        <?= number_format($row['price'], 0, ',', '.') ?> đ
+                                                        <?= number_format($row['price'], 0, ',', '.') ?> Ä
                                                     </span>
                                                 <?php endif; ?>
                                             </td>
@@ -151,13 +151,13 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                                                 <?php if ($role != 'admins'): ?>
                                                 <a href="EditKhoaHoc.php?id=<?= $row['id'] ?>"
                                                    class="btn btn-outline-info btn-sm action-btn"
-                                                   title="Sửa">
+                                                   title="Sá»­a">
                                                     <i class="mdi mdi-pencil"></i>
                                                 </a>
 
                                                 <a href="DeleteKhoaHoc.php?id=<?= $row['id'] ?>"
                                                    class="btn btn-outline-danger btn-sm action-btn"
-                                                   onclick="return confirm('Xóa khóa học này?')"
+                                                   onclick="return confirm('Xóa khÃ³a há»c nÃ y?')"
                                                    title="Xóa">
                                                     <i class="mdi mdi-delete"></i>
                                                 </a>
@@ -173,7 +173,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                                             <div class="py-5">
                                                 <i class="mdi mdi-book-open-page-variant mdi-48px text-muted"></i>
                                                 <p class="mt-2 text-muted">
-                                                    Chưa có khóa học nào. Thêm ngay cho vui 😎
+                                                    ChÆ°a cÃ³ khÃ³a há»c nÃ o. Thêm ngay cho vui ð
                                                 </p>
                                             </div>
                                         </td>

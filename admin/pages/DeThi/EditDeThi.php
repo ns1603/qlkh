@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_role'])) {
 }
 
 if ($_SESSION['user_role'] == 'admins') {
-    die("Bạn không có quyền thực hiện hành động này!");
+    die("Báº¡n khÃ´ng cÃ³ quyá»n thá»±c hiá»n hÃ nh Äá»ng nÃ y!");
 }
 
 $user_id = $_SESSION['user_id'];
@@ -22,7 +22,7 @@ if ($quiz_id <= 0) {
 }
 
 /* =======================
-   LẤY THÔNG TIN ĐỀ THI
+   Láº¤Y THÃNG TIN Äá» THI
 ======================= */
 $sql_quiz = "SELECT q.*, c.teacher_id 
              FROM quizzes q 
@@ -30,18 +30,18 @@ $sql_quiz = "SELECT q.*, c.teacher_id
              WHERE q.id = $quiz_id";
 $quiz = $conn->query($sql_quiz)->fetch_assoc();
 if (!$quiz) {
-    die("❌ Đề thi không tồn tại");
+    die("â Äá» thi khÃ´ng tá»n táº¡i");
 }
 
 /* =======================
-   KIỂM TRA QUYỀN SỞ HỮU
+   KIá»M TRA QUYá»N Sá» Há»®U
 ======================= */
 if ($role == 'teacher' && $quiz['teacher_id'] != $user_id) {
-    die("❌ Bạn không có quyền chỉnh sửa đề thi này!");
+    die("â Báº¡n khÃ´ng cÃ³ quyá»n chá»nh sá»­a Äá» thi nÃ y!");
 }
 
 /* =======================
-   LẤY DANH SÁCH KHÓA HỌC
+   Láº¤Y DANH SÃCH KHÃA Há»C
 ======================= */
 $sql_courses = "SELECT id, title FROM courses";
 if ($role == 'teacher') {
@@ -50,7 +50,7 @@ if ($role == 'teacher') {
 $courses = $conn->query($sql_courses);
 
 /* =======================
-   XỬ LÝ SUBMIT
+   Xá»¬ LÃ SUBMIT
 ======================= */
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $course_id  = intval($_POST['course_id']);
@@ -58,12 +58,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $time_limit = intval($_POST['time_limit']);
 
     if ($course_id <= 0 || $title === '') {
-        $error = "Vui lòng nhập đầy đủ thông tin!";
+        $error = "Vui lÃ²ng nháº­p Äáº§y Äá»§ thÃ´ng tin!";
     } elseif ($time_limit <= 0) {
-        $error = "Thời gian làm bài phải lớn hơn 0!";
+        $error = "Thá»i gian lÃ m bÃ i pháº£i lá»n hÆ¡n 0!";
     } else {
 
-        // 1. Update thông tin đề thi
+        // 1. Update thÃ´ng tin Äá» thi
         $stmt = $conn->prepare("
             UPDATE quizzes 
             SET course_id = ?, title = ?, time_limit = ?
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($stmt->execute()) {
 
-            // 2. Import CSV (nếu có)
+            // 2. Import CSV (náº¿u cÃ³)
             if (isset($_FILES['quiz_file']) && $_FILES['quiz_file']['error'] === UPLOAD_ERR_OK) {
                 require_once __DIR__ . '/ImportQuizHelper.php';
                 $imported = import_quiz_from_csv(
@@ -83,15 +83,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 );
 
                 $_SESSION['status_message'] =
-                    "✔️ Cập nhật đề thi thành công. Import thêm $imported câu hỏi.";
+                    "âï¸ Cáº­p nháº­t Äá» thi thÃ nh cÃ´ng. Import thÃªm $imported cÃ¢u há»i.";
             } else {
-                $_SESSION['status_message'] = "✔️ Cập nhật đề thi thành công.";
+                $_SESSION['status_message'] = "âï¸ Cáº­p nháº­t Äá» thi thÃ nh cÃ´ng.";
             }
 
             header("Location: ListDeThi.php");
             exit;
         } else {
-            $error = "Lỗi cập nhật: " . $conn->error;
+            $error = "Lá»i cáº­p nháº­t: " . $conn->error;
         }
     }
 }
@@ -109,7 +109,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
 <div class="content-wrapper">
 
 <div class="page-header">
-    <h3 class="page-title">Chỉnh sửa đề thi</h3>
+    <h3 class="page-title">Chá»nh sá»­a Äá» thi</h3>
 </div>
 
 <div class="row">
@@ -117,7 +117,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
 <div class="card">
 <div class="card-body">
 
-<h4 class="card-title">Thông tin đề thi</h4>
+<h4 class="card-title">ThÃ´ng tin Äá» thi</h4>
 <?php if($error): ?>
     <div class="alert alert-danger"><?= $error ?></div>
 <?php endif; ?>
@@ -125,7 +125,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
 <form method="POST" enctype="multipart/form-data">
 
     <div class="form-group">
-        <label>Khóa học</label>
+        <label>KhÃ³a há»c</label>
         <select name="course_id" class="form-select" required>
             <?php while($c = $courses->fetch_assoc()): ?>
                 <option value="<?= $c['id'] ?>"
@@ -137,13 +137,13 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
     </div>
 
     <div class="form-group">
-        <label>Tên đề thi</label>
+        <label>TÃªn Äá» thi</label>
         <input type="text" name="title" class="form-control"
                value="<?= htmlspecialchars($quiz['title']) ?>" required>
     </div>
 
     <div class="form-group">
-        <label>Thời gian làm bài (phút)</label>
+        <label>Thá»i gian lÃ m bÃ i (phÃºt)</label>
         <input type="number" name="time_limit" class="form-control"
                min="1" max="180"
                value="<?= $quiz['time_limit'] ?>" required>
@@ -152,17 +152,17 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
     <hr>
 
     <div class="form-group">
-        <label>Import thêm câu hỏi từ CSV</label>
+        <label>Import thÃªm cÃ¢u há»i tá»« CSV</label>
         <input type="file" name="quiz_file"
                class="form-control form-control-sm"
                accept=".csv">
         <small class="text-muted">
-            CSV: Câu hỏi, A, B, C, D, Đáp án đúng (A/B/C/D)
+            CSV: CÃ¢u há»i, A, B, C, D, ÄÃ¡p Ã¡n ÄÃºng (A/B/C/D)
         </small>
     </div>
 
-    <button class="btn btn-gradient-primary">Lưu thay đổi</button>
-    <a href="ListDeThi.php" class="btn btn-light">Hủy</a>
+    <button class="btn btn-gradient-primary">LÆ°u thay Äá»i</button>
+    <a href="ListDeThi.php" class="btn btn-light">Há»§y</a>
 
 </form>
 

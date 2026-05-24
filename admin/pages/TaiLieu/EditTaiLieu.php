@@ -21,8 +21,8 @@ $stmt->bind_param("i", $id);
 $stmt->execute();
 $material = $stmt->get_result()->fetch_assoc();
 
-if (!$material) die("Tài liệu không tồn tại!");
-if ($role == 'teacher' && $material['teacher_id'] != $user_id) die("Không có quyền truy cập!");
+if (!$material) die("TÃ i liá»u khÃ´ng tá»n táº¡i!");
+if ($role == 'teacher' && $material['teacher_id'] != $user_id) die("KhÃ´ng cÃ³ quyá»n truy cáº­p!");
 
 $sql_lessons = "SELECT l.id, l.title, c.title as course_name 
                 FROM lessons l JOIN courses c ON l.course_id = c.id";
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $update->bind_param("issi", $lesson_id, $file_name, $db_path, $id);
 
     if ($update->execute()) {
-        $_SESSION['status_message'] = "Cập nhật tài liệu thành công!";
+        $_SESSION['status_message'] = "Cáº­p nháº­t tÃ i liá»u thÃ nh cÃ´ng!";
         header("Location: ListTaiLieu.php");
         exit;
     }
@@ -65,7 +65,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title"> Sửa Tài liệu </h3>
+                <h3 class="page-title"> Sá»­a TÃ i liá»u </h3>
             </div>
             
             <div class="row">
@@ -75,7 +75,7 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                             <form class="forms-sample" method="POST" enctype="multipart/form-data">
                                 
                                 <div class="form-group">
-                                    <label>Thuộc Bài giảng</label>
+                                    <label>Thuá»c BÃ i giáº£ng</label>
                                     <select class="form-select" name="lesson_id">
                                         <?php while($l = $lessons->fetch_assoc()): ?>
                                             <option value="<?= $l['id'] ?>" <?= $l['id'] == $material['lesson_id'] ? 'selected' : '' ?>>
@@ -86,18 +86,18 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Tên hiển thị</label>
+                                    <label>TÃªn hiá»n thá»</label>
                                     <input type="text" class="form-control" name="file_name" value="<?= htmlspecialchars($material['file_name']) ?>" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>File đính kèm (Để trống nếu không muốn đổi)</label>
+                                    <label>File ÄÃ­nh kÃ¨m (Äá» trá»ng náº¿u khÃ´ng muá»n Äá»i)</label>
                                     <input type="file" name="attachment" class="form-control mb-2">
-                                    <small class="text-muted">Đang dùng: <a href="/qlkh/<?= $material['file_path'] ?>" target="_blank">Xem file hiện tại</a></small>
+                                    <small class="text-muted">Äang dÃ¹ng: <a href="/qlkh/<?= $material['file_path'] ?>" target="_blank">Xem file hiá»n táº¡i</a></small>
                                 </div>
 
-                                <button type="submit" class="btn btn-gradient-warning me-2">Cập nhật</button>
-                                <a href="ListTaiLieu.php" class="btn btn-light">Hủy</a>
+                                <button type="submit" class="btn btn-gradient-warning me-2">Cáº­p nháº­t</button>
+                                <a href="ListTaiLieu.php" class="btn btn-light">Há»§y</a>
                             </form>
                         </div>
                     </div>

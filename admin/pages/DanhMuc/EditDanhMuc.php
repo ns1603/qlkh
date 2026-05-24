@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admins') {
-    die('Bạn không có quyền thực hiện hành động này!');
+    die('Báº¡n khÃ´ng cÃ³ quyá»n thá»±c hiá»n hÃ nh Äá»ng nÃ y!');
 }
 include(__DIR__ . '/../../../config.php');
 
@@ -19,13 +19,13 @@ $result = $stmt->get_result();
 $category = $result->fetch_assoc();
 
 if (!$category) {
-    $_SESSION['status_message'] = "Không tìm thấy danh mục!";
+    $_SESSION['status_message'] = "KhÃ´ng tÃ¬m tháº¥y danh má»¥c!";
     header("Location: ListDanhMuc.php");
     exit;
 }
 
 function create_slug($string) {
-    $search = array('à', 'á', 'ạ', 'ả', 'ã', 'â', 'ầ', 'ấ', 'ậ', 'ẩ', 'ẫ', 'ă', 'ằ', 'ắ', 'ặ', 'ẳ', 'ẵ', 'è', 'é', 'ẹ', 'ẻ', 'ẽ', 'ê', 'ề', 'ế', 'ệ', 'ể', 'ễ', 'ì', 'í', 'ị', 'ỉ', 'ĩ', 'ò', 'ó', 'ọ', 'ỏ', 'õ', 'ô', 'ồ', 'ố', 'ộ', 'ổ', 'ỗ', 'ơ', 'ờ', 'ớ', 'ợ', 'ở', 'ỡ', 'ù', 'ú', 'ụ', 'ủ', 'ũ', 'ư', 'ừ', 'ứ', 'ự', 'ử', 'ữ', 'ỳ', 'ý', 'ỵ', 'ỷ', 'ỹ', 'đ', 'À', 'Á', 'Ạ', 'Ả', 'Ã', 'Â', 'Ầ', 'Ấ', 'Ậ', 'Ẩ', 'Ẫ', 'Ă', 'Ằ', 'Ắ', 'Ặ', 'Ẳ', 'Ẵ', 'È', 'É', 'Ẹ', 'Ẻ', 'Ẽ', 'Ê', 'Ề', 'Ế', 'Ệ', 'Ể', 'Ễ', 'Ì', 'Í', 'Ị', 'Ỉ', 'Ĩ', 'Ò', 'Ó', 'Ọ', 'Ỏ', 'Õ', 'Ô', 'Ồ', 'Ố', 'Ộ', 'Ổ', 'Ỗ', 'Ơ', 'Ờ', 'Ớ', 'Ợ', 'Ở', 'Ỡ', 'Ù', 'Ú', 'Ụ', 'Ủ', 'Ũ', 'Ư', 'Ừ', 'Ứ', 'Ự', 'Ử', 'Ữ', 'Ỳ', 'Ý', 'Ỵ', 'Ỷ', 'Ỹ', 'Đ', ' ');
+    $search = array('Ã ', 'Ã¡', 'áº¡', 'áº£', 'Ã£', 'Ã¢', 'áº§', 'áº¥', 'áº­', 'áº©', 'áº«', 'Ä', 'áº±', 'áº¯', 'áº·', 'áº³', 'áºµ', 'Ã¨', 'Ã©', 'áº¹', 'áº»', 'áº½', 'Ãª', 'á»', 'áº¿', 'á»', 'á»', 'á»', 'Ã¬', 'Ã­', 'á»', 'á»', 'Ä©', 'Ã²', 'Ã³', 'á»', 'á»', 'Ãµ', 'Ã´', 'á»', 'á»', 'á»', 'á»', 'á»', 'Æ¡', 'á»', 'á»', 'á»£', 'á»', 'á»¡', 'Ã¹', 'Ãº', 'á»¥', 'á»§', 'Å©', 'Æ°', 'á»«', 'á»©', 'á»±', 'á»­', 'á»¯', 'á»³', 'Ã½', 'á»µ', 'á»·', 'á»¹', 'Ä', 'Ã', 'Ã', 'áº ', 'áº¢', 'Ã', 'Ã', 'áº¦', 'áº¤', 'áº¬', 'áº¨', 'áºª', 'Ä', 'áº°', 'áº®', 'áº¶', 'áº²', 'áº´', 'Ã', 'Ã', 'áº¸', 'áºº', 'áº¼', 'Ã', 'á»', 'áº¾', 'á»', 'á»', 'á»', 'Ã', 'Ã', 'á»', 'á»', 'Ä¨', 'Ã', 'Ã', 'á»', 'á»', 'Ã', 'Ã', 'á»', 'á»', 'á»', 'á»', 'á»', 'Æ ', 'á»', 'á»', 'á»¢', 'á»', 'á» ', 'Ã', 'Ã', 'á»¤', 'á»¦', 'Å¨', 'Æ¯', 'á»ª', 'á»¨', 'á»°', 'á»¬', 'á»®', 'á»²', 'Ã', 'á»´', 'á»¶', 'á»¸', 'Ä', ' ');
     $replace = array('a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'i', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'u', 'y', 'y', 'y', 'y', 'y', 'd', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'I', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'U', 'Y', 'Y', 'Y', 'Y', 'Y', 'D', '-');
     $string = str_replace($search, $replace, $string);
     $string = strtolower($string);
@@ -40,17 +40,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $slug = create_slug($name);
 
     if (empty($name)) {
-        $error = "Tên danh mục không được để trống!";
+        $error = "TÃªn danh má»¥c khÃ´ng ÄÆ°á»£c Äá» trá»ng!";
     } else {
         $updateStmt = $conn->prepare("UPDATE categories SET name=?, slug=?, description=? WHERE id=?");
         $updateStmt->bind_param("sssi", $name, $slug, $description, $id);
 
         if ($updateStmt->execute()) {
-            $_SESSION['status_message'] = "Cập nhật danh mục thành công!";
+            $_SESSION['status_message'] = "Cáº­p nháº­t danh má»¥c thÃ nh cÃ´ng!";
             header("Location: ListDanhMuc.php");
             exit;
         } else {
-            $error = "Lỗi cập nhật: " . $conn->error;
+            $error = "Lá»i cáº­p nháº­t: " . $conn->error;
         }
     }
 }
@@ -66,13 +66,13 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title"> Chỉnh sửa Danh mục </h3>
+                <h3 class="page-title"> Chá»nh sá»­a Danh má»¥c </h3>
             </div>
             <div class="row">
                 <div class="col-md-8 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Sửa thông tin: <?= htmlspecialchars($category['name']) ?></h4>
+                            <h4 class="card-title">Sá»­a thÃ´ng tin: <?= htmlspecialchars($category['name']) ?></h4>
                             
                             <?php if($error): ?>
                                 <div class="alert alert-danger"><?= $error ?></div>
@@ -80,16 +80,16 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
 
                             <form class="forms-sample" method="POST">
                                 <div class="form-group">
-                                    <label for="name">Tên Danh mục</label>
+                                    <label for="name">TÃªn Danh má»¥c</label>
                                     <input type="text" class="form-control" id="name" name="name" 
                                            value="<?= htmlspecialchars($category['name']) ?>" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="description">Mô tả</label>
+                                    <label for="description">MÃ´ táº£</label>
                                     <textarea class="form-control" id="description" name="description" rows="4"><?= htmlspecialchars($category['description']) ?></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-gradient-warning me-2">Cập nhật</button>
-                                <a href="ListDanhMuc.php" class="btn btn-light">Hủy bỏ</a>
+                                <button type="submit" class="btn btn-gradient-warning me-2">Cáº­p nháº­t</button>
+                                <a href="ListDanhMuc.php" class="btn btn-light">Há»§y bá»</a>
                             </form>
                         </div>
                     </div>

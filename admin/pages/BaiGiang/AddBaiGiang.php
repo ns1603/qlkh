@@ -5,14 +5,14 @@ include(__DIR__ . '/../../../config.php');
 if (!isset($_SESSION['user_role'])) { header("Location: ../../index.php"); exit; }
 
 if ($_SESSION['user_role'] == 'admins') {
-    die("Bạn không có quyền thực hiện hành động này!");
+    die("Báº¡n khÃ´ng cÃ³ quyá»n thá»±c hiá»n hÃ nh Äá»ng nÃ y!");
 }
 
 $user_id = $_SESSION['user_id'];
 $role = $_SESSION['user_role'];
 $error = '';
 
-// Lấy danh sách khóa học
+// Láº¥y danh sÃ¡ch khÃ³a há»c
 $sql_courses = "SELECT id, title FROM courses";
 if ($role == 'teacher') { $sql_courses .= " WHERE teacher_id = $user_id"; }
 $courses = $conn->query($sql_courses);
@@ -20,24 +20,24 @@ $courses = $conn->query($sql_courses);
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $course_id = intval($_POST['course_id']);
     
-    // Check quyền sở hữu khóa học (nếu là Teacher)
+    // Check quyá»n sá» há»¯u khÃ³a há»c (náº¿u lÃ  Teacher)
     if ($role == 'teacher') {
         $check = $conn->query("SELECT id FROM courses WHERE id = $course_id AND teacher_id = $user_id");
         if ($check->num_rows === 0) {
-            die("Bạn không có quyền đăng bài vào khóa học này!");
+            die("Báº¡n khÃ´ng cÃ³ quyá»n ÄÄng bÃ i vÃ o khÃ³a há»c nÃ y!");
         }
     }
 
     $title = trim($_POST['title']);
-    $content = trim($_POST['content']); // Đây chính là phần TEXT
+    $content = trim($_POST['content']); // ÄÃ¢y chÃ­nh lÃ  pháº§n TEXT
     $video_type = $_POST['video_type'];
     $video_url = '';
-    $audio_url = ''; // Biến lưu đường dẫn Audio
+    $audio_url = ''; // Biáº¿n lÆ°u ÄÆ°á»ng dáº«n Audio
 
     if (empty($title) || empty($course_id)) {
-        $error = "Vui lòng nhập tên bài giảng!";
+        $error = "Vui lÃ²ng nháº­p tÃªn bÃ i giáº£ng!";
     } else {
-        // 1. XỬ LÝ VIDEO (Giữ nguyên logic cũ)
+        // 1. Xá»¬ LÃ VIDEO (Giá»¯ nguyÃªn logic cÅ©)
         if ($video_type == 'youtube') {
             $video_url = trim($_POST['youtube_url']);
         } elseif ($video_type == 'file') {
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
 
-        // 2. XỬ LÝ AUDIO (Mới thêm)
+        // 2. Xá»¬ LÃ AUDIO (Má»i thÃªm)
         if (isset($_FILES['audio_file']) && $_FILES['audio_file']['error'] == 0) {
             $allowed_audio = ['mp3', 'wav', 'ogg', 'm4a'];
             $ext_audio = strtolower(pathinfo($_FILES['audio_file']['name'], PATHINFO_EXTENSION));
@@ -68,11 +68,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $audio_url = 'uploads/audio/' . $name_audio;
                 }
             } else {
-                $error = "File âm thanh không hợp lệ (Chỉ hỗ trợ MP3, WAV, OGG)";
+                $error = "File Ã¢m thanh khÃ´ng há»£p lá» (Chá» há» trá»£ MP3, WAV, OGG)";
             }
         }
 
-        // 3. XỬ LÝ TÀI LIỆU (Giữ nguyên)
+        // 3. Xá»¬ LÃ TÃI LIá»U (Giá»¯ nguyÃªn)
         $attachment = '';
         if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] == 0) {
             $target_dir = "../../../uploads/materials/";
@@ -89,11 +89,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->bind_param("isssss", $course_id, $title, $video_url, $audio_url, $content, $attachment);
 
             if ($stmt->execute()) {
-                $_SESSION['status_message'] = "Thêm bài giảng thành công!";
+                $_SESSION['status_message'] = "Thêm bÃ i giáº£ng thÃ nh cÃ´ng!";
                 header("Location: ListBaiGiang.php");
                 exit;
             } else {
-                $error = "Lỗi Database: " . $conn->error;
+                $error = "Lá»i Database: " . $conn->error;
             }
         }
     }
@@ -104,20 +104,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <div class="container-fluid page-body-wrapper">
     <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/sidebar.php"; ?>
     <div class="main-panel"><div class="content-wrapper"><div class="row"><div class="col-12 grid-margin stretch-card"><div class="card"><div class="card-body">
-        <h4 class="card-title">Thêm Bài Giảng</h4>
+        <h4 class="card-title">Thêm BÃ i Giáº£ng</h4>
         <?php if($error): ?><div class="alert alert-danger"><?= $error ?></div><?php endif; ?>
 
         <form method="POST" enctype="multipart/form-data">
             <div class="form-group">
-                <label>Khóa học</label>
+                <label>KhÃ³a há»c</label>
                 <select class="form-select" name="course_id" required>
                     <?php while($c = $courses->fetch_assoc()): ?><option value="<?= $c['id'] ?>"><?= $c['title'] ?></option><?php endwhile; ?>
                 </select>
             </div>
-            <div class="form-group"><label>Tên bài</label><input type="text" class="form-control" name="title" required></div>
+            <div class="form-group"><label>TÃªn bÃ i</label><input type="text" class="form-control" name="title" required></div>
 
             <div class="form-group border p-3 bg-light">
-                <label class="fw-bold">1. Video bài giảng</label>
+                <label class="fw-bold">1. Video bÃ i giáº£ng</label>
                 <div class="form-check"><label><input type="radio" name="video_type" value="youtube" checked onchange="toggleVideo()"> Link YouTube</label></div>
                 <div class="form-check"><label><input type="radio" name="video_type" value="file" onchange="toggleVideo()"> Upload File Video</label></div>
                 <div id="box_youtube"><input type="url" class="form-control" name="youtube_url" placeholder="Link Youtube..."></div>
@@ -125,19 +125,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
 
             <div class="form-group border p-3 bg-light mt-3">
-                <label class="fw-bold">2. Audio / Podcast (Tùy chọn)</label>
+                <label class="fw-bold">2. Audio / Podcast (TÃ¹y chá»n)</label>
                 <input type="file" class="form-control" name="audio_file" accept=".mp3,.wav,.ogg,.m4a">
-                <small class="text-muted">Dùng cho bài nghe, podcast (MP3, WAV).</small>
+                <small class="text-muted">DÃ¹ng cho bÃ i nghe, podcast (MP3, WAV).</small>
             </div>
 
-            <div class="form-group mt-3"><label>Tài liệu đính kèm</label><input type="file" name="attachment" class="form-control"></div>
+            <div class="form-group mt-3"><label>TÃ i liá»u ÄÃ­nh kÃ¨m</label><input type="file" name="attachment" class="form-control"></div>
             
             <div class="form-group">
-                <label class="fw-bold">3. Nội dung văn bản (Text)</label>
-                <textarea class="form-control" name="content" rows="10" placeholder="Nhập nội dung bài đọc, ghi chú..."></textarea>
+                <label class="fw-bold">3. Ná»i dung vÄn báº£n (Text)</label>
+                <textarea class="form-control" name="content" rows="10" placeholder="Nháº­p ná»i dung bÃ i Äá»c, ghi chÃº..."></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary me-2">Lưu bài giảng</button>
+            <button type="submit" class="btn btn-primary me-2">LÆ°u bÃ i giáº£ng</button>
         </form>
     </div></div></div></div></div>
     <?php include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/footer.php"; ?></div>
@@ -153,10 +153,10 @@ function toggleVideo() {
 <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 
 <script>
-    // Tìm thẻ textarea có name="content" và biến nó thành bộ soạn thảo xịn
+    // TÃ¬m tháº» textarea cÃ³ name="content" vÃ  biáº¿n nÃ³ thÃ nh bá» soáº¡n tháº£o xá»n
     CKEDITOR.replace('content', {
-        height: 300, // Chiều cao khung soạn thảo
-        removePlugins: 'resize', // Tắt chức năng kéo giãn
-        // Cấu hình thêm nếu muốn (ví dụ cho phép chèn ảnh từ URL)
+        height: 300, // Chiá»u cao khung soáº¡n tháº£o
+        removePlugins: 'resize', // Táº¯t chá»©c nÄng kÃ©o giÃ£n
+        // Cáº¥u hÃ¬nh thÃªm náº¿u muá»n (vÃ­ dá»¥ cho phÃ©p chÃ¨n áº£nh tá»« URL)
     });
 </script>

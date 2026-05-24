@@ -3,16 +3,16 @@ session_start();
 include(__DIR__ . '/../../../config.php');
 
 if (!isset($_SESSION['user_id'])) {
-    die("Truy cập bị từ chối!");
+    die("Truy cáº­p bá» tá»« chá»i!");
 }
 
 $user_id = (int)$_SESSION['user_id'];
 
 /*
- Lấy thông báo:
- - Ghim lên đầu
- - Ưu tiên trước
- - Mới nhất trước
+ Láº¥y thÃ´ng bÃ¡o:
+ - Ghim lÃªn Äáº§u
+ - Æ¯u tiÃªn trÆ°á»c
+ - Má»i nháº¥t trÆ°á»c
 */
 $sql = "
     SELECT 
@@ -61,37 +61,37 @@ $result = $stmt->get_result();
 <div class="main-panel">
 <div class="content-wrapper">
 
-<h3 class="mb-4">🔔 Thông báo của bạn</h3>
+<h3 class="mb-4">ð ThÃ´ng bÃ¡o cá»§a báº¡n</h3>
 
 <?php if ($result->num_rows === 0): ?>
-    <div class="alert alert-info">Bạn chưa có thông báo nào.</div>
+    <div class="alert alert-info">Báº¡n chÆ°a cÃ³ thÃ´ng bÃ¡o nÃ o.</div>
 <?php endif; ?>
 
 <?php while ($row = $result->fetch_assoc()): ?>
 
 <?php
-    /* ===== XÁC ĐỊNH NGƯỜI GỬI ===== */
+    /* ===== XÃC Äá»NH NGÆ¯á»I Gá»¬I ===== */
     if ($row['sender_type'] === 'admin') {
-        $senderName = 'Hệ thống';
+        $senderName = 'Há» thá»ng';
         $roleBadge  = '<span class="badge badge-danger">ADMIN</span>';
     } else {
-        $senderName = htmlspecialchars($row['user_name'] ?? 'Không xác định');
+        $senderName = htmlspecialchars($row['user_name'] ?? 'KhÃ´ng xÃ¡c Äá»nh');
 
         if ($row['user_role'] === 'teacher') {
-            $roleBadge = '<span class="badge badge-primary">GIÁO VIÊN</span>';
+            $roleBadge = '<span class="badge badge-primary">GIÃO VIÃN</span>';
         } else {
-            $roleBadge = '<span class="badge badge-secondary">HỆ THỐNG</span>';
+            $roleBadge = '<span class="badge badge-secondary">Há» THá»NG</span>';
         }
     }
 
-    /* ===== ƯU TIÊN ===== */
+    /* ===== Æ¯U TIÃN ===== */
     $priorityBadge = '';
     if ($row['priority'] === 'important') {
-        $priorityBadge = '<span class="badge badge-warning ms-2">ƯU TIÊN</span>';
+        $priorityBadge = '<span class="badge badge-warning ms-2">Æ¯U TIÃN</span>';
     }
 
     /* ===== GHIM ===== */
-    $pinIcon = $row['is_pinned'] ? '📌 ' : '';
+    $pinIcon = $row['is_pinned'] ? 'ð ' : '';
 ?>
 
 <div class="card mb-3 <?= $row['priority'] === 'important' ? 'border-warning' : '' ?>">
@@ -105,8 +105,8 @@ $result = $stmt->get_result();
 
         <p class="text-muted mb-1">
             <?= $roleBadge ?>
-            Gửi bởi <strong><?= $senderName ?></strong>
-            • <?= date("d/m/Y H:i", strtotime($row['created_at'])) ?>
+            Gá»­i bá»i <strong><?= $senderName ?></strong>
+            â¢ <?= date("d/m/Y H:i", strtotime($row['created_at'])) ?>
         </p>
 
         <p class="card-text">

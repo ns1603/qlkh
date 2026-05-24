@@ -2,7 +2,7 @@
 session_start();
 include(__DIR__ . '/../../../config.php');
 if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] != 'admins' && $_SESSION['user_role'] != 'admin')) {
-    die("Truy cập bị từ chối!");
+    die("Truy cáº­p bá» tá»« chá»i!");
 }
 
 $sql = "SELECT tc.*, u.fullname, u.email 
@@ -23,7 +23,7 @@ unset($_SESSION['status_message']);
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title"> Quản lý Hợp đồng Giáo viên </h3>
+                <h3 class="page-title"> Quáº£n lÃ½ Há»£p Äá»ng GiÃ¡o viÃªn </h3>
             </div>
             
             <div class="row">
@@ -31,9 +31,9 @@ unset($_SESSION['status_message']);
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h4 class="card-title">Danh sách Hợp đồng (<?= $result->num_rows ?>)</h4>
+                                <h4 class="card-title">Danh sÃ¡ch Há»£p Äá»ng (<?= $result->num_rows ?>)</h4>
                                 <a href="AddHopDongGV.php" class="btn btn-sm btn-gradient-primary">
-                                    <i class="mdi mdi-file-document-box-plus"></i> Tạo Hợp đồng mới
+                                    <i class="mdi mdi-file-document-box-plus"></i> Táº¡o Há»£p Äá»ng má»i
                                 </a>
                             </div>
 
@@ -43,13 +43,13 @@ unset($_SESSION['status_message']);
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Mã HĐ</th>
-                                            <th>Giáo viên</th>
-                                            <th>Tỷ lệ chia sẻ</th>
-                                            <th>Hiệu lực</th>
+                                            <th>MÃ£ HÄ</th>
+                                            <th>GiÃ¡o viÃªn</th>
+                                            <th>Tá»· lá» chia sáº»</th>
+                                            <th>Hiá»u lá»±c</th>
                                             <th>File scan</th>
-                                            <th>Trạng thái</th>
-                                            <th>Hành động</th>
+                                            <th>Tráº¡ng thÃ¡i</th>
+                                            <th>HÃ nh Äá»ng</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -63,7 +63,7 @@ unset($_SESSION['status_message']);
                                             <td class="text-primary fw-bold"><?= $row['revenue_share'] ?>%</td>
                                             <td>
                                                 <?= date('d/m/Y', strtotime($row['start_date'])) ?> <br>
-                                                đến <?= date('d/m/Y', strtotime($row['end_date'])) ?>
+                                                Äáº¿n <?= date('d/m/Y', strtotime($row['end_date'])) ?>
                                             </td>
                                             <td>
                                                 <?php if(!empty($row['file_path'])): ?>
@@ -71,18 +71,18 @@ unset($_SESSION['status_message']);
                                                         <i class="mdi mdi-file-pdf"></i> Xem
                                                     </a>
                                                 <?php else: ?>
-                                                    <span class="text-muted">Chưa upload</span>
+                                                    <span class="text-muted">ChÆ°a upload</span>
                                                 <?php endif; ?>
                                             </td>
                                             <td>
                                                 <?php if($row['status']=='active'): ?>
-                                                    <label class="badge badge-success">Hiệu lực</label>
+                                                    <label class="badge badge-success">Hiá»u lá»±c</label>
                                                 <?php else: ?>
-                                                    <label class="badge badge-danger">Hết hạn</label>
+                                                    <label class="badge badge-danger">Háº¿t háº¡n</label>
                                                 <?php endif; ?>
                                             </td>
                                             <td>
-                                                <a href="DeleteHopDongGV.php?id=<?= $row['id'] ?>" class="btn btn-inverse-danger btn-sm" onclick="return confirm('Xóa hợp đồng này?')">
+                                                <a href="DeleteHopDongGV.php?id=<?= $row['id'] ?>" class="btn btn-inverse-danger btn-sm" onclick="return confirm('Xóa há»£p Äá»ng nÃ y?')">
                                                     <i class="mdi mdi-delete"></i>
                                                 </a>
                                             </td>

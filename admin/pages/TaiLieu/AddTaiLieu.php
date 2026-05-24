@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $lesson_id = intval($_POST['lesson_id']);
     $file_name = trim($_POST['file_name']);
     if (empty($lesson_id) || empty($file_name) || empty($_FILES['attachment']['name'])) {
-        $error = "Vui lòng nhập tên tài liệu, chọn bài giảng và file đính kèm!";
+        $error = "Vui lÃ²ng nháº­p tÃªn tÃ i liá»u, chá»n bÃ i giáº£ng vÃ  file ÄÃ­nh kÃ¨m!";
     } else {
         if ($_FILES['attachment']['error'] == 0) {
             $target_dir = "../../../uploads/materials/";
@@ -41,14 +41,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt->bind_param("iss", $lesson_id, $db_path, $file_name);
 
                 if ($stmt->execute()) {
-                    $_SESSION['status_message'] = "Upload tài liệu thành công!";
+                    $_SESSION['status_message'] = "Upload tÃ i liá»u thÃ nh cÃ´ng!";
                     header("Location: ListTaiLieu.php");
                     exit;
                 } else {
-                    $error = "Lỗi Database: " . $conn->error;
+                    $error = "Lá»i Database: " . $conn->error;
                 }
             } else {
-                $error = "Không thể upload file. Kiểm tra quyền ghi thư mục!";
+                $error = "KhÃ´ng thá» upload file. Kiá»m tra quyá»n ghi thÆ° má»¥c!";
             }
         }
     }
@@ -65,14 +65,14 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title"> Upload Tài liệu </h3>
+                <h3 class="page-title"> Upload TÃ i liá»u </h3>
             </div>
             
             <div class="row">
                 <div class="col-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Thông tin tài liệu</h4>
+                            <h4 class="card-title">ThÃ´ng tin tÃ i liá»u</h4>
                             
                             <?php if($error): ?>
                                 <div class="alert alert-danger"><?= $error ?></div>
@@ -81,9 +81,9 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                             <form class="forms-sample" method="POST" enctype="multipart/form-data">
                                 
                                 <div class="form-group">
-                                    <label>Thuộc Bài giảng <span class="text-danger">*</span></label>
+                                    <label>Thuá»c BÃ i giáº£ng <span class="text-danger">*</span></label>
                                     <select class="form-select" name="lesson_id" required>
-                                        <option value="">-- Chọn bài giảng --</option>
+                                        <option value="">-- Chá»n bÃ i giáº£ng --</option>
                                         <?php 
                                         $current_course = "";
                                         while($l = $lessons->fetch_assoc()): 
@@ -99,17 +99,17 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Tên hiển thị (Display Name) <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="file_name" placeholder="VD: Slide thuyết trình chương 1" required>
+                                    <label>TÃªn hiá»n thá» (Display Name) <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="file_name" placeholder="VD: Slide thuyáº¿t trÃ¬nh chÆ°Æ¡ng 1" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Chọn File (PDF, Docx, Zip...) <span class="text-danger">*</span></label>
+                                    <label>Chá»n File (PDF, Docx, Zip...) <span class="text-danger">*</span></label>
                                     <input type="file" name="attachment" class="form-control" required>
                                 </div>
 
-                                <button type="submit" class="btn btn-gradient-primary me-2">Lưu lại</button>
-                                <a href="ListTaiLieu.php" class="btn btn-light">Hủy</a>
+                                <button type="submit" class="btn btn-gradient-primary me-2">LÆ°u láº¡i</button>
+                                <a href="ListTaiLieu.php" class="btn btn-light">Há»§y</a>
                             </form>
                         </div>
                     </div>

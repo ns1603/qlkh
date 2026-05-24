@@ -2,36 +2,36 @@
 session_start();
 include(__DIR__ . '/../../../config.php');
 
-// 1. CHECK QUYỀN
+// 1. CHECK QUYá»N
 if (!isset($_SESSION['user_role'])) {
     header("Location: ../../index.php");
     exit;
 }
 
 if ($_SESSION['user_role'] == 'admins') {
-    die("Bạn không có quyền thực hiện hành động này!");
+    die("Báº¡n khÃ´ng cÃ³ quyá»n thá»±c hiá»n hÃ nh Äá»ng nÃ y!");
 }
 
 $user_id = $_SESSION['user_id'];
 $role = $_SESSION['user_role'];
 $error = '';
 
-// 2. LẤY DANH SÁCH KHÓA HỌC
+// 2. Láº¤Y DANH SÃCH KHÃA Há»C
 $sql_courses = "SELECT id, title FROM courses";
 if ($role == 'teacher') {
     $sql_courses .= " WHERE teacher_id = $user_id";
 }
 $courses = $conn->query($sql_courses);
 
-// 3. XỬ LÝ KHI BẤM LƯU
+// 3. Xá»¬ LÃ KHI Báº¤M LÆ¯U
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $course_id = intval($_POST['course_id']);
     
-    // Check quyền sở hữu khóa học cho Teacher
+    // Check quyá»n sá» há»¯u khÃ³a há»c cho Teacher
     if ($role == 'teacher') {
         $check = $conn->query("SELECT id FROM courses WHERE id = $course_id AND teacher_id = $user_id");
         if ($check->num_rows === 0) {
-            die("Bạn không có quyền thêm đề thi vào khóa học này!");
+            die("Báº¡n khÃ´ng cÃ³ quyá»n thÃªm Äá» thi vÃ o khÃ³a há»c nÃ y!");
         }
     }
 
@@ -39,31 +39,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $time_limit = isset($_POST['time_limit']) ? intval($_POST['time_limit']) : 45;
 
     if (empty($title) || empty($course_id)) {
-        $error = "Vui lòng nhập tên đề thi và chọn khóa học!";
+        $error = "Vui lÃ²ng nháº­p tÃªn Äá» thi vÃ  chá»n khÃ³a há»c!";
     } elseif ($time_limit <= 0) {
-        $error = "Thời gian làm bài phải lớn hơn 0 phút!";
+        $error = "Thá»i gian lÃ m bÃ i pháº£i lá»n hÆ¡n 0 phÃºt!";
     } else {
-        // A. TẠO ĐỀ THI TRƯỚC
+        // A. Táº O Äá» THI TRÆ¯á»C
         $stmt = $conn->prepare("INSERT INTO quizzes (course_id, title, time_limit) VALUES (?, ?, ?)");
         $stmt->bind_param("isi", $course_id, $title, $time_limit);
         
         if ($stmt->execute()) {
-            $quiz_id = $conn->insert_id; // Lấy ID đề thi vừa tạo
+            $quiz_id = $conn->insert_id; // Láº¥y ID Äá» thi vá»«a táº¡o
             $imported_count = 0;
 
-            // B. XỬ LÝ FILE CSV (NẾU CÓ)
+            // B. Xá»¬ LÃ FILE CSV (Náº¾U CÃ)
             if (isset($_FILES['quiz_file']) && $_FILES['quiz_file']['size'] > 0) {
                 $filename = $_FILES['quiz_file']['tmp_name'];
                 $file = fopen($filename, "r");
 
-                // Bỏ qua dòng tiêu đề (Header)
+                // Bá» qua dÃ²ng tiÃªu Äá» (Header)
                 fgetcsv($file);
 
                 while (($data = fgetcsv($file, 10000, ",")) !== FALSE) {
-                    // Kiểm tra dòng dữ liệu có đủ tối thiểu 7 cột không (tránh dòng trống)
+                    // Kiá»m tra dÃ²ng dá»¯ liá»u cÃ³ Äá»§ tá»i thiá»u 7 cá»t khÃ´ng (trÃ¡nh dÃ²ng trá»ng)
                     if (count($data) < 7) continue;
 
-                    /* MAPPING CỘT (Theo chuẩn 8 cột)
+                    /* MAPPING Cá»T (Theo chuáº©n 8 cá»t)
                        0: Level | 1: Question | 2: A | 3: B | 4: C | 5: D | 6: Correct | 7: Explain
                     */
                     $level          = $data[0] ?? 'easy';
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $correct_answer = strtoupper(trim($data[6])); // A, B, C, D
                     $explanation    = $data[7] ?? '';
 
-                    // Insert câu hỏi vào DB
+                    // Insert cÃ¢u há»i vÃ o DB
                     $sql_q = "INSERT INTO questions (quiz_id, question_text, option_a, option_b, option_c, option_d, correct_answer, explanation, level) 
                               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                     $stmt_q = $conn->prepare($sql_q);
@@ -88,17 +88,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 fclose($file);
             }
 
-            // Thông báo kết quả
+            // ThÃ´ng bÃ¡o káº¿t quáº£
             if ($imported_count > 0) {
-                $_SESSION['status_message'] = "Thêm đề thi thành công và đã import $imported_count câu hỏi!";
+                $_SESSION['status_message'] = "Thêm Äá» thi thÃ nh cÃ´ng vÃ  ÄÃ£ import $imported_count cÃ¢u há»i!";
             } else {
-                $_SESSION['status_message'] = "Thêm đề thi thành công! (Chưa có câu hỏi nào được thêm).";
+                $_SESSION['status_message'] = "Thêm Äá» thi thÃ nh cÃ´ng! (ChÆ°a cÃ³ cÃ¢u há»i nÃ o ÄÆ°á»£c thÃªm).";
             }
 
             header("Location: ListDeThi.php");
             exit;
         } else {
-            $error = "Lỗi Database: " . $conn->error;
+            $error = "Lá»i Database: " . $conn->error;
         }
     }
 }
@@ -114,20 +114,20 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title"> Tạo Đề thi mới </h3>
+                <h3 class="page-title"> Táº¡o Äá» thi má»i </h3>
             </div>
             <div class="row">
                 <div class="col-md-8 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Thông tin đề thi</h4>
+                            <h4 class="card-title">ThÃ´ng tin Äá» thi</h4>
                             <?php if($error): ?><div class="alert alert-danger"><?= $error ?></div><?php endif; ?>
 
                             <form class="forms-sample" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
-                                    <label>Chọn Khóa Học <span class="text-danger">*</span></label>
+                                    <label>Chá»n KhÃ³a Há»c <span class="text-danger">*</span></label>
                                     <select class="form-select" name="course_id" required>
-                                        <option value="">-- Chọn khóa học --</option>
+                                        <option value="">-- Chá»n khÃ³a há»c --</option>
                                         <?php while($c = $courses->fetch_assoc()): ?>
                                             <option value="<?= $c['id'] ?>"><?= htmlspecialchars($c['title']) ?></option>
                                         <?php endwhile; ?>
@@ -135,18 +135,18 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Tên bài kiểm tra</label>
-                                    <input type="text" class="form-control" name="title" placeholder="VD: Kiểm tra giữa kỳ..." required>
+                                    <label>TÃªn bÃ i kiá»m tra</label>
+                                    <input type="text" class="form-control" name="title" placeholder="VD: Kiá»m tra giá»¯a ká»³..." required>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Thời gian làm bài (phút) <span class="text-danger">*</span></label>
+                                    <label>Thá»i gian lÃ m bÃ i (phÃºt) <span class="text-danger">*</span></label>
                                     <input type="number" class="form-control" name="time_limit" value="45" min="1" max="180" required>
                                 </div>
 
                                 <div class="form-group border p-3 bg-light rounded mt-4">
                                     <label class="font-weight-bold text-primary">
-                                        <i class="mdi mdi-file-import"></i> Import câu hỏi từ file (CSV)
+                                        <i class="mdi mdi-file-import"></i> Import cÃ¢u há»i tá»« file (CSV)
                                     </label>
                                     
                                     <input type="file" name="quiz_file" class="form-control mt-2" accept=".csv">
@@ -154,11 +154,11 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                                     <div class="mt-2">
                                         <small class="text-muted d-block mb-1">
                                             <i class="mdi mdi-alert-circle-outline"></i> 
-                                            Lưu ý: File phải lưu dưới dạng <b>UTF-8</b> để không lỗi font tiếng Việt.
+                                            LÆ°u Ã½: File pháº£i lÆ°u dÆ°á»i dáº¡ng <b>UTF-8</b> Äá» khÃ´ng lá»i font tiáº¿ng Viá»t.
                                         </small>
                                         
                                         <small class="text-muted d-block">
-                                            Thứ tự cột bắt buộc (8 cột): <br>
+                                            Thá»© tá»± cá»t báº¯t buá»c (8 cá»t): <br>
                                             <code style="background: #e9ecef; padding: 2px 5px; border-radius: 4px; color: #d63384;">
                                                 Level, Question, A, B, C, D, Correct, Explain
                                             </code>
@@ -167,8 +167,8 @@ include $_SERVER['DOCUMENT_ROOT'] . "/qlkh/admin/navbar.php";
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-gradient-primary me-2 mt-3">Lưu & Tiếp tục</button>
-                                <a href="ListDeThi.php" class="btn btn-light mt-3">Hủy</a>
+                                <button type="submit" class="btn btn-gradient-primary me-2 mt-3">LÆ°u & Tiáº¿p tá»¥c</button>
+                                <a href="ListDeThi.php" class="btn btn-light mt-3">Há»§y</a>
                             </form>
                         </div>
                     </div>
