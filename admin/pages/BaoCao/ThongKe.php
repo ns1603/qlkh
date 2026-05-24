@@ -3,12 +3,12 @@ session_start();
 include(__DIR__ . '/../../../config.php');
 
 if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] != 'admins' && $_SESSION['user_role'] != 'admin')) {
-    die("Báº¡n khÃ´ng cÃ³ quyá»n xem bÃ¡o cÃ¡o!");
+    die("Bạn không có quyền xem báo cáo!");
 }
 
 $start_date = isset($_GET['from_date']) ? $_GET['from_date'] : date('Y-m-01');
 $end_date   = isset($_GET['to_date']) ? $_GET['to_date'] : date('Y-m-d');
-$cost_percent = isset($_GET['cost_percent']) ? intval($_GET['cost_percent']) : 0; // % Chi phÃ­ Æ°á»c tÃ­nh (Máº·c Äá»nh 0%)
+$cost_percent = isset($_GET['cost_percent']) ? intval($_GET['cost_percent']) : 0; // % Chi phí ước tính (Mặc định 0%)
 
 
 $sql_filter = "SELECT SUM(total_amount) as total_revenue 
@@ -45,7 +45,7 @@ $js_months = json_encode(array_values($monthly_revenue));
         <div class="content-wrapper">
             
             <div class="page-header">
-                <h3 class="page-title"> BÃ¡o cÃ¡o Doanh thu & Lá»£i nhuáº­n </h3>
+                <h3 class="page-title"> Báo cáo Doanh thu & Lợi nhuận </h3>
             </div>
 
             <div class="row mb-4">
@@ -54,21 +54,21 @@ $js_months = json_encode(array_values($monthly_revenue));
                         <div class="card-body py-3">
                             <form method="GET" class="row align-items-end">
                                 <div class="col-md-3">
-                                    <label class="font-weight-bold">Tá»« ngÃ y:</label>
+                                    <label class="font-weight-bold">Từ ngày:</label>
                                     <input type="date" name="from_date" class="form-control" value="<?= $start_date ?>" required>
                                 </div>
                                 <div class="col-md-3">
-                                    <label class="font-weight-bold">Äáº¿n ngÃ y:</label>
+                                    <label class="font-weight-bold">Đến ngày:</label>
                                     <input type="date" name="to_date" class="form-control" value="<?= $end_date ?>" required>
                                 </div>
                                 <div class="col-md-3">
-                                    <label class="font-weight-bold">Chi phÃ­ Æ°á»c tÃ­nh (%):</label>
-                                    <input type="number" name="cost_percent" class="form-control" value="<?= $cost_percent ?>" min="0" max="100" placeholder="VD: 30% tráº£ GV">
-                                    <small class="text-muted">Chi phÃ­ Maketting, Tráº£ GV...</small>
+                                    <label class="font-weight-bold">Chi phí ước tính (%):</label>
+                                    <input type="number" name="cost_percent" class="form-control" value="<?= $cost_percent ?>" min="0" max="100" placeholder="VD: 30% trả GV">
+                                    <small class="text-muted">Chi phí Maketting, Trả GV...</small>
                                 </div>
                                 <div class="col-md-3">
                                     <button type="submit" class="btn btn-gradient-primary btn-block w-100">
-                                        <i class="mdi mdi-filter"></i> Xem káº¿t quáº£
+                                        <i class="mdi mdi-filter"></i> Xem kết quả
                                     </button>
                                 </div>
                             </form>
@@ -81,9 +81,9 @@ $js_months = json_encode(array_values($monthly_revenue));
                 <div class="col-md-4 stretch-card grid-margin">
                     <div class="card bg-gradient-info card-img-holder text-white">
                         <div class="card-body">
-                            <h4 class="font-weight-normal mb-3">Tá»ng Doanh Thu <i class="mdi mdi-chart-line mdi-24px float-right"></i></h4>
-                            <h2 class="mb-5"><?= number_format($revenue_filtered) ?> Ä</h2>
-                            <h6 class="card-text">Giai Äoáº¡n: <?= date('d/m', strtotime($start_date)) ?> - <?= date('d/m', strtotime($end_date)) ?></h6>
+                            <h4 class="font-weight-normal mb-3">Tổng Doanh Thu <i class="mdi mdi-chart-line mdi-24px float-right"></i></h4>
+                            <h2 class="mb-5"><?= number_format($revenue_filtered) ?> đ</h2>
+                            <h6 class="card-text">Giai đoạn: <?= date('d/m', strtotime($start_date)) ?> - <?= date('d/m', strtotime($end_date)) ?></h6>
                         </div>
                     </div>
                 </div>
@@ -91,9 +91,9 @@ $js_months = json_encode(array_values($monthly_revenue));
                 <div class="col-md-4 stretch-card grid-margin">
                     <div class="card bg-gradient-danger card-img-holder text-white">
                         <div class="card-body">
-                            <h4 class="font-weight-normal mb-3">Chi PhÃ­ (<?= $cost_percent ?>%) <i class="mdi mdi-calculator mdi-24px float-right"></i></h4>
-                            <h2 class="mb-5">- <?= number_format($total_cost) ?> Ä</h2>
-                            <h6 class="card-text">Chi phÃ­ váº­n hÃ nh Æ°á»c tÃ­nh</h6>
+                            <h4 class="font-weight-normal mb-3">Chi Phí (<?= $cost_percent ?>%) <i class="mdi mdi-calculator mdi-24px float-right"></i></h4>
+                            <h2 class="mb-5">- <?= number_format($total_cost) ?> đ</h2>
+                            <h6 class="card-text">Chi phí vận hành ước tính</h6>
                         </div>
                     </div>
                 </div>
@@ -101,9 +101,9 @@ $js_months = json_encode(array_values($monthly_revenue));
                 <div class="col-md-4 stretch-card grid-margin">
                     <div class="card bg-gradient-success card-img-holder text-white">
                         <div class="card-body">
-                            <h4 class="font-weight-normal mb-3">LÃ£i RÃ²ng (Lá»£i nhuáº­n) <i class="mdi mdi-cash-multiple mdi-24px float-right"></i></h4>
-                            <h2 class="mb-5"><?= number_format($net_profit) ?> Ä</h2>
-                            <h6 class="card-text">Tá»· suáº¥t lÃ£i: <strong><?= $profit_margin ?>%</strong></h6>
+                            <h4 class="font-weight-normal mb-3">Lãi Ròng (Lợi nhuận) <i class="mdi mdi-cash-multiple mdi-24px float-right"></i></h4>
+                            <h2 class="mb-5"><?= number_format($net_profit) ?> đ</h2>
+                            <h6 class="card-text">Tỷ suất lãi: <strong><?= $profit_margin ?>%</strong></h6>
                         </div>
                     </div>
                 </div>
@@ -113,7 +113,7 @@ $js_months = json_encode(array_values($monthly_revenue));
                 <div class="col-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Xu hÆ°á»ng doanh thu nÄm <?= $current_year ?></h4>
+                            <h4 class="card-title">Xu hướng doanh thu năm <?= $current_year ?></h4>
                             <canvas id="revenueChart" style="height:250px"></canvas>
                         </div>
                     </div>
@@ -131,9 +131,9 @@ $js_months = json_encode(array_values($monthly_revenue));
     new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['ThÃ¡ng 1', 'ThÃ¡ng 2', 'ThÃ¡ng 3', 'ThÃ¡ng 4', 'ThÃ¡ng 5', 'ThÃ¡ng 6', 'ThÃ¡ng 7', 'ThÃ¡ng 8', 'ThÃ¡ng 9', 'ThÃ¡ng 10', 'ThÃ¡ng 11', 'ThÃ¡ng 12'],
+            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
             datasets: [{
-                label: 'Doanh thu (VNÄ)',
+                label: 'Doanh thu (VNĐ)',
                 data: <?= $js_months ?>,
                 borderColor: '#b66dff',
                 backgroundColor: 'rgba(182, 109, 255, 0.2)',

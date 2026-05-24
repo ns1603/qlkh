@@ -20,8 +20,11 @@ if (!defined('BASE_PATH')) {
     if (isset($_SERVER['DOCUMENT_ROOT'])) {
         $doc_root = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
         $root_dir = ROOT_PATH;
+        
         $doc_root = rtrim($doc_root, '/');
-        if (strpos($root_dir, $doc_root) === 0) {
+        $root_dir = rtrim($root_dir, '/');
+        
+        if (stripos($root_dir, $doc_root) === 0) {
             $project_path = substr($root_dir, strlen($doc_root));
         }
     }

@@ -12,7 +12,7 @@ $sql = "SELECT r.*, u.fullname, q.title as exam_name, c.title as course_name
         JOIN quizzes q ON r.quiz_id = q.id 
         JOIN courses c ON q.course_id = c.id";
 
-// Náº¿u lÃ  giÃ¡o viÃªn, chá» hiá»n Äiá»m cá»§a khÃ³a mÃ¬nh
+// Nếu là giáo viên, chỉ hiện điểm của khóa mình
 if ($_SESSION['user_role'] == 'teacher') {
     $teacher_id = $_SESSION['user_id'];
     $sql .= " WHERE c.teacher_id = $teacher_id";
@@ -48,14 +48,14 @@ $result = $conn->query($sql);
         <div class="content-wrapper">
             
             <div class="page-header no-print">
-                <h3 class="page-title"> Quáº£n lÃ½ Káº¿t quáº£ thi </h3>
+                <h3 class="page-title"> Quản lý Kết quả thi </h3>
                 <nav aria-label="breadcrumb">
                     <button onclick="window.print()" class="btn btn-gradient-info btn-icon-text me-2">
-                        <i class="mdi mdi-printer btn-icon-prepend"></i> In Danh SÃ¡ch
+                        <i class="mdi mdi-printer btn-icon-prepend"></i> In Danh Sách
                     </button>
                     
                     <a href="ExportDiem.php" class="btn btn-gradient-success btn-icon-text">
-                        <i class="mdi mdi-file-excel btn-icon-prepend"></i> Xuáº¥t Excel
+                        <i class="mdi mdi-file-excel btn-icon-prepend"></i> Xuất Excel
                     </a>
                 </nav>
             </div>
@@ -64,19 +64,19 @@ $result = $conn->query($sql);
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title text-center mb-4">Báº¢NG Tá»NG Há»¢P Káº¾T QUáº¢ THI</h4>
+                            <h4 class="card-title text-center mb-4">BẢNG TỔNG HỢP KẾT QUẢ THI</h4>
                             
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr class="table-primary text-center">
                                             <th>STT</th>
-                                            <th>Há»c viÃªn</th>
-                                            <th>BÃ i thi</th>
-                                            <th>KhÃ³a há»c</th>
-                                            <th>Äiá»m sá»</th>
-                                            <th>NgÃ y ná»p</th>
-                                            <th class="no-print">HÃ nh Äá»ng</th>
+                                            <th>Học viên</th>
+                                            <th>Bài thi</th>
+                                            <th>Khóa học</th>
+                                            <th>Điểm số</th>
+                                            <th>Ngày nộp</th>
+                                            <th class="no-print">Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -101,14 +101,14 @@ $result = $conn->query($sql);
                                                     <td><?= date('d/m/Y H:i', strtotime($row['created_at'])) ?></td>
                                                     <td class="no-print text-center">
                                                         <a href="DetailKetQua.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-info">
-                                                            <i class="mdi mdi-eye"></i> Xem chi tiáº¿t
+                                                            <i class="mdi mdi-eye"></i> Xem chi tiết
                                                         </a>
                                                     </td>
                                                 </tr>
                                             <?php endwhile; ?>
                                         <?php else: ?>
                                             <tr>
-                                                <td colspan="7" class="text-center text-muted">ChÆ°a cÃ³ káº¿t quáº£ thi nÃ o.</td>
+                                                <td colspan="7" class="text-center text-muted">Chưa có kết quả thi nào.</td>
                                             </tr>
                                         <?php endif; ?>
                                     </tbody>

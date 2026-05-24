@@ -22,7 +22,7 @@ $sql .= " ORDER BY lessons.created_at DESC";
 
 $result = $conn->query($sql);
 
-// Xá»­ lÃ½ thÃ´ng bÃ¡o (Flash message)
+// Xử lý thông báo (Flash message)
 $message = isset($_SESSION['status_message']) ? $_SESSION['status_message'] : '';
 unset($_SESSION['status_message']);
 ?>
@@ -39,11 +39,11 @@ include ROOT_PATH . "/admin/navbar.php";
         <div class="content-wrapper">
             
             <div class="page-header">
-                <h3 class="page-title"> Quáº£n lÃ½ BÃ i giáº£ng (Video) </h3>
+                <h3 class="page-title"> Quản lý Bài giảng (Video) </h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="../../index.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Danh sÃ¡ch bÃ i giáº£ng</li>
+                        <li class="breadcrumb-item active" aria-current="page">Danh sách bài giảng</li>
                     </ol>
                 </nav>
             </div>
@@ -53,10 +53,10 @@ include ROOT_PATH . "/admin/navbar.php";
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h4 class="card-title">Danh sÃ¡ch Video bÃ i há»c (<?= $result ? $result->num_rows : 0 ?>)</h4>
+                                <h4 class="card-title">Danh sách Video bài học (<?= $result ? $result->num_rows : 0 ?>)</h4>
                                 <?php if ($role != 'admins'): ?>
                                 <a href="AddBaiGiang.php" class="btn btn-sm btn-gradient-primary">
-                                    <i class="mdi mdi-video-plus"></i> Thêm bÃ i giáº£ng má»i
+                                    <i class="mdi mdi-video-plus"></i> Thêm bài giảng mới
                                 </a>
                                 <?php endif; ?>
                             </div>
@@ -73,11 +73,11 @@ include ROOT_PATH . "/admin/navbar.php";
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>TÃªn BÃ i Giáº£ng</th>
-                                            <th>Thuá»c KhÃ³a Há»c</th>
-                                            <th>Video / TÃ i liá»u</th>
-                                            <th>NgÃ y ÄÄng</th>
-                                            <th>HÃ nh Äá»ng</th>
+                                            <th>Tên Bài Giảng</th>
+                                            <th>Thuộc Khóa Học</th>
+                                            <th>Video / Tài liệu</th>
+                                            <th>Ngày đăng</th>
+                                            <th>Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -106,11 +106,11 @@ include ROOT_PATH . "/admin/navbar.php";
                                                             <i class="mdi mdi-youtube"></i> Xem
                                                         </a>
                                                     <?php else: ?>
-                                                        <span class="text-muted text-small">KhÃ´ng cÃ³ video</span>
+                                                        <span class="text-muted text-small">Không có video</span>
                                                     <?php endif; ?>
 
                                                     <?php if (!empty($row['attachment'])): ?>
-                                                        <a href="<?= BASE_PATH ?>/<?= htmlspecialchars($row['attachment']) ?>" target="_blank" class="ms-2 text-primary" title="Táº£i tÃ i liá»u">
+                                                        <a href="<?= BASE_PATH ?>/<?= htmlspecialchars($row['attachment']) ?>" target="_blank" class="ms-2 text-primary" title="Tải tài liệu">
                                                             <i class="mdi mdi-paperclip"></i>
                                                         </a>
                                                     <?php endif; ?>
@@ -122,12 +122,12 @@ include ROOT_PATH . "/admin/navbar.php";
 
                                                 <td>
                                                     <?php if ($role != 'admins'): ?>
-                                                    <a href="EditBaiGiang.php?id=<?= $row['id'] ?>" class="btn btn-inverse-warning btn-sm btn-icon" title="Sá»­a">
+                                                    <a href="EditBaiGiang.php?id=<?= $row['id'] ?>" class="btn btn-inverse-warning btn-sm btn-icon" title="Sửa">
                                                         <i class="mdi mdi-pencil"></i>
                                                     </a>
                                                     <a href="DeleteBaiGiang.php?id=<?= $row['id'] ?>" 
                                                        class="btn btn-inverse-danger btn-sm btn-icon"
-                                                       onclick="return confirm('Báº¡n cÃ³ cháº¯c cháº¯n muá»n xÃ³a bÃ i giáº£ng nÃ y khÃ´ng?');" 
+                                                       onclick="return confirm('Bạn có chắc chắn muốn xóa bài giảng này không?');" 
                                                        title="Xóa">
                                                         <i class="mdi mdi-delete"></i>
                                                     </a>
@@ -140,7 +140,7 @@ include ROOT_PATH . "/admin/navbar.php";
                                         <?php else: ?>
                                             <tr>
                                                 <td colspan="6" class="text-center p-4">
-                                                    ChÆ°a cÃ³ bÃ i giáº£ng nÃ o. HÃ£y táº¡o KhÃ³a há»c trÆ°á»c rá»i thÃªm BÃ i giáº£ng!
+                                                    Chưa có bài giảng nào. Hãy tạo Khóa học trước rồi thêm Bài giảng!
                                                 </td>
                                             </tr>
                                         <?php endif; ?>

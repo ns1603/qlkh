@@ -3,7 +3,7 @@ session_start();
 include(__DIR__ . '/../../../config.php');
 
 if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] != 'admins' && $_SESSION['user_role'] != 'admin')) {
-    die("Truy cáº­p bá» tá»« chá»i!");
+    die("Truy cập bị từ chối!");
 }
 
 $sql = "SELECT o.*, u.fullname, c.title as course_name 
@@ -27,7 +27,7 @@ include ROOT_PATH . "/admin/navbar.php";
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title"> Quáº£n lÃ½ Doanh thu & ÄÆ¡n hÃ ng </h3>
+                <h3 class="page-title"> Quản lý Doanh thu & Đơn hàng </h3>
             </div>
 
             <div class="row">
@@ -35,9 +35,9 @@ include ROOT_PATH . "/admin/navbar.php";
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h4 class="card-title">Lá»ch sá»­ giao dá»ch (<?= $result ? $result->num_rows : 0 ?>)</h4>
+                                <h4 class="card-title">Lịch sử giao dịch (<?= $result ? $result->num_rows : 0 ?>)</h4>
                                 <button class="btn btn-sm btn-outline-success">
-                                    <i class="mdi mdi-file-excel"></i> Xuáº¥t Excel
+                                    <i class="mdi mdi-file-excel"></i> Xuất Excel
                                 </button>
                             </div>
 
@@ -49,14 +49,14 @@ include ROOT_PATH . "/admin/navbar.php";
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>MÃ£ ÄH</th>
-                                            <th>Há»c viÃªn</th>
-                                            <th>KhÃ³a há»c</th>
-                                            <th>Sá» tiá»n</th>
-                                            <th>PhÆ°Æ¡ng thá»©c</th>
-                                            <th>Tráº¡ng thÃ¡i</th>
-                                            <th>NgÃ y mua</th>
-                                            <th>Xá»­ lÃ½</th>
+                                            <th>Mã ĐH</th>
+                                            <th>Học viên</th>
+                                            <th>Khóa học</th>
+                                            <th>Số tiền</th>
+                                            <th>Phương thức</th>
+                                            <th>Trạng thái</th>
+                                            <th>Ngày mua</th>
+                                            <th>Xử lý</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -71,7 +71,7 @@ include ROOT_PATH . "/admin/navbar.php";
                                                     <span class="text-muted"><?= htmlspecialchars($row['course_name']) ?></span>
                                                 </td>
                                                 <td class="text-success fw-bold">
-                                                    <?= number_format($row['total_amount'], 0, ',', '.') ?> Ä
+                                                    <?= number_format($row['total_amount'], 0, ',', '.') ?> đ
                                                 </td>
                                                 <td>
                                                     <?= ucfirst($row['payment_method']) ?>
@@ -79,9 +79,9 @@ include ROOT_PATH . "/admin/navbar.php";
                                                 <td>
                                                     <?php 
                                                         $stt = $row['status'];
-                                                        if($stt == 'completed') echo '<label class="badge badge-success">ThÃ nh cÃ´ng</label>';
-                                                        elseif($stt == 'cancelled') echo '<label class="badge badge-danger">ÄÃ£ há»§y</label>';
-                                                        else echo '<label class="badge badge-warning">Chá» duyá»t</label>';
+                                                        if($stt == 'completed') echo '<label class="badge badge-success">Thành công</label>';
+                                                        elseif($stt == 'cancelled') echo '<label class="badge badge-danger">Đã hủy</label>';
+                                                        else echo '<label class="badge badge-warning">Chờ duyệt</label>';
                                                     ?>
                                                 </td>
                                                 <td>
@@ -89,12 +89,12 @@ include ROOT_PATH . "/admin/navbar.php";
                                                 </td>
                                                 <td>
                                                     <?php if ($_SESSION['user_role'] != 'admins'): ?>
-                                                    <a href="EditDonHang.php?id=<?= $row['id'] ?>" class="btn btn-inverse-info btn-sm btn-icon" title="Cáº­p nháº­t tráº¡ng thÃ¡i">
+                                                    <a href="EditDonHang.php?id=<?= $row['id'] ?>" class="btn btn-inverse-info btn-sm btn-icon" title="Cập nhật trạng thái">
                                                         <i class="mdi mdi-pencil"></i>
                                                     </a>
                                                     <a href="DeleteDonHang.php?id=<?= $row['id'] ?>" 
                                                        class="btn btn-inverse-danger btn-sm btn-icon"
-                                                       onclick="return confirm('Báº¡n cÃ³ cháº¯c muá»n xÃ³a lá»ch sá»­ giao dá»ch nÃ y?');" 
+                                                       onclick="return confirm('Bạn có chắc muốn xóa lịch sử giao dịch này?');" 
                                                        title="Xóa">
                                                         <i class="mdi mdi-delete"></i>
                                                     </a>
@@ -105,7 +105,7 @@ include ROOT_PATH . "/admin/navbar.php";
                                             </tr>
                                             <?php endwhile; ?>
                                         <?php else: ?>
-                                            <tr><td colspan="8" class="text-center p-4">ChÆ°a cÃ³ giao dá»ch nÃ o.</td></tr>
+                                            <tr><td colspan="8" class="text-center p-4">Chưa có giao dịch nào.</td></tr>
                                         <?php endif; ?>
                                     </tbody>
                                 </table>

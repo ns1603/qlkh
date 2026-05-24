@@ -3,7 +3,7 @@ session_start();
 include(__DIR__ . '/../../../config.php');
 
 if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] != 'admins' && $_SESSION['user_role'] != 'admin')) {
-    die("Truy cáº­p bá» tá»« chá»i! Chá» Admin má»i ÄÆ°á»£c quáº£n lÃ½ GiÃ¡o viÃªn.");
+    die("Truy cập bị từ chối! Chỉ Admin mới được quản lý Giáo viên.");
 }
 
 $sql = "SELECT * FROM users WHERE role = 'teacher' OR role = 'admin' ORDER BY id DESC";
@@ -20,16 +20,16 @@ unset($_SESSION['status_message']);
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title"> Quáº£n lÃ½ GiÃ¡o viÃªn </h3>
+                <h3 class="page-title"> Quản lý Giáo viên </h3>
             </div>
             <div class="row">
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h4 class="card-title">Danh sÃ¡ch GiÃ¡o viÃªn (<?= $result->num_rows ?>)</h4>
+                                <h4 class="card-title">Danh sách Giáo viên (<?= $result->num_rows ?>)</h4>
                                 <a href="AddGiaoVien.php" class="btn btn-sm btn-gradient-danger">
-                                    <i class="mdi mdi-account-plus"></i> Thêm GiÃ¡o viÃªn
+                                    <i class="mdi mdi-account-plus"></i> Thêm Giáo viên
                                 </a>
                             </div>
                             <?php if ($message): ?> <div class="alert alert-success"><?= $message ?></div> <?php endif; ?>
@@ -38,10 +38,10 @@ unset($_SESSION['status_message']);
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Há» tÃªn</th>
+                                            <th>Họ tên</th>
                                             <th>Email</th>
                                             <th>Role</th>
-                                            <th>HÃ nh Äá»ng</th>
+                                            <th>Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -54,7 +54,7 @@ unset($_SESSION['status_message']);
                                             <td>
                                                 <?php if ($_SESSION['user_role'] != 'admins'): ?>
                                                 <a href="EditGiaoVien.php?id=<?= $row['id'] ?>" class="btn btn-inverse-warning btn-sm btn-icon"><i class="mdi mdi-pencil"></i></a>
-                                                <a href="DeleteGiaoVien.php?id=<?= $row['id'] ?>" class="btn btn-inverse-danger btn-sm btn-icon" onclick="return confirm('Xóa giÃ¡o viÃªn nÃ y?')"><i class="mdi mdi-delete"></i></a>
+                                                <a href="DeleteGiaoVien.php?id=<?= $row['id'] ?>" class="btn btn-inverse-danger btn-sm btn-icon" onclick="return confirm('Xóa giáo viên này?')"><i class="mdi mdi-delete"></i></a>
                                                 <?php else: ?>
                                                 <span class="text-muted small">Read-only</span>
                                                 <?php endif; ?>

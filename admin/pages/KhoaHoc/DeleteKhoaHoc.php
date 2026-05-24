@@ -2,22 +2,22 @@
 session_start();
 include(__DIR__ . '/../../../config.php');
 
-// 1. KIá»M TRA ÄÄNG NHáº¬P
+// 1. KIỂM TRA ĐĂNG NHẬP
 if (!isset($_SESSION['user_role'])) {
     header("Location: ../../index.php");
     exit;
 }
 
 if ($_SESSION['user_role'] == 'admins') {
-    die("Báº¡n khÃ´ng cÃ³ quyá»n thá»±c hiá»n hÃ nh Äá»ng nÃ y!");
+    die("Bạn không có quyền thực hiện hành động này!");
 }
 
 $user_id = $_SESSION['user_id'];
 $role = $_SESSION['user_role'];
-$id = isset($_GET['id']) ? intval($_GET['id']) : 0; // Ãp kiá»u sá» nguyÃªn Äá» báº£o máº­t
+$id = isset($_GET['id']) ? intval($_GET['id']) : 0; // Ép kiểu số nguyên để bảo mật
 
 if ($id > 0) {
-    // 2. Láº¤Y THÃNG TIN KHÃA Há»C TRÆ¯á»C (Äá» kiá»m tra quyá»n vÃ  láº¥y tÃªn áº£nh thumbnail)
+    // 2. LẤY THÔNG TIN KHÓA HỌC TRƯỚC (Để kiểm tra quyền và lấy tên ảnh thumbnail)
     $stmt = $conn->prepare("SELECT id, teacher_id, thumbnail FROM courses WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
@@ -25,46 +25,46 @@ if ($id > 0) {
     $course = $result->fetch_assoc();
 
     if ($course) {
-        // 3. PHÃN QUYá»N: Teacher chá» ÄÆ°á»£c xÃ³a bÃ i cá»§a mÃ¬nh
+        // 3. PHÂN QUYỀN: Teacher chỉ được xóa bài của mình
         if ($role == 'teacher' && $course['teacher_id'] != $user_id) {
-            $_SESSION['status_message'] = "Cáº¢NH BÃO: Báº¡n khÃ´ng cÃ³ quyá»n xÃ³a khÃ³a há»c cá»§a ngÆ°á»i khÃ¡c!";
+            $_SESSION['status_message'] = "CẢNH BÁO: Bạn không có quyền xóa khóa học của người khác!";
             header("Location: ListKhoaHoc.php");
             exit;
         }
 
-        // 4. XÃA áº¢NH THUMBNAIL TRÃN SERVER (Dá»n rÃ¡c)
+        // 4. XÓA ẢNH THUMBNAIL TRÊN SERVER (Dọn rác)
         if (!empty($course['thumbnail'])) {
-            // ÄÆ°á»ng dáº«n thá»±c táº¿ file áº£nh trÃªn á» cá»©ng
-            // LÆ°u Ã½: Cáº§n chá»nh ÄÆ°á»ng dáº«n nÃ y khá»p vá»i cáº¥u trÃºc thÆ° má»¥c cá»§a báº¡n
-            // Giáº£ sá»­ config.php náº±m á» root/admin/pages/KhoaHoc/../../../ -> root
+            // Đường dẫn thực tế file ảnh trên ổ cứng
+            // Lưu ý: Cần chỉnh đường dẫn này khớp với cấu trúc thư mục của bạn
+            // Giả sử config.php nằm ở root/admin/pages/KhoaHoc/../../../ -> root
             $file_path = ROOT_PATH . '/' . $course['thumbnail'];
             
             if (file_exists($file_path)) {
-                unlink($file_path); // HÃ m xÃ³a file
+                unlink($file_path); // Hàm xóa file
             }
         }
 
-        // 5. XÃA Dá»® LIá»U TRONG DATABASE
-        // LÆ°u Ã½: Náº¿u báº¡n chÆ°a cÃ i Äáº·t 'ON DELETE CASCADE' trong MySQL cho cÃ¡c báº£ng con (lessons, enrollments...),
-        // báº¡n cáº§n xÃ³a dá»¯ liá»u á» báº£ng con trÆ°á»c hoáº·c dÃ¹ng lá»nh nÃ y sáº½ bá» lá»i khÃ³a ngoáº¡i.
-        // Giáº£ sá»­ báº¡n ÄÃ£ thiáº¿t láº­p Database chuáº©n, ta xÃ³a course:
+        // 5. XÓA DỮ LIỆU TRONG DATABASE
+        // Lưu ý: Nếu bạn chưa cài đặt 'ON DELETE CASCADE' trong MySQL cho các bảng con (lessons, enrollments...),
+        // bạn cần xóa dữ liệu ở bảng con trước hoặc dùng lệnh này sẽ bị lỗi khóa ngoại.
+        // Giả sử bạn đã thiết lập Database chuẩn, ta xóa course:
         
         $delStmt = $conn->prepare("DELETE FROM courses WHERE id = ?");
         $delStmt->bind_param("i", $id);
 
         if ($delStmt->execute()) {
-            $_SESSION['status_message'] = "ÄÃ£ xÃ³a khÃ³a há»c thÃ nh cÃ´ng!";
+            $_SESSION['status_message'] = "Đã xóa khóa học thành công!";
         } else {
-            $_SESSION['status_message'] = "Lá»i Database: KhÃ´ng thá» xÃ³a (CÃ³ thá» do rÃ ng buá»c dá»¯ liá»u há»c viÃªn/bÃ i giáº£ng).";
+            $_SESSION['status_message'] = "Lỗi Database: Không thể xóa (Có thể do ràng buộc dữ liệu học viên/bài giảng).";
         }
     } else {
-        $_SESSION['status_message'] = "KhÃ³a há»c khÃ´ng tá»n táº¡i!";
+        $_SESSION['status_message'] = "Khóa học không tồn tại!";
     }
 } else {
-    $_SESSION['status_message'] = "ID khÃ´ng há»£p lá»!";
+    $_SESSION['status_message'] = "ID không hợp lệ!";
 }
 
-// 6. QUAY Vá» TRANG DANH SÃCH
+// 6. QUAY VỀ TRANG DANH SÁCH
 header("Location: ListKhoaHoc.php");
 exit;
 ?>

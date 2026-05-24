@@ -38,11 +38,11 @@ include ROOT_PATH . "/admin/navbar.php";
         <div class="content-wrapper">
             
             <div class="page-header">
-                <h3 class="page-title"> Quáº£n lÃ½ TÃ i liá»u ÄÃ­nh kÃ¨m </h3>
+                <h3 class="page-title"> Quản lý Tài liệu đính kèm </h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="../../index.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Danh sÃ¡ch tÃ i liá»u</li>
+                        <li class="breadcrumb-item active" aria-current="page">Danh sách tài liệu</li>
                     </ol>
                 </nav>
             </div>
@@ -52,9 +52,9 @@ include ROOT_PATH . "/admin/navbar.php";
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h4 class="card-title">Kho tÃ i liá»u (<?= $result ? $result->num_rows : 0 ?>)</h4>
+                                <h4 class="card-title">Kho tài liệu (<?= $result ? $result->num_rows : 0 ?>)</h4>
                                 <a href="AddTaiLieu.php" class="btn btn-sm btn-gradient-info">
-                                    <i class="mdi mdi-cloud-upload"></i> Upload tÃ i liá»u má»i
+                                    <i class="mdi mdi-cloud-upload"></i> Upload tài liệu mới
                                 </a>
                             </div>
 
@@ -70,11 +70,11 @@ include ROOT_PATH . "/admin/navbar.php";
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>TÃªn File</th>
-                                            <th>Thuá»c BÃ i giáº£ng</th>
-                                            <th>KhÃ³a há»c</th>
-                                            <th>NgÃ y upload</th>
-                                            <th>HÃ nh Äá»ng</th>
+                                            <th>Tên File</th>
+                                            <th>Thuộc Bài giảng</th>
+                                            <th>Khóa học</th>
+                                            <th>Ngày upload</th>
+                                            <th>Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -103,13 +103,13 @@ include ROOT_PATH . "/admin/navbar.php";
                                                 </td>
 
                                                 <td>
-                                                    <a href="<?= BASE_PATH ?>/<?= htmlspecialchars($row['file_path']) ?>" target="_blank" class="btn btn-inverse-success btn-sm btn-icon" title="Táº£i xuá»ng">
+                                                    <a href="<?= BASE_PATH ?>/<?= htmlspecialchars($row['file_path']) ?>" target="_blank" class="btn btn-inverse-success btn-sm btn-icon" title="Tải xuống">
                                                         <i class="mdi mdi-download"></i>
                                                     </a>
                                                     
                                                     <a href="DeleteTaiLieu.php?id=<?= $row['id'] ?>" 
                                                        class="btn btn-inverse-danger btn-sm btn-icon"
-                                                       onclick="return confirm('Báº¡n cháº¯c cháº¯n muá»n xÃ³a file nÃ y vÄ©nh viá»n?');" 
+                                                       onclick="return confirm('Bạn chắc chắn muốn xóa file này vĩnh viễn?');" 
                                                        title="Xóa file">
                                                         <i class="mdi mdi-delete"></i>
                                                     </a>
@@ -119,7 +119,7 @@ include ROOT_PATH . "/admin/navbar.php";
                                         <?php else: ?>
                                             <tr>
                                                 <td colspan="6" class="text-center p-4">
-                                                    ChÆ°a cÃ³ tÃ i liá»u nÃ o. HÃ£y upload file cho cÃ¡c bÃ i giáº£ng!
+                                                    Chưa có tài liệu nào. Hãy upload file cho các bài giảng!
                                                 </td>
                                             </tr>
                                         <?php endif; ?>

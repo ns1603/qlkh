@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_role'])) {
 }
 
 if ($_SESSION['user_role'] == 'admins') {
-    die("Báº¡n khÃ´ng cÃ³ quyá»n thá»±c hiá»n hÃ nh Äá»ng nÃ y!");
+    die("Bạn không có quyền thực hiện hành động này!");
 }
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -26,7 +26,7 @@ if ($id > 0) {
 
     if ($lesson) {
         if ($role == 'teacher' && $lesson['teacher_id'] != $user_id) {
-            $_SESSION['status_message'] = "Báº¡n khÃ´ng cÃ³ quyá»n xÃ³a bÃ i giáº£ng nÃ y!";
+            $_SESSION['status_message'] = "Bạn không có quyền xóa bài giảng này!";
         } else {
             if (!empty($lesson['attachment'])) {
                 $file_path = ROOT_PATH . '/' . $lesson['attachment'];
@@ -38,16 +38,16 @@ if ($id > 0) {
             $del = $conn->prepare("DELETE FROM lessons WHERE id = ?");
             $del->bind_param("i", $id);
             if ($del->execute()) {
-                $_SESSION['status_message'] = "ÄÃ£ xÃ³a bÃ i giáº£ng thÃ nh cÃ´ng!";
+                $_SESSION['status_message'] = "Đã xóa bài giảng thành công!";
             } else {
-                $_SESSION['status_message'] = "Lá»i Database: " . $conn->error;
+                $_SESSION['status_message'] = "Lỗi Database: " . $conn->error;
             }
         }
     } else {
-        $_SESSION['status_message'] = "BÃ i giáº£ng khÃ´ng tá»n táº¡i!";
+        $_SESSION['status_message'] = "Bài giảng không tồn tại!";
     }
 } else {
-    $_SESSION['status_message'] = "ID khÃ´ng há»£p lá»!";
+    $_SESSION['status_message'] = "ID không hợp lệ!";
 }
 
 header("Location: ListBaiGiang.php");

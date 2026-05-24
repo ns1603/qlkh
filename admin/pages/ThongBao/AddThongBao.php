@@ -3,14 +3,14 @@ session_start();
 include(__DIR__ . '/../../../config.php');
 
 if (!isset($_SESSION['user_id'], $_SESSION['user_role'])) {
-    die("Truy cáº­p bá» tá»« chá»i!");
+    die("Truy cập bị từ chối!");
 }
 
 $user_id = (int)$_SESSION['user_id'];
 $role    = $_SESSION['user_role'];
 $message_status = '';
 
-/* ===== CHáº¶N STUDENT ===== */
+/* ===== CHẶN STUDENT ===== */
 if ($role === 'student') {
     header("Location: ../../index.php");
     exit;
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $is_pinned    = isset($_POST['is_pinned']) ? 1 : 0;
 
     if ($title === '' || $content === '') {
-        $message_status = "â ï¸ Vui lÃ²ng nháº­p tiÃªu Äá» vÃ  ná»i dung!";
+        $message_status = "⚠️ Vui lòng nhập tiêu đề và nội dung!";
     } else {
 
         $receivers = [];
@@ -69,12 +69,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        /* ===== XÃC Äá»NH NGÆ¯á»I Gá»¬I (HÆ¯á»NG 2) ===== */
+        /* ===== XÁC ĐỊNH NGƯỜI GỬI (HƯỚNG 2) ===== */
         if ($role === 'admin' || $role === 'admins') {
-            $sender_id   = $user_id;   // ID tá»« báº£ng admins
+            $sender_id   = $user_id;   // ID từ bảng admins
             $sender_type = 'admin';
         } else {
-            $sender_id   = $user_id;   // ID tá»« báº£ng users
+            $sender_id   = $user_id;   // ID từ bảng users
             $sender_type = 'user';
         }
 
@@ -105,9 +105,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->execute();
             }
 
-            $message_status = "â ÄÃ£ gá»­i thÃ´ng bÃ¡o cho " . count($receivers) . " ngÆ°á»i!";
+            $message_status = "✅ Đã gửi thông báo cho " . count($receivers) . " người!";
         } else {
-            $message_status = "â ï¸ KhÃ´ng tÃ¬m tháº¥y ngÆ°á»i nháº­n phÃ¹ há»£p.";
+            $message_status = "⚠️ Không tìm thấy người nhận phù hợp.";
         }
     }
 }
@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="content-wrapper">
 
 <div class="page-header">
-    <h3 class="page-title">Táº¡o thÃ´ng bÃ¡o má»i</h3>
+    <h3 class="page-title">Tạo thông báo mới</h3>
 </div>
 
 <div class="row">
@@ -133,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="card">
 <div class="card-body">
 
-<h4 class="card-title">Soáº¡n tin nháº¯n</h4>
+<h4 class="card-title">Soạn tin nhắn</h4>
 
 <?php if ($message_status): ?>
     <div class="alert alert-info"><?= $message_status ?></div>
@@ -142,44 +142,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <form method="POST">
 
 <div class="form-group">
-    <label>Gá»­i Äáº¿n</label>
+    <label>Gửi đến</label>
     <select class="form-select" name="target_group" required>
         <?php if ($role === 'admin' || $role === 'admins'): ?>
-            <option value="all_students">ToÃ n bá» Há»c viÃªn</option>
-            <option value="all_teachers">ToÃ n bá» GiÃ¡o viÃªn</option>
+            <option value="all_students">Toàn bộ Học viên</option>
+            <option value="all_teachers">Toàn bộ Giáo viên</option>
         <?php endif; ?>
 
         <?php if ($role === 'teacher'): ?>
-            <option value="my_students">Há»c viÃªn cá»§a tÃ´i</option>
+            <option value="my_students">Học viên của tôi</option>
         <?php endif; ?>
     </select>
 </div>
 
 <div class="form-group">
-    <label>TiÃªu Äá»</label>
+    <label>Tiêu đề</label>
     <input type="text" name="title" class="form-control" required>
 </div>
 
 <div class="form-group">
-    <label>Ná»i dung</label>
+    <label>Nội dung</label>
     <textarea name="message" class="form-control" rows="6" required></textarea>
 </div>
 
 <div class="form-group">
-    <label>Má»©c Äá»</label>
+    <label>Mức độ</label>
     <select name="priority" class="form-select">
-        <option value="normal">BÃ¬nh thÆ°á»ng</option>
-        <option value="important">Æ¯u tiÃªn</option>
+        <option value="normal">Bình thường</option>
+        <option value="important">Ưu tiên</option>
     </select>
 </div>
 
 <div class="form-check mb-3">
     <input class="form-check-input" type="checkbox" name="is_pinned" value="1">
-    <label class="form-check-label">Ghim thÃ´ng bÃ¡o</label>
+    <label class="form-check-label">Ghim thông báo</label>
 </div>
 
-<button type="submit" class="btn btn-gradient-primary">Gá»­i thÃ´ng bÃ¡o</button>
-<a href="ListThongBao.php" class="btn btn-light">Há»§y</a>
+<button type="submit" class="btn btn-gradient-primary">Gửi thông báo</button>
+<a href="ListThongBao.php" class="btn btn-light">Hủy</a>
 
 </form>
 

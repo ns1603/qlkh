@@ -3,7 +3,7 @@ session_start();
 include(__DIR__ . '/../../../config.php');
 
 if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] == 'student') {
-    die("Báº¡n khÃ´ng cÃ³ quyá»n nÃ y!");
+    die("Bạn không có quyền này!");
 }
 
 header("Content-Type: application/vnd.ms-excel; charset=utf-8");
@@ -13,8 +13,8 @@ header("Expires: 0");
 
 echo "\xEF\xBB\xBF"; 
 
-// 1. DÃ²ng tiÃªu Äá» cá»t
-echo "STT\tTÃªn Há»c ViÃªn\tEmail\tTÃªn BÃ i Thi\tKhÃ³a Há»c\tÄiá»m Sá»\tNgÃ y Ná»p\n";
+// 1. Dòng tiêu đề cột
+echo "STT\tTên Học Viên\tEmail\tTên Bài Thi\tKhóa Học\tĐiểm Số\tNgày Nộp\n";
 
 $sql = "SELECT r.*, u.fullname, u.email, q.title as exam_name, c.title as course_name
         FROM exam_results r
@@ -22,7 +22,7 @@ $sql = "SELECT r.*, u.fullname, u.email, q.title as exam_name, c.title as course
         JOIN quizzes q ON r.quiz_id = q.id
         JOIN courses c ON q.course_id = c.id";
 
-// Náº¿u lÃ  Teacher thÃ¬ chá» xuáº¥t Äiá»m cá»§a khÃ³a mÃ¬nh dáº¡y
+// Nếu là Teacher thì chỉ xuất điểm của khóa mình dạy
 if ($_SESSION['user_role'] == 'teacher') {
     $teacher_id = $_SESSION['user_id'];
     $sql .= " WHERE c.teacher_id = $teacher_id";
@@ -34,7 +34,7 @@ $result = $conn->query($sql);
 $i = 1;
 if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-        // Xuáº¥t tá»«ng dÃ²ng dá»¯ liá»u, ngÄn cÃ¡ch báº±ng tab (\t)
+        // Xuất từng dòng dữ liệu, ngăn cách bằng tab (\t)
         echo $i . "\t"
            . $row['fullname'] . "\t"
            . $row['email'] . "\t"

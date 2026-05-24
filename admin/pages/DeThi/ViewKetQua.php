@@ -2,18 +2,18 @@
 session_start();
 include(__DIR__ . '/../../../config.php');
 
-// 1. CHECK QUYá»N
+// 1. CHECK QUYỀN
 if (!isset($_SESSION['user_id']) || 
    ($_SESSION['user_role'] != 'admin' && $_SESSION['user_role'] != 'admins' && $_SESSION['user_role'] != 'teacher')) {
-    die("Truy cáº­p bá» tá»« chá»i!");
+    die("Truy cập bị từ chối!");
 }
 
 $user_id = $_SESSION['user_id'];
 $role = $_SESSION['user_role'];
 $quiz_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-// 2. Láº¤Y THÃNG TIN Äá» THI & CHECK QUYá»N Sá» Há»®U (Náº¿u lÃ  GV)
-// Join báº£ng quizzes -> courses Äá» láº¥y teacher_id
+// 2. LẤY THÔNG TIN ĐỀ THI & CHECK QUYỀN SỞ HỮU (Nếu là GV)
+// Join bảng quizzes -> courses để lấy teacher_id
 $sql_quiz = "SELECT q.title, c.title as course_name, c.teacher_id 
              FROM quizzes q 
              JOIN courses c ON q.course_id = c.id 
@@ -21,16 +21,16 @@ $sql_quiz = "SELECT q.title, c.title as course_name, c.teacher_id
 $quiz_info = $conn->query($sql_quiz)->fetch_assoc();
 
 if (!$quiz_info) {
-    die("Äá» thi khÃ´ng tá»n táº¡i.");
+    die("Đề thi không tồn tại.");
 }
 if ($role == 'teacher' && $quiz_info['teacher_id'] != $user_id) {
-    die("Báº¡n khÃ´ng cÃ³ quyá»n xem káº¿t quáº£ cá»§a Äá» thi nÃ y (Thuá»c giáº£ng viÃªn khÃ¡c).");
+    die("Bạn không có quyền xem kết quả của đề thi này (Thuộc giảng viên khác).");
 }
 $sql_results = "SELECT er.*, u.fullname, u.email 
                 FROM exam_results er 
                 JOIN users u ON er.user_id = u.id 
                 WHERE er.quiz_id = $quiz_id 
-                ORDER BY er.score DESC, er.created_at DESC"; // Sáº¯p xáº¿p Äiá»m cao lÃªn Äáº§u
+                ORDER BY er.score DESC, er.created_at DESC"; // Sắp xếp điểm cao lên đầu
 $results = $conn->query($sql_results);
 ?>
 
@@ -42,11 +42,11 @@ $results = $conn->query($sql_results);
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title"> Káº¿t quáº£ thi: <?= htmlspecialchars($quiz_info['title']) ?> </h3>
+                <h3 class="page-title"> Kết quả thi: <?= htmlspecialchars($quiz_info['title']) ?> </h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="ListDeThi.php">Danh sÃ¡ch Äá» thi</a></li>
-                        <li class="breadcrumb-item active">Káº¿t quáº£</li>
+                        <li class="breadcrumb-item"><a href="ListDeThi.php">Danh sách đề thi</a></li>
+                        <li class="breadcrumb-item active">Kết quả</li>
                     </ol>
                 </nav>
             </div>
@@ -55,28 +55,28 @@ $results = $conn->query($sql_results);
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">KhÃ³a há»c: <?= htmlspecialchars($quiz_info['course_name']) ?></h4>
-                            <p class="card-description"> Tá»ng sá» bÃ i ná»p: <strong><?= $results->num_rows ?></strong> </p>
+                            <h4 class="card-title">Khóa học: <?= htmlspecialchars($quiz_info['course_name']) ?></h4>
+                            <p class="card-description"> Tổng số bài nộp: <strong><?= $results->num_rows ?></strong> </p>
 
                             <div class="table-responsive">
                                 <table class="table table-hover table-bordered">
                                     <thead class="bg-light">
                                         <tr>
-                                            <th>Háº¡ng</th>
-                                            <th>Há»c viÃªn</th>
+                                            <th>Hạng</th>
+                                            <th>Học viên</th>
                                             <th>Email</th>
-                                            <th>Äiá»m sá»</th>
-                                            <th>Káº¿t quáº£</th>
-                                            <th>NgÃ y ná»p bÃ i</th>
+                                            <th>Điểm số</th>
+                                            <th>Kết quả</th>
+                                            <th>Ngày nộp bài</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php if ($results->num_rows > 0): ?>
                                             <?php $rank = 1; while($row = $results->fetch_assoc()): 
-                                                // TÃ­nh pháº§n trÄm Äiá»m
+                                                // Tính phần trăm điểm
                                                 $percent = ($row['score'] / $row['total_questions']) * 100;
                                                 $status_class = ($percent >= 50) ? 'badge-success' : 'badge-danger';
-                                                $status_text = ($percent >= 50) ? 'Äáº T' : 'TRÆ¯á»¢T';
+                                                $status_text = ($percent >= 50) ? 'ĐẠT' : 'TRƯỢT';
                                             ?>
                                             <tr>
                                                 <td>#<?= $rank++ ?></td>
@@ -99,7 +99,7 @@ $results = $conn->query($sql_results);
                                             <?php endwhile; ?>
                                         <?php else: ?>
                                             <tr>
-                                                <td colspan="6" class="text-center">ChÆ°a cÃ³ há»c viÃªn nÃ o lÃ m bÃ i thi nÃ y.</td>
+                                                <td colspan="6" class="text-center">Chưa có học viên nào làm bài thi này.</td>
                                             </tr>
                                         <?php endif; ?>
                                     </tbody>

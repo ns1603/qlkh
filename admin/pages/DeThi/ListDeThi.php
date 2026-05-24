@@ -35,11 +35,11 @@ include ROOT_PATH . "/admin/navbar.php";
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title"> Quáº£n lÃ½ Äá» thi (Quiz) </h3>
+                <h3 class="page-title"> Quản lý Đề thi (Quiz) </h3>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="../../index.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Danh sÃ¡ch Äá» thi</li>
+                        <li class="breadcrumb-item active">Danh sách Đề thi</li>
                     </ol>
                 </nav>
             </div>
@@ -49,10 +49,10 @@ include ROOT_PATH . "/admin/navbar.php";
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h4 class="card-title">Danh sÃ¡ch Äá» thi (<?= $result ? $result->num_rows : 0 ?>)</h4>
+                                <h4 class="card-title">Danh sách Đề thi (<?= $result ? $result->num_rows : 0 ?>)</h4>
                                 <?php if ($role != 'admins'): ?>
                                 <a href="AddDeThi.php" class="btn btn-sm btn-gradient-primary">
-                                    <i class="mdi mdi-plus-box"></i> Táº¡o Äá» thi má»i
+                                    <i class="mdi mdi-plus-box"></i> Tạo Đề thi mới
                                 </a>
                                 <?php endif; ?>
                             </div>
@@ -66,11 +66,11 @@ include ROOT_PATH . "/admin/navbar.php";
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>TÃªn Äá» Thi</th>
-                                            <th>Thuá»c KhÃ³a Há»c</th>
-                                            <th>Thá»i gian</th>
-                                            <th>CÃ¢u há»i</th>
-                                            <th>HÃ nh Äá»ng</th>
+                                            <th>Tên Đề Thi</th>
+                                            <th>Thuộc Khóa Học</th>
+                                            <th>Thời gian</th>
+                                            <th>Câu hỏi</th>
+                                            <th>Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -87,21 +87,21 @@ include ROOT_PATH . "/admin/navbar.php";
                                                 <td>
                                                     <?php if (isset($row['time_limit']) && $row['time_limit'] > 0): ?>
                                                         <span class="badge badge-outline-success">
-                                                            <i class="mdi mdi-timer"></i> <?= $row['time_limit'] ?> phÃºt
+                                                            <i class="mdi mdi-timer"></i> <?= $row['time_limit'] ?> phút
                                                         </span>
                                                     <?php else: ?>
                                                         <span class="badge badge-outline-warning">
-                                                            <i class="mdi mdi-timer-off"></i> ChÆ°a thiáº¿t láº­p
+                                                            <i class="mdi mdi-timer-off"></i> Chưa thiết lập
                                                         </span>
                                                     <?php endif; ?>
                                                 </td>
                                                 <td>
-                                                    <a href="ViewKetQua.php?id=<?= $row['id'] ?>" class="btn btn-info btn-sm btn-icon-text" title="Xem danh sÃ¡ch Äiá»m">
-                                                        <i class="mdi mdi-chart-bar btn-icon-prepend"></i> Xem Äiá»m
+                                                    <a href="ViewKetQua.php?id=<?= $row['id'] ?>" class="btn btn-info btn-sm btn-icon-text" title="Xem danh sách điểm">
+                                                        <i class="mdi mdi-chart-bar btn-icon-prepend"></i> Xem điểm
                                                     </a>
 
-                                                    <a href="../CauHoi/ListCauHoi.php?quiz_id=<?= $row['id'] ?>" class="btn btn-success btn-sm btn-icon-text" title="Soáº¡n cÃ¢u há»i">
-                                                        <i class="mdi mdi-playlist-plus btn-icon-prepend"></i> CÃ¢u há»i
+                                                    <a href="../CauHoi/ListCauHoi.php?quiz_id=<?= $row['id'] ?>" class="btn btn-success btn-sm btn-icon-text" title="Soạn câu hỏi">
+                                                        <i class="mdi mdi-playlist-plus btn-icon-prepend"></i> Câu hỏi
                                                     </a>
 
                                                     <?php if ($role != 'admins'): ?>
@@ -109,7 +109,7 @@ include ROOT_PATH . "/admin/navbar.php";
                                                         <i class="mdi mdi-pencil"></i>
                                                     </a>
                                                     
-                                                    <a href="DeleteDeThi.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm btn-icon" onclick="return confirm('Xóa Äá» thi nÃ y?')">
+                                                    <a href="DeleteDeThi.php?id=<?= $row['id'] ?>" class="btn btn-danger btn-sm btn-icon" onclick="return confirm('Xóa đề thi này?')">
                                                         <i class="mdi mdi-delete"></i>
                                                     </a>
                                                     <?php endif; ?>
@@ -117,7 +117,7 @@ include ROOT_PATH . "/admin/navbar.php";
                                             </tr>
                                             <?php endwhile; ?>
                                         <?php else: ?>
-                                            <tr><td colspan="6" class="text-center p-4">ChÆ°a cÃ³ Äá» thi nÃ o.</td></tr>
+                                            <tr><td colspan="6" class="text-center p-4">Chưa có đề thi nào.</td></tr>
                                         <?php endif; ?>
                                     </tbody>
                                 </table>

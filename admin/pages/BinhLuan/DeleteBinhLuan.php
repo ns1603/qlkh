@@ -5,7 +5,7 @@ include(__DIR__ . '/../../../config.php');
 if (!isset($_SESSION['user_role'])) { header("Location: ../../index.php"); exit; }
 
 if ($_SESSION['user_role'] == 'admins') {
-    die("Báº¡n khÃ´ng cÃ³ quyá»n thá»±c hiá»n hÃ nh Äá»ng nÃ y!");
+    die("Bạn không có quyền thực hiện hành động này!");
 }
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -23,10 +23,10 @@ if ($id > 0) {
 
     if ($check) {
         if ($role == 'teacher' && $check['teacher_id'] != $user_id) {
-            $_SESSION['status_message'] = "Báº¡n khÃ´ng cÃ³ quyá»n xÃ³a bÃ¬nh luáº­n nÃ y!";
+            $_SESSION['status_message'] = "Bạn không có quyền xóa bình luận này!";
         } else {
             $conn->query("DELETE FROM comments WHERE id = $id");
-            $_SESSION['status_message'] = "ÄÃ£ xÃ³a bÃ¬nh luáº­n!";
+            $_SESSION['status_message'] = "Đã xóa bình luận!";
         }
     }
 }

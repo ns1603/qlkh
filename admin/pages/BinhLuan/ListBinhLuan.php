@@ -35,14 +35,14 @@ unset($_SESSION['status_message']);
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title"> Quáº£n lÃ½ BÃ¬nh luáº­n & Há»i ÄÃ¡p </h3>
+                <h3 class="page-title"> Quản lý Bình luận & Hỏi đáp </h3>
             </div>
             
             <div class="row">
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Danh sÃ¡ch bÃ¬nh luáº­n (<?= $result ? $result->num_rows : 0 ?>)</h4>
+                            <h4 class="card-title">Danh sách bình luận (<?= $result ? $result->num_rows : 0 ?>)</h4>
                             
                             <?php if ($message): ?>
                                 <div class="alert alert-success"><?= $message ?></div>
@@ -52,11 +52,11 @@ unset($_SESSION['status_message']);
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>NgÆ°á»i gá»­i</th>
-                                            <th>Ná»i dung</th>
-                                            <th>Táº¡i bÃ i há»c</th>
-                                            <th>Thá»i gian</th>
-                                            <th>HÃ nh Äá»ng</th>
+                                            <th>Người gửi</th>
+                                            <th>Nội dung</th>
+                                            <th>Tại bài học</th>
+                                            <th>Thời gian</th>
+                                            <th>Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -77,7 +77,7 @@ unset($_SESSION['status_message']);
                                                 <td>
                                                     <?= htmlspecialchars($row['lesson_name']) ?>
                                                     <br>
-                                                    <small class="text-muted">KhÃ³a: <?= htmlspecialchars($row['course_name']) ?></small>
+                                                    <small class="text-muted">Khóa: <?= htmlspecialchars($row['course_name']) ?></small>
                                                 </td>
 
                                                 <td><?= date('d/m/Y H:i', strtotime($row['created_at'])) ?></td>
@@ -86,7 +86,7 @@ unset($_SESSION['status_message']);
                                                     <?php if ($role != 'admins'): ?>
                                                     <a href="DeleteBinhLuan.php?id=<?= $row['id'] ?>" 
                                                        class="btn btn-inverse-danger btn-sm btn-icon"
-                                                       onclick="return confirm('Xóa bÃ¬nh luáº­n nÃ y?')"
+                                                       onclick="return confirm('Xóa bình luận này?')"
                                                        title="Xóa spam">
                                                         <i class="mdi mdi-delete"></i>
                                                     </a>
@@ -97,7 +97,7 @@ unset($_SESSION['status_message']);
                                             </tr>
                                             <?php endwhile; ?>
                                         <?php else: ?>
-                                            <tr><td colspan="5" class="text-center p-4">ChÆ°a cÃ³ bÃ¬nh luáº­n nÃ o.</td></tr>
+                                            <tr><td colspan="5" class="text-center p-4">Chưa có bình luận nào.</td></tr>
                                         <?php endif; ?>
                                     </tbody>
                                 </table>

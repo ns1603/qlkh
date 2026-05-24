@@ -17,10 +17,10 @@ if ($id > 0) {
 
     if ($check) {
         if ($role == 'teacher' && $check['teacher_id'] != $user_id) {
-            $_SESSION['status_message'] = "Báº¡n khÃ´ng ÄÆ°á»£c xÃ³a ÄÃ¡nh giÃ¡ cá»§a khÃ³a há»c khÃ¡c!";
+            $_SESSION['status_message'] = "Bạn không được xóa đánh giá của khóa học khác!";
         } else {
             $conn->query("DELETE FROM ratings WHERE id = $id");
-            $_SESSION['status_message'] = "ÄÃ£ xÃ³a ÄÃ¡nh giÃ¡!";
+            $_SESSION['status_message'] = "Đã xóa đánh giá!";
         }
     }
 }

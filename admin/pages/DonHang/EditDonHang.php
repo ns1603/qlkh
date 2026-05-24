@@ -3,11 +3,11 @@ session_start();
 include(__DIR__ . '/../../../config.php');
 
 if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] != 'admins' && $_SESSION['user_role'] != 'admin')) {
-    die("Truy cáº­p bá» tá»« chá»i!");
+    die("Truy cập bị từ chối!");
 }
 
 if ($_SESSION['user_role'] == 'admins') {
-    die("Báº¡n khÃ´ng cÃ³ quyá»n thá»±c hiá»n hÃ nh Äá»ng nÃ y!");
+    die("Bạn không có quyền thực hiện hành động này!");
 }
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -22,7 +22,7 @@ $stmt->bind_param("i", $id);
 $stmt->execute();
 $order = $stmt->get_result()->fetch_assoc();
 
-if (!$order) die("ÄÆ¡n hÃ ng khÃ´ng tá»n táº¡i!");
+if (!$order) die("Đơn hàng không tồn tại!");
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $new_status = $_POST['status'];
     $transaction_code = trim($_POST['transaction_code']);
@@ -42,11 +42,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
 
-        $_SESSION['status_message'] = "ÄÃ£ cáº­p nháº­t ÄÆ¡n hÃ ng thÃ nh cÃ´ng!";
+        $_SESSION['status_message'] = "Đã cập nhật đơn hàng thành công!";
         header("Location: ListDonHang.php");
         exit;
     } else {
-        $error = "Lá»i Database: " . $conn->error;
+        $error = "Lỗi Database: " . $conn->error;
     }
 }
 ?>
@@ -61,44 +61,44 @@ include ROOT_PATH . "/admin/navbar.php";
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title"> Xá»­ lÃ½ ÄÆ¡n hÃ ng #<?= $id ?> </h3>
+                <h3 class="page-title"> Xử lý Đơn hàng #<?= $id ?> </h3>
             </div>
             
             <div class="row">
                 <div class="col-md-6 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">ThÃ´ng tin chi tiáº¿t</h4>
+                            <h4 class="card-title">Thông tin chi tiết</h4>
                             
                             <ul class="list-group list-group-flush mb-4">
-                                <li class="list-group-item"><strong>NgÆ°á»i mua:</strong> <?= htmlspecialchars($order['fullname']) ?></li>
-                                <li class="list-group-item"><strong>KhÃ³a há»c:</strong> <?= htmlspecialchars($order['course_name']) ?></li>
-                                <li class="list-group-item"><strong>Sá» tiá»n:</strong> <span class="text-success fw-bold"><?= number_format($order['total_amount']) ?> Ä</span></li>
-                                <li class="list-group-item"><strong>NgÃ y Äáº·t:</strong> <?= date('d/m/Y H:i', strtotime($order['created_at'])) ?></li>
+                                <li class="list-group-item"><strong>Người mua:</strong> <?= htmlspecialchars($order['fullname']) ?></li>
+                                <li class="list-group-item"><strong>Khóa học:</strong> <?= htmlspecialchars($order['course_name']) ?></li>
+                                <li class="list-group-item"><strong>Số tiền:</strong> <span class="text-success fw-bold"><?= number_format($order['total_amount']) ?> đ</span></li>
+                                <li class="list-group-item"><strong>Ngày đặt:</strong> <?= date('d/m/Y H:i', strtotime($order['created_at'])) ?></li>
                             </ul>
 
                             <form class="forms-sample" method="POST">
                                 <div class="form-group">
-                                    <label>MÃ£ giao dá»ch ngÃ¢n hÃ ng (Náº¿u cÃ³)</label>
+                                    <label>Mã giao dịch ngân hàng (Nếu có)</label>
                                     <input type="text" class="form-control" name="transaction_code" 
                                            value="<?= htmlspecialchars($order['transaction_code'] ?? '') ?>" 
                                            placeholder="VD: FT23456789">
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Tráº¡ng thÃ¡i ÄÆ¡n hÃ ng</label>
+                                    <label>Trạng thái đơn hàng</label>
                                     <select class="form-select" name="status">
-                                        <option value="pending" <?= $order['status']=='pending'?'selected':'' ?>>â³ Chá» thanh toÃ¡n (Pending)</option>
-                                        <option value="completed" <?= $order['status']=='completed'?'selected':'' ?>>â ÄÃ£ thanh toÃ¡n (Completed)</option>
-                                        <option value="cancelled" <?= $order['status']=='cancelled'?'selected':'' ?>>â ÄÃ£ há»§y (Cancelled)</option>
+                                        <option value="pending" <?= $order['status']=='pending'?'selected':'' ?>>⏳ Chờ thanh toán (Pending)</option>
+                                        <option value="completed" <?= $order['status']=='completed'?'selected':'' ?>>✅ Đã thanh toán (Completed)</option>
+                                        <option value="cancelled" <?= $order['status']=='cancelled'?'selected':'' ?>>❌ Đã hủy (Cancelled)</option>
                                     </select>
                                     <small class="text-muted mt-2 d-block">
-                                        * LÆ°u Ã½: Khi chá»n <strong>"ÄÃ£ thanh toÃ¡n"</strong>, há»c viÃªn sáº½ tá»± Äá»ng ÄÆ°á»£c vÃ o há»c.
+                                        * Lưu ý: Khi chọn <strong>"Đã thanh toán"</strong>, học viên sẽ tự động được vào học.
                                     </small>
                                 </div>
 
-                                <button type="submit" class="btn btn-gradient-primary me-2">Cáº­p nháº­t</button>
-                                <a href="ListDonHang.php" class="btn btn-light">Quay láº¡i</a>
+                                <button type="submit" class="btn btn-gradient-primary me-2">Cập nhật</button>
+                                <a href="ListDonHang.php" class="btn btn-light">Quay lại</a>
                             </form>
                         </div>
                     </div>

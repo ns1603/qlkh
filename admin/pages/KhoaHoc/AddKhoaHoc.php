@@ -12,7 +12,7 @@ if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] != 'admins' && $_S
 }
 
 if ($_SESSION['user_role'] == 'admins') {
-    die("Báº¡n khÃ´ng cÃ³ quyá»n thá»±c hiá»n hÃ nh Äá»ng nÃ y!");
+    die("Bạn không có quyền thực hiện hành động này!");
 }
 
 $user_id = $_SESSION['user_id'];
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $category_id = ($cat_raw > 0) ? $cat_raw : NULL;
 
     if (empty($title)) {
-        $error = "Vui lÃ²ng nháº­p tÃªn khÃ³a há»c!";
+        $error = "Vui lòng nhập tên khóa học!";
     } else {
         $slug = 'course-' . time() . '-' . rand(100, 999);
         $thumbnail_path = "";
@@ -59,14 +59,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->bind_param("sssdsiis", $title, $slug, $description, $price, $status, $teacher_id, $category_id, $thumbnail_path);
 
             if ($stmt->execute()) {
-                $_SESSION['status_message'] = "Thêm khÃ³a há»c thÃ nh cÃ´ng!";
+                $_SESSION['status_message'] = "Thêm khóa học thành công!";
                 echo "<script>window.location.href='ListKhoaHoc.php';</script>";
                 exit;
             } else {
-                $error = "Lá»i thá»±c thi SQL: " . $stmt->error;
+                $error = "Lỗi thực thi SQL: " . $stmt->error;
             }
         } else {
-            $error = "Lá»i chuáº©n bá» SQL: " . $conn->error;
+            $error = "Lỗi chuẩn bị SQL: " . $conn->error;
         }
     }
 }
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title"> Thêm KhÃ³a há»c má»i </h3>
+                <h3 class="page-title"> Thêm Khóa học mới </h3>
             </div>
             
             <div class="row">
@@ -90,21 +90,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             
                             <?php if($error): ?>
                                 <div class="alert alert-danger" role="alert">
-                                    <strong>CÃ³ lá»i xáº£y ra:</strong> <?= $error ?>
+                                    <strong>Có lỗi xảy ra:</strong> <?= $error ?>
                                 </div>
                             <?php endif; ?>
 
                             <form class="forms-sample" method="POST" enctype="multipart/form-data">
                                 
                                 <div class="form-group">
-                                    <label>TÃªn KhÃ³a Há»c <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="title" required placeholder="VD: Láº­p trÃ¬nh PHP cÄn báº£n">
+                                    <label>Tên Khóa Học <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="title" required placeholder="VD: Lập trình PHP căn bản">
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Danh má»¥c</label>
+                                    <label>Danh mục</label>
                                     <select class="form-select" name="category_id">
-                                        <option value="0">-- KhÃ´ng chá»n --</option>
+                                        <option value="0">-- Không chọn --</option>
                                         <?php if($categories): ?>
                                             <?php while($cat = $categories->fetch_assoc()): ?>
                                                 <option value="<?= $cat['id'] ?>"><?= htmlspecialchars($cat['name']) ?></option>
@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                 <?php if ($teachers): ?>
                                 <div class="form-group">
-                                    <label>Giáº£ng viÃªn phá»¥ trÃ¡ch</label>
+                                    <label>Giảng viên phụ trách</label>
                                     <select class="form-select" name="teacher_id">
                                         <?php while($t = $teachers->fetch_assoc()): ?>
                                             <option value="<?= $t['id'] ?>"><?= htmlspecialchars($t['fullname']) ?></option>
@@ -125,31 +125,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <?php endif; ?>
 
                                 <div class="form-group">
-                                    <label>Há»c phÃ­ (VNÄ)</label>
+                                    <label>Học phí (VNĐ)</label>
                                     <input type="number" class="form-control" name="price" value="0" min="0">
                                 </div>
 
                                 <div class="form-group">
-                                    <label>áº¢nh Äáº¡i diá»n (Thumbnail)</label>
+                                    <label>Ảnh đại diện (Thumbnail)</label>
                                     <input type="file" class="form-control" name="thumbnail">
                                 </div>
 
                                 <div class="form-group">
-                                    <label>MÃ´ táº£ chi tiáº¿t</label>
+                                    <label>Mô tả chi tiết</label>
                                     <textarea class="form-control" name="description" rows="5"></textarea>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Tráº¡ng thÃ¡i</label>
+                                    <label>Trạng thái</label>
                                     <select class="form-select" name="status">
-                                        <option value="draft">Báº£n nhÃ¡p</option>
-                                        <option value="published">CÃ´ng khai</option>
-                                        <option value="archived">LÆ°u trá»¯</option>
+                                        <option value="draft">Bản nháp</option>
+                                        <option value="published">Công khai</option>
+                                        <option value="archived">Lưu trữ</option>
                                     </select>
                                 </div>
 
-                                <button type="submit" class="btn btn-gradient-primary me-2">LÆ°u KhÃ³a Há»c</button>
-                                <a href="ListKhoaHoc.php" class="btn btn-light">Há»§y</a>
+                                <button type="submit" class="btn btn-gradient-primary me-2">Lưu Khóa Học</button>
+                                <a href="ListKhoaHoc.php" class="btn btn-light">Hủy</a>
                             </form>
                         </div>
                     </div>

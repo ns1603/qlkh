@@ -46,7 +46,7 @@ function import_quiz_from_csv(mysqli $conn, int $quiz_id, string $tmp_path): int
         if (!$stmt_question->execute()) continue;
         $question_id = $conn->insert_id;
 
-        // ð² RANDOM ÄÃP ÃN
+        // 🎲 RANDOM ĐÁP ÁN
         shuffle($options);
 
         foreach ($options as $o) {

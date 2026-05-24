@@ -31,26 +31,26 @@ unset($_SESSION['status_message']);
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="page-header">
-                <h3 class="page-title"> Quáº£n lÃ½ ÄÃ¡nh giÃ¡ (Review) </h3>
+                <h3 class="page-title"> Quản lý Đánh giá (Review) </h3>
             </div>
             
             <div class="row">
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Pháº£n há»i tá»« há»c viÃªn (<?= $result ? $result->num_rows : 0 ?>)</h4>
+                            <h4 class="card-title">Phản hồi từ học viên (<?= $result ? $result->num_rows : 0 ?>)</h4>
                             <?php if ($message): ?><div class="alert alert-success"><?= $message ?></div><?php endif; ?>
 
                             <div class="table-responsive">
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Há»c viÃªn</th>
-                                            <th>KhÃ³a há»c</th>
-                                            <th>Sá» sao</th>
-                                            <th>Nháº­n xÃ©t</th>
-                                            <th>NgÃ y ÄÃ¡nh giÃ¡</th>
-                                            <th>HÃ nh Äá»ng</th>
+                                            <th>Học viên</th>
+                                            <th>Khóa học</th>
+                                            <th>Số sao</th>
+                                            <th>Nhận xét</th>
+                                            <th>Ngày đánh giá</th>
+                                            <th>Hành động</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -83,7 +83,7 @@ unset($_SESSION['status_message']);
                                                     <?php if ($role != 'admins'): ?>
                                                     <a href="DeleteDanhGia.php?id=<?= $row['id'] ?>" 
                                                        class="btn btn-inverse-danger btn-sm btn-icon"
-                                                       onclick="return confirm('Xóa ÄÃ¡nh giÃ¡ nÃ y?')"
+                                                       onclick="return confirm('Xóa đánh giá này?')"
                                                        title="Xóa">
                                                         <i class="mdi mdi-delete"></i>
                                                     </a>
@@ -94,7 +94,7 @@ unset($_SESSION['status_message']);
                                             </tr>
                                             <?php endwhile; ?>
                                         <?php else: ?>
-                                            <tr><td colspan="6" class="text-center p-4">ChÆ°a cÃ³ ÄÃ¡nh giÃ¡ nÃ o.</td></tr>
+                                            <tr><td colspan="6" class="text-center p-4">Chưa có đánh giá nào.</td></tr>
                                         <?php endif; ?>
                                     </tbody>
                                 </table>
